@@ -48,7 +48,7 @@ class App extends Component {
 
     if(this.state.hasAccount){
       if(this.state.islogged){
-        // return store
+        // return store view
       }
       // return Login view
       return(<Login></Login>);
