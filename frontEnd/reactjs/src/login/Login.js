@@ -12,7 +12,9 @@ class Login extends Component {
 
     return (
         <div className="container">
-    
+            <div className="col-md-6">
+                <h1>Login</h1>
+            </div>
             <div className="col-md-6"> 
                 <label><b>Username</b></label> 
                 <input type="text" placeholder="Enter Username" name="uname" required/> 
