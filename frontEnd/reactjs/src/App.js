@@ -5,6 +5,8 @@ import './App.css';
 import './bootstrap.min.css';
 import Login from './login/Login';
 import Signup from './signup/Signup';
+import { connect } from 'react-redux';
+import User from './user/containers/User'
 
 class App extends Component {
 
@@ -19,47 +21,43 @@ class App extends Component {
     }; 
   }
 
-  // if(islogged){
-  //   return (
-  //     <div className="App">
-  //       <header className="App-header">
-  //         <img src={logo} className="App-logo" alt="logo" />
-  //         <p>
-  //           Edit <code>src/App.js</code> and save to reload.
-  //         </p>
-  //         <a
-  //           className="App-link"
-  //           href="https://reactjs.org"
-  //           target="_blank"
-  //           rel="noopener noreferrer"
-  //         >
-  //           Learn React
-  //         </a>
-  //       </header>
-  //       </div>
-  //   );
-  // }else{
-  //   return (
-  //     <Login />
-  //   );
-  // }
-
   render(){
-
-    if(this.state.hasAccount){
-      if(this.state.islogged){
+    let display=[];
+    if(this.props.hasAccount){
+      if(this.props.islogged){
         // return store view
       }
       // return Login view
-      return(<Login></Login>);
+      return(
+        <Login hasAccount={this.props.hasAccount}>
+        </Login>
+      );
 
     }else{
       // return Signup view
-      return(<Signup></Signup>);
+      return(
+      
+        <User 
+        id="5"
+        surname="Maxime"
+        lastname="Delahodde"
+        login="m-delahodee"
+        pwd = "max"
+        account="2.3"
+        img=""
+        display_type="USER_FORM"
+    />  );
     }
 
   }
 
 }
 
-export default App;
+const mapState = (state, ownProps) => {
+  console.log("I am in mapState, state="+JSON.stringify(state.loginReducer));
+  return {
+    hasAccount: state.loginReducer.hasaccount
+  }
+}
+
+export default connect(mapState)(App);
