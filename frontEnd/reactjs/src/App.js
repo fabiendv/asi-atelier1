@@ -1,11 +1,12 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import './bootstrap.min.css';
 import Login from './login/Login';
 
 function App() {
   // user is connected
-  var islogged = true;
+  // var islogged = true;
 
   // user is not connected
   var islogged = false;
