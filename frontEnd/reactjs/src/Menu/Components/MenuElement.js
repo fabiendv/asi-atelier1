@@ -18,8 +18,8 @@ class MenuElement extends Component{
     render() {
 
         return (
-                <div className="menuElement">
-                    <a href={this.props.link}> {this.props.type}</a>
+                <div className="btn-group" role="group">
+                    <a className="btn btn-primary" role="button" href={this.props.link}> {this.props.type}</a>
                     <img src={this.props.imgURL} alt="logo menu" />
                 </div>
         );
