@@ -5,10 +5,9 @@ export const setSignupPage=(hasAccount)=>{
     };
 }
 
-
-// export const setSelectedPart=(part_obj)=>{
-//     return {
-//         type: 'UPDATE_SELECTED_PART',
-//         obj:part_obj
-//     };
-// }
+export const setLoginPage=(hasAccount)=>{
+    return {
+        type: 'GO_LOGIN',
+        hasAccount: hasAccount
+    };
+}

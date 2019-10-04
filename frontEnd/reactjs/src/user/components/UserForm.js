@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
+import {setLoginPage} from '../../actions';
 
  class UserForm extends React.Component{
      
@@ -19,7 +22,8 @@ import React from 'react';
         this.processInput=this.processInput.bind(this);
         this.submitOrder=this.submitOrder.bind(this);
         //this.props.submitUserHandler=this.props.submitUserHandler.bind(this);
-  
+        this.handleLoginPageSelected = this.handleLoginPageSelected.bind(this);
+
     }
 
     processInput(event){
@@ -38,6 +42,10 @@ import React from 'react';
         console.log(this.state);
         console.log(this.props);
         this.props.submitUserHandler(this.state);
+    }
+
+    handleLoginPageSelected(hasAccount){
+        return this.props.dispatch(setLoginPage(hasAccount));   
     }
 
 
@@ -76,10 +84,10 @@ import React from 'react';
                         <label>Money</label>
                         <input type="number" name="money" placeholder="" onChange={(ev)=>{this.processInput(ev)}} value={this.state.money}></input>
                     </div>
-                    <div className="ui button" tabIndex="1" onClick={()=>this.submitOrder()}>Submit User</div>
+                    <div className="ui button" tabIndex="1" onClick={()=>this.handleLoginPageSelected(this.props.hasAccount)}>Submit User</div>
                 </form>
             );
           }
 
     }
-    export default UserForm;
+    export default connect()(UserForm);

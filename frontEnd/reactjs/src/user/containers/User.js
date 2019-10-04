@@ -22,7 +22,8 @@ import UserForm from "../components/UserForm";
        };
 
        this.submitUserHandler=this.submitUserHandler.bind(this);
-        }
+    }
+
 
     
         submitUserHandler(data){

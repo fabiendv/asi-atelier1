@@ -1,9 +1,9 @@
-const loginReducer=(state={hasaccount:true},action)=>{
+const signupReducer=(state={hasaccount:true},action)=>{
     switch(action.type){
-        case 'GO_SIGNUP':
+        case 'GO_LOGIN':
             return {hasaccount:!action.hasAccount};
         default:
             return {hasaccount:true};
     }
 }
-export default loginReducer;
+export default signupReducer;

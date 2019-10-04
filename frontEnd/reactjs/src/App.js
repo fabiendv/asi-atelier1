@@ -53,7 +53,6 @@ class App extends Component {
 }
 
 const mapState = (state, ownProps) => {
-  console.log("I am in mapState, state="+JSON.stringify(state.loginReducer));
   return {
     hasAccount: state.loginReducer.hasaccount
   }
