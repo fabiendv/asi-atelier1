@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Login extends Component {
+class Signup extends Component {
     //class constructor whith given properties
     constructor(props) {
         super(props);        
@@ -20,19 +20,15 @@ class Login extends Component {
                 <label><b>Password</b></label> 
                 <input type="password" placeholder="Enter Password" name="psw" required/> 
     
-                <button type="submit">Login</button> 
+                <label><b>Repeat password</b></label> 
+                <input type="password" placeholder="Repeat Password" name="rpsw" required/> 
+
+                <button type="submit">Sign up</button> 
             </div> 
     
-            <div className="col-md-6" > 
-                <span className="psw">
-                    <a href="#">
-                        Create an account
-                    </a>
-                </span> 
-            </div> 
         </div>
     );
   }
 }
 
-export default Login;
+export default Signup;
