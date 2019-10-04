@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import './bootstrap.min.css';
 import Login from './login/Login';
+import Signup from './signup/Signup';
 
 function App() {
   // user is connected
