@@ -12,8 +12,10 @@ class Signup extends Component {
 
     return (
         <div className="container">
-    
-            <div className="col-md-6"> 
+            <div className="col-md-6">
+                <h1>Signup</h1>
+            </div>
+            <div className="col-md-7"> 
                 <label><b>Username</b></label> 
                 <input type="text" placeholder="Enter Username" name="uname" required/> 
     
