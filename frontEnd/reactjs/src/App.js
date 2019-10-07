@@ -28,7 +28,9 @@ class App extends Component {
       }
       // return Login view
       return(
+        // Martin and Maxime work
         <Menu></Menu>
+        // Fabien work
         // <Login hasAccount={this.props.hasAccount}>
         // </Login>
       );
