@@ -5,6 +5,7 @@ import Login from './login/Login';
 import { connect } from 'react-redux';
 import User from './user/containers/User';
 import Menu from './Menu/Container/Menu';
+import Navbar from './navbar/container/navbar'
 
 class App extends Component {
 
@@ -28,11 +29,15 @@ class App extends Component {
       }
       // return Login view
       return(
-        // Martin and Maxime work
-        <Menu></Menu>
-        // Fabien work
-        // <Login hasAccount={this.props.hasAccount}>
-        // </Login>
+
+        <Login hasAccount={this.props.hasAccount}>
+        </Login>
+
+        // Store view
+        // <div>
+        //   <Navbar></Navbar>
+        //   <Menu></Menu>
+        // </div>
       );
 
     }else{
