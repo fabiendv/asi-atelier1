@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
-
-import logo from './logo.svg';
 import './App.css';
 import './bootstrap.min.css';
 import Login from './login/Login';
 import { connect } from 'react-redux';
-import User from './user/containers/User'
+import User from './user/containers/User';
+import Menu from './Menu/Container/Menu';
 
 class App extends Component {
 
@@ -21,6 +20,7 @@ class App extends Component {
   }
 
   render(){
+
     let display=[];
     if(this.props.hasAccount){
       if(this.props.islogged){
@@ -28,14 +28,14 @@ class App extends Component {
       }
       // return Login view
       return(
-        <Login hasAccount={this.props.hasAccount}>
-        </Login>
+        <Menu></Menu>
+        // <Login hasAccount={this.props.hasAccount}>
+        // </Login>
       );
 
     }else{
       // return Signup view
       return(
-      
         <User 
         id="5"
         surname="Maxime"
