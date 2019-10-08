@@ -10,18 +10,18 @@ class Navbar extends Component{
     render() {
 
         return (
-            <nav class="navbar navbar-light bg-light">
+            <nav className="navbar navbar-light bg-light">
                 <NavbarElement 
-                    icon = "$"
                     text = "5000" 
+                    type = "money"
                 />
                 <NavbarElement 
-                    icon = ""
                     text = "I am the title" 
+                    type = "title"
                 />
                 <NavbarElement 
-                    icon = ";)"
-                    text = "J.Dhoe" 
+                    text = "J.Dhoe"
+                    type = "user" 
                 />
             </nav>
         );
