@@ -20,9 +20,11 @@ class Navbar extends Component{
                     text = "I am the title" 
                 />
                 <NavbarElement 
-                    icon = ";)"
+                    icon = ""
                     text = "J.Dhoe" 
+                
                 />
+                <i class="fas fa-address-card"></i>
             </nav>
         );
     }

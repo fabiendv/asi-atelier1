@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import User from './user/containers/User';
 import Menu from './Menu/Container/Menu';
 import Navbar from './navbar/container/navbar'
+import '/node_modules/font-awesome/css/font-awesome.min.css'; 
 
 class App extends Component {
 
@@ -30,14 +31,14 @@ class App extends Component {
       // return Login view
       return(
 
-        <Login hasAccount={this.props.hasAccount}>
-        </Login>
+        // <Login hasAccount={this.props.hasAccount}>
+        // </Login>
 
-        // Store view
-        // <div>
-        //   <Navbar></Navbar>
-        //   <Menu></Menu>
-        // </div>
+        //Store view
+         <div>
+           <Navbar></Navbar>
+            <Menu></Menu>
+         </div>
       );
 
     }else{
