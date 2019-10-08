@@ -1,15 +1,19 @@
 import React, {Component} from 'react';
 import Card from './Card.js'
 import { connect } from 'react-redux';
+const axios = require('axios').default;
 
 class Order extends Component {
   
   constructor(props) {
     super(props);
+    let that = this;
     this.state = {
       orderType: this.props.orderType,
-      selectedCard: 0
+      selectedCard: 1
     };
+    // this.cards = {};
+
     this.cards ={ 
           "0": {
           "id": "0",
@@ -43,47 +47,77 @@ class Order extends Component {
   };
 
   render() {
-    let table = [];
-    for (let i in this.cards){
-      table.push(<Card displayType='small' orderType={this.state.orderType} card={this.cards[i]}></Card>);
-    }
+    
+    let that = this;
+    return axios({
+      method: 'get',
+      baseURL: 'http://localhost:8082',
+      url:`/cards`,
+      headers:{
+          'Access-Control-Allow-Origin':'*'
+      }
+    })
+    .then(function(response){
+        //console.log("Card list: "+ JSON.stringify(response.data));
+        that.cards = response.data;
+        let table = [];
+        //console.log("card one"+this.cards[1]);
+        // REDIRIGER TO STORE VIEW
 
-    let selectedCardRender
-    if (this.props.selectedCard==undefined){
-      selectedCardRender = (<Card displayType='normal' orderType={this.state.orderType} card={this.cards[this.state.selectedCard]} ></Card>)
-    }
-    else{
-      selectedCardRender = (<Card displayType='normal' orderType={this.state.orderType} card={this.cards[this.props.selectedCard]} ></Card>)
-    }
+        console.log("TEST11");
+        for (let i in that.cards){
+          console.log("A card: "+JSON.stringify(that.cards[i].id));
+        };    
+        console.log("TEST22");
 
-    return (
-      <div className="ui grid">
-        <div className="ten wide column">
-          <h3 className="ui aligned header"> My Card List</h3>
-          <table className="ui selectable celled table" id="cardListId">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Family</th>
-                <th>HP</th>
-                <th>Energy</th>
-                <th>Defence</th>
-                <th>Attack</th>
-                <th>Price</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-              {table}
-            </tbody>
-          </table>
-        </div>
-        <div className=" five wide column">
-          {selectedCardRender}
-        </div>
-      </div>
-    ); 
+        console.log("A map: "+ that.cards.map);
+
+        for (let i in that.cards){
+          table.push(<Card displayType='small' orderType={that.state.orderType} card={that.cards[i]}></Card>);
+        }
+
+        let selectedCardRender;
+        if (that.props.selectedCard==undefined){
+          selectedCardRender = (<Card displayType='normal' orderType={that.state.orderType} card={that.cards[that.state.selectedCard]} ></Card>)
+        }
+        else{
+          selectedCardRender = (<Card displayType='normal' orderType={that.state.orderType} card={that.cards[that.props.selectedCard]} ></Card>)
+        }
+
+        return (
+          <div className="ui grid">
+            <div className="ten wide column">
+              <h3 className="ui aligned header"> My Card List</h3>
+              <table className="ui selectable celled table" id="cardListId">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Family</th>
+                    <th>HP</th>
+                    <th>Energy</th>
+                    <th>Defence</th>
+                    <th>Attack</th>
+                    <th>Price</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                  {table}
+                </tbody>
+              </table>
+            </div>
+            <div className=" five wide column">
+              {selectedCardRender}
+            </div>
+          </div>
+        ); 
+    })
+    .catch(function(error){
+        console.log("error"+error);
+        // REDIRIGER TO LOGIN - MAYBE
+    });
+    
   }
 
 }

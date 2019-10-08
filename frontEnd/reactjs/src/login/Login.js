@@ -29,7 +29,7 @@ class Login extends Component {
         console.log(this.state);
     }
 
-    submitLogin(props){
+    submitLogin(){
         console.log("User to login: "+JSON.stringify(this.state));
         // AJAX INSCRIRE USER
         let that=this
@@ -86,7 +86,7 @@ class Login extends Component {
                     </label> 
                     <input type="password" placeholder="Enter Password" name="pwd" onChange={(ev)=>{this.processInput(ev)}} required/> 
         
-                    <button className="btn btn-lg btn-info" type="button" onClick={()=>{this.submitLogin(this.props)}}>
+                    <button className="btn btn-lg btn-info" type="button" onClick={()=>{this.submitLogin()}}>
                         Login
                     </button> 
                 </div> 
