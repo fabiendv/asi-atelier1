@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import InlineCard from './Component/InlineCard'
-import SelectedCardDisplay from './Component/SelectedCardDisplay'
+import InlineCard from '../components/InlineCard'
+import SelectedCardDisplay from '../components/SelectedCardDisplay'
 
 class Card extends Component{
 

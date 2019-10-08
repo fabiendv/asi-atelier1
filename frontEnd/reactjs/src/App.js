@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
-import './App.css';
-import './Semantic-UI-CSS-master/semantic.min.css';
+import './lib/main.css';
+import './lib/Semantic-UI-CSS-master/semantic.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
 import Login from './login/Login';
 import { connect } from 'react-redux';
 import User from './user/containers/User';
-import Menu from './Menu/Container/Menu';
-import Navbar from './navbar/container/navbar'
+import Menu from './menu/containers/Menu';
+import Navbar from './navbar/containers/navbar'
 
 class App extends Component {
 
@@ -51,7 +51,7 @@ class App extends Component {
               title="Sign In"
               money=""
             /> 
-
+          
             <Login>
             </Login>
 
