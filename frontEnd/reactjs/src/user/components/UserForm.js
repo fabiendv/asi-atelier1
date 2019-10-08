@@ -41,6 +41,7 @@ import {setLoginPage} from '../../actions';
         console.log("submitOrder this.state: "+JSON.stringify(this.state));
         console.log("submitOrder this.props: "+JSON.stringify(this.props));
         this.props.submitUserHandler(this.state);
+        this.handleLoginPageSelected(this.props.hasAccount);
     }
 
     handleLoginPageSelected(hasAccount){
@@ -83,7 +84,7 @@ import {setLoginPage} from '../../actions';
                     <label>Money</label>
                     <input type="number" name="money" placeholder="" onChange={(ev)=>{this.processInput(ev)}} value={this.state.money}></input>
                 </div>
-                <div className="btn btn-dark" tabIndex="1" onClick={()=>this.submitOrder()}>
+                <div className="btn btn-dark" tabIndex="1" onClick={()=> this.submitOrder()}>
                     Submit User
                 </div>
                 <div className="btn btn-light" tabIndex="1" onClick={()=>this.handleLoginPageSelected(this.props.hasAccount)}>

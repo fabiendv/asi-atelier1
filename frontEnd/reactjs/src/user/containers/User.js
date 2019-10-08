@@ -54,12 +54,12 @@ const axios = require('axios').default;
             });
             console.log(response);
             // REDIRIGER TO LOGIN
-            return this.props.dispatch(setLoginPage(true)); 
+            // return this.props.dispatch(setLoginPage(true)); 
         })
         .catch(function(error){
             console.log(error);
             // REDIRIGER TO SIGNUP
-            return this.props.dispatch(setLoginPage(true)); 
+            // return this.props.dispatch(setLoginPage(true)); 
 
         });
 
