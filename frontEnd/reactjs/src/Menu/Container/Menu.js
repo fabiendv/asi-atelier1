@@ -3,19 +3,16 @@ import MenuElement from '../Components/MenuElement';
 
 class Menu extends Component{
 
-
     constructor(props) {
         super(props);
-        
     }
-
 
     render() {
 
         return (
                 <div className="container-fluid">
                     <div className="row justify-content-center" >
-                         
+            
                         <div className="col-md-3">
                             <MenuElement 
                                 type ="buy"
@@ -23,6 +20,7 @@ class Menu extends Component{
                                 link = "" 
                             />
                         </div>
+                        
                         <div className="col-md-3"> 
                             <MenuElement 
                                 type ="sell"

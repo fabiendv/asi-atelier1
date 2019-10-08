@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
+
 class Card extends Component{
+
 	constructor(props){
 		super(props);
 		this.state = {
@@ -114,4 +116,5 @@ class Card extends Component{
 		return display;
 	}
 }
+
 export default Card;
