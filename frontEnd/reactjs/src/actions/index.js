@@ -11,3 +11,10 @@ export const setLoginPage=(hasAccount)=>{
         hasAccount: hasAccount
     };
 }
+
+export const setSelectedCard=(cardObject)=>{
+    return{
+        type: 'UPDATE_SELECTED_CARD',
+        obj: cardObject
+    };
+}
