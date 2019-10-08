@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import Wallet from "../components/Wallet";
 import Avatar from "../components/Avatar";
 import UserForm from "../components/UserForm";
+const axios = require('axios').default;
 
- class User extends Component{
+class User extends Component{
     WALLET_LABEL='WALLET';
     AVATAR_LABEL='AVATAR';
     USER_FORM_LABEL='USER_FORM';
@@ -24,9 +25,20 @@ import UserForm from "../components/UserForm";
        this.submitUserHandler=this.submitUserHandler.bind(this);
     }
 
+    submitUserHandler(data){
 
-    
-        submitUserHandler(data){
+        console.log("user to submit: "+JSON.stringify(data));
+        // AJAX INSCRIRE USER
+        axios.post('/TOEDIT', {
+            id:data.id,
+            surname:data.surname,
+            lastname:data.lastname,
+            login:data.login,
+            pwd:data.pwd,
+            account:data.money,
+            img:data.img
+        })
+        .then(function(response){
             this.setState({
                 id:data.id,
                 surname:data.surname,
@@ -35,13 +47,16 @@ import UserForm from "../components/UserForm";
                 pwd:data.pwd,
                 account:data.money,
                 img:data.img,
-              });
+            });
+            console.log(response);
+            // REDIRIGER TO LOGIN
+        })
+        .catch(function(error){
+            console.log(error);
+            // REDIRIGER TO SIGNUP
+        });
 
-            console.log("user to submit: "+JSON.stringify(data));
-          // AJAX INSCRIRE USER
-          // REDIRIGER LOGIN
-
-        }
+    }
     
 
 
