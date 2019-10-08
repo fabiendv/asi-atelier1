@@ -37,8 +37,7 @@ import UserForm from "../components/UserForm";
                 img:data.img,
               });
 
-            console.log("user to submit"+data);
-            console.log(data);
+            console.log("user to submit: "+JSON.stringify(data));
           // AJAX INSCRIRE USER
           // REDIRIGER LOGIN
 
