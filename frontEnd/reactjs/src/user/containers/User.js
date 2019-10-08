@@ -3,7 +3,7 @@ import Wallet from "../components/Wallet";
 import Avatar from "../components/Avatar";
 import UserForm from "../components/UserForm";
 
- class User extends React.Component{
+ class User extends Component{
     WALLET_LABEL='WALLET';
     AVATAR_LABEL='AVATAR';
     USER_FORM_LABEL='USER_FORM';
