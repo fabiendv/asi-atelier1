@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import Wallet from "../components/Wallet";
 import Avatar from "../components/Avatar";
 import UserForm from "../components/UserForm";
+import { connect } from 'react-redux';
+import {setLoginPage} from '../../actions';
+const axios = require('axios').default;
 
  class User extends Component{
     WALLET_LABEL='WALLET';
@@ -24,26 +27,57 @@ import UserForm from "../components/UserForm";
        this.submitUserHandler=this.submitUserHandler.bind(this);
     }
 
+    submitUserHandler(data){
 
-    
-        submitUserHandler(data){
-            this.setState({
+        console.log("user to submit: "+JSON.stringify(data));
+        // AJAX INSCRIRE USER
+
+        axios({
+            method: 'post',
+            baseURL: 'http://localhost:8082',
+            url: `/user`,
+            data:{
                 id:data.id,
                 surname:data.surname,
                 lastname:data.lastname,
                 login:data.login,
                 pwd:data.pwd,
                 account:data.money,
-                img:data.img,
-              });
+                img:data.img
+            },
+            headers:{
+                'Access-Control-Allow-Origin':'*'
+            }
+        })
+        .then(function(response){
+            // Created user
+            console.log("Added user :"+JSON.stringify(response));
+            // this.setState({
+            //     id:data.id,
+            //     surname:data.surname,
+            //     lastname:data.lastname,
+            //     login:data.login,
+            //     pwd:data.pwd,
+            //     account:data.money,
+            //     img:data.img,
+            // });
+            console.log(response);
+            // REDIRIGER TO LOGIN
+            //applyData();
+            return this.props.dispatch(setLoginPage(true)); 
+        })
+        .catch(function(error){
+            console.log(error);
+            // REDIRIGER TO SIGNUP
+            // return this.props.dispatch(setLoginPage(true)); 
 
-            console.log("user to submit: "+JSON.stringify(data));
-          // AJAX INSCRIRE USER
-          // REDIRIGER LOGIN
+        });
 
-        }
-    
+    }
 
+    applyData(){
+        console.log("APLLY THE DATA");
+    }
 
        render() {
            let display="";
@@ -75,4 +109,4 @@ import UserForm from "../components/UserForm";
          }
 
    }
-   export default User;
+   export default connect()(User);

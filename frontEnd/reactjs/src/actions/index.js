@@ -1,15 +1,38 @@
-export const setSignupPage=(hasAccount)=>{
+export const createAccount=(hasAccount)=>{
     return {
         type: 'GO_SIGNUP',
-        hasAccount: hasAccount
+        hasAccount: hasAccount,
     };
 }
 
-export const setLoginPage=(hasAccount)=>{
+export const setLoginPage = (hasAccount, isLogged)=>{
     return {
         type: 'GO_LOGIN',
-        hasAccount: hasAccount
+        hasAccount: hasAccount,
+        isLogged: isLogged
     };
+}
+
+export const setBuyPage = ()=>{
+    return{
+        type: 'GO_BUY',
+        hasAccount: true,
+        isLogged: true,
+        buyCard:true,
+        sellCard:false,
+        play:false
+    }
+}
+
+export const setSellPage = ()=>{
+    return{
+        type: 'GO_SELL',
+        hasAccount: true,
+        isLogged: true,
+        buyCard:false,
+        sellCard:true,
+        play:false
+    }
 }
 
 export const setSelectedCard=(cardObject)=>{
