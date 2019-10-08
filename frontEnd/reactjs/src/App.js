@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import './App.css';
 import './bootstrap.min.css';
+import 'font-awesome/css/font-awesome.min.css';
 import Login from './login/Login';
 import { connect } from 'react-redux';
 import User from './user/containers/User';
 import Menu from './Menu/Container/Menu';
 import Navbar from './navbar/container/navbar'
-import '/node_modules/font-awesome/css/font-awesome.min.css'; 
 
 class App extends Component {
 
