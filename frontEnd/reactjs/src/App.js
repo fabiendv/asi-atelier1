@@ -7,7 +7,8 @@ import Login from './login/Login';
 import { connect } from 'react-redux';
 import User from './user/containers/User';
 import Menu from './menu/containers/Menu';
-import Navbar from './navbar/containers/navbar'
+import Navbar from './navbar/containers/navbar';
+import Order from './card/containers/Order';
 
 class App extends Component {
 
@@ -22,25 +23,61 @@ class App extends Component {
 
   render(){
 
-    let display;
+    let display = {};
+    console.log("Let's render the app!");
   
-    if(this.props.hasAccount || this.props.hasAccount === "undefined"){  
-      if(this.props.islogged){
-        display = (
-          <div>
-            <Navbar
-              isLogged="true"
-              name="JDoe"
-              title="Home"
-              money="500"
-            /> 
-            <Menu/>
-          </div>
-        );
-        
-        // return store view
+    if(this.props.hasAccount || this.props.hasAccount === "undefined"){
+      console.log(this.props.islogged);  
+      if(this.props.isLogged){
+        console.log("islogged");
+        if(this.props.buyCard){
+          // return buy card view
+          display = (
+            <div>
+              <Navbar
+                isLogged="true"
+                name="JDoe"
+                title="Buy cards"
+                money="500"
+              /> 
+              <Order orderType="Buy"/>
+            </div>
+          );
+          
+        } else if (this.props.sellCard){
+          // return sell card view
+          display = (
+            <div>
+              <Navbar
+                isLogged="true"
+                name="JDoe"
+                title="Sell cards"
+                money="500"
+              /> 
+              <Order orderType="Sell"/>
+            </div>
+          );
+        } else if (this.props.play){
+          // return play view
+
+        } else {
+          // return store view
+          display = (
+            <div>
+              <Navbar
+                isLogged="true"
+                name="JDoe"
+                title="Home"
+                money="500"
+              /> 
+              <Menu/>
+            </div>
+          );
+        }
+
       }else{
         // return Login view
+
         display = (
 
           <div>  
@@ -50,8 +87,7 @@ class App extends Component {
               name=""
               title="Sign In"
               money=""
-            /> 
-          
+            />
             <Login>
             </Login>
 
@@ -82,9 +118,13 @@ class App extends Component {
 }
 
 const mapState = (state, ownProps) => {
-  console.log(JSON.stringify(state));
+  console.log("mapState in App => "+JSON.stringify(state));
   return {
     hasAccount: state.loginReducer.hasaccount,
+    isLogged: state.loginReducer.islogged,
+    buyCard: state.loginReducer.buyCard,
+    sellCard: state.loginReducer.sellCard,
+    play: state.loginReducer.play
   }
 }
 

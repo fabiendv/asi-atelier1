@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import Wallet from "../components/Wallet";
 import Avatar from "../components/Avatar";
 import UserForm from "../components/UserForm";
-
 import { connect } from 'react-redux';
-
 import {setLoginPage} from '../../actions';
 const axios = require('axios').default;
 
@@ -33,28 +31,40 @@ const axios = require('axios').default;
 
         console.log("user to submit: "+JSON.stringify(data));
         // AJAX INSCRIRE USER
-        axios.post('/TOEDIT', {
-            id:data.id,
-            surname:data.surname,
-            lastname:data.lastname,
-            login:data.login,
-            pwd:data.pwd,
-            account:data.money,
-            img:data.img
-        })
-        .then(function(response){
-            this.setState({
+
+        axios({
+            method: 'post',
+            baseURL: 'http://localhost:8082',
+            url: `/user`,
+            data:{
                 id:data.id,
                 surname:data.surname,
                 lastname:data.lastname,
                 login:data.login,
                 pwd:data.pwd,
                 account:data.money,
-                img:data.img,
-            });
+                img:data.img
+            },
+            headers:{
+                'Access-Control-Allow-Origin':'*'
+            }
+        })
+        .then(function(response){
+            // Created user
+            console.log("Added user :"+JSON.stringify(response));
+            // this.setState({
+            //     id:data.id,
+            //     surname:data.surname,
+            //     lastname:data.lastname,
+            //     login:data.login,
+            //     pwd:data.pwd,
+            //     account:data.money,
+            //     img:data.img,
+            // });
             console.log(response);
             // REDIRIGER TO LOGIN
-            // return this.props.dispatch(setLoginPage(true)); 
+            //applyData();
+            return this.props.dispatch(setLoginPage(true)); 
         })
         .catch(function(error){
             console.log(error);
@@ -64,8 +74,10 @@ const axios = require('axios').default;
         });
 
     }
-    
 
+    applyData(){
+        console.log("APLLY THE DATA");
+    }
 
        render() {
            let display="";

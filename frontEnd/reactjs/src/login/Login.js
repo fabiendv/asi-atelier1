@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
-import {createAccount} from '../actions';
-
+import {createAccount, setLoginPage} from '../actions';
 const axios = require('axios').default;
 
 class Login extends Component {
@@ -15,6 +13,7 @@ class Login extends Component {
         };
         this.processInput=this.processInput.bind(this);
         this.submitLogin=this.submitLogin.bind(this);
+        this.handleConnection=this.handleConnection.bind(this);
         this.handleSignupPageSelected = this.handleSignupPageSelected.bind(this);
     }
 
@@ -30,25 +29,37 @@ class Login extends Component {
         console.log(this.state);
     }
 
-    submitLogin(){
-        console.log("user to log: "+JSON.stringify(this.state));
+    submitLogin(props){
+        console.log("User to login: "+JSON.stringify(this.state));
         // AJAX INSCRIRE USER
-        axios.get('/TOEDIT', {
-            login:this.state.login,
-            pwd:this.state.pwd,
+        let that=this
+
+        axios({
+            method: 'get',
+            baseURL: 'http://localhost:8082',
+            url:`/auth?login=${this.state.login}&pwd=${this.state.pwd}`,
+            headers:{
+                'Access-Control-Allow-Origin':'*'
+            }
         })
         .then(function(response){
-            console.log(response);
+            console.log("response: "+response.data);
             // REDIRIGER TO STORE VIEW
+            return that.props.dispatch(setLoginPage(true,response.data));
         })
         .catch(function(error){
-            console.log(error);
+            console.log("error"+error);
             // REDIRIGER TO LOGIN - MAYBE
         });
     }
 
     handleSignupPageSelected(hasAccount){
         return this.props.dispatch(createAccount(hasAccount));   
+    }
+
+    handleConnection(isLogged){
+        console.log('handleConnection');
+        return this.props.dispatch(setLoginPage(true,true));
     }
      
     //render function use to update the virtual dom
@@ -73,16 +84,16 @@ class Login extends Component {
                             Password
                         </b>
                     </label> 
-                    <input type="password" placeholder="Enter Password" name="psw" onChange={(ev)=>{this.processInput(ev)}} required/> 
+                    <input type="password" placeholder="Enter Password" name="pwd" onChange={(ev)=>{this.processInput(ev)}} required/> 
         
-                    <button className="btn btn-lg btn-info" type="submit" onClick={()=>{this.submitLogin()}}>
+                    <button className="btn btn-lg btn-info" type="button" onClick={()=>{this.submitLogin(this.props)}}>
                         Login
                     </button> 
                 </div> 
         
                 <div className="col-md-6">
                     <div className="btn btn-lg btn-dark" onClick={()=>{this.handleSignupPageSelected(false)}}>
-                    Create an account
+                        Create an account
                     </div>
                 </div> 
             </form>

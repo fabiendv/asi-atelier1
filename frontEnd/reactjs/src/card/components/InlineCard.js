@@ -17,7 +17,7 @@ class InlineCard extends Component{
 	}
 
 	render(){
-		let display 
+		let display;
         display = (
             <tr onClick={()=>{this.handleOnCardSelected(this.props.card)}}>
                 <td>
@@ -32,7 +32,7 @@ class InlineCard extends Component{
                 <td>{this.state.card.price}$</td>
                 <td>
                     <div className="ui vertical animated button" tabIndex="0">
-                        <div className="hidden content">{this.state.orderType}</div>
+                        <div className="hidden content">{this.props.orderType}</div>
                         <div className="visible content">
                             <i className="shop icon"></i>
                         </div>

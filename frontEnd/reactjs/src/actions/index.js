@@ -13,6 +13,28 @@ export const setLoginPage = (hasAccount, isLogged)=>{
     };
 }
 
+export const setBuyPage = ()=>{
+    return{
+        type: 'GO_BUY',
+        hasAccount: true,
+        isLogged: true,
+        buyCard:true,
+        sellCard:false,
+        play:false
+    }
+}
+
+export const setSellPage = ()=>{
+    return{
+        type: 'GO_SELL',
+        hasAccount: true,
+        isLogged: true,
+        buyCard:false,
+        sellCard:true,
+        play:false
+    }
+}
+
 export const setSelectedCard=(cardObject)=>{
     return{
         type: 'UPDATE_SELECTED_CARD',

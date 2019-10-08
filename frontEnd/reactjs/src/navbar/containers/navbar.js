@@ -6,10 +6,6 @@ class Navbar extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            isLogged:this.props.isLogged,
-            name:this.props.name,
-            title:this.props.title,
-            money:this.props.money
         };
     }
 
@@ -20,26 +16,27 @@ class Navbar extends Component{
         /**
          *  Si l'utilisateur est connecté, renvoie son argent + nom
          */
-        if (this.state.isLogged==="true"){
-            display = (
-                <nav class="navbar shadow navbar-light bg-light">
+        if (this.props.isLogged==="true"){
 
-                <div class="col-sm-4 text-center">
+            display = (
+                <nav className="navbar shadow navbar-light bg-light">
+
+                <div className="col-sm-4 text-center">
                     <NavbarElement 
                         icon = "dollar sign icon"
-                        text = {this.state.money}
+                        text = {this.props.money}
                     />
                 </div>
-                <div class="col-sm-4 text-center">
+                <div className="col-sm-4 text-center">
                     <NavbarElement 
                         icon = ""
-                        text = {this.state.title}
+                        text = {this.props.title}
                     />
                 </div>
-                <div class="col-sm-4 text-center">
+                <div className="col-sm-4 text-center">
                     <NavbarElement 
                         icon = "user icon"
-                        text = {this.state.name}
+                        text = {this.props.name}
                     />
                 </div> 
             </nav>
@@ -52,40 +49,26 @@ class Navbar extends Component{
          */
         else{
             display = (
-                <nav class="navbar shadow navbar-light bg-light">
+                <nav className="navbar shadow navbar-light bg-light">
 
-                <div class="col-sm-4 text-center">
+                <div className="col-sm-4 text-center">
                     <NavbarElement 
                         icon = ""
                         text = "" 
                     />
                 </div>
-                <div class="col-sm-4 text-center">
+                <div className="col-sm-4 text-center">
                     <NavbarElement 
                         icon = ""
-                        text = {this.state.title}
+                        text = {this.props.title}
                     />
                 </div>
-                <div class="col-sm-4 text-center">
+                <div className="col-sm-4 text-center">
                     <NavbarElement 
                         icon = ""
                         text = "" 
                     />
-                </div> 
-        {/* return (
-            <nav className="navbar navbar-light bg-light">
-                <NavbarElement 
-                    text = "5000" 
-                    type = "money"
-                />
-                <NavbarElement 
-                    text = "I am the title" 
-                    type = "title"
-                />
-                <NavbarElement 
-                    text = "J.Dhoe"
-                    type = "user" 
-                /> */}
+                </div>
             </nav>
 
             );

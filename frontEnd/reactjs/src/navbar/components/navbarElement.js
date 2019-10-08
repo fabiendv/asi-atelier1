@@ -11,52 +11,13 @@ class NavbarElement extends Component{
     }
 
     render() {
-        // let display="";
 
         return (
             <div className="btn-group" role="group">
-                <h2><i class={this.props.icon}></i>{this.props.text}</h2>
+                <h2><i className={this.props.icon}></i>{this.props.text}</h2>
             </div>
         );
 
-        // switch(this.props.type){
-        //     case 'user':
-        //         display=(
-        //             <div>
-        //                 <i className="fa fa-user"></i> 
-        //                 &nbsp;
-        //                 <div className="btn-group" role="group">
-        //                     {this.props.text}
-                            
-        //                 </div>                        
-        //             </div>
-        //         );
-        //     break;
-
-        //     case 'money':
-        //         display=(
-        //             <div>
-        //                 <i className="fa fa-dollar"></i>
-        //                 &nbsp;
-        //                 <div className="btn-group" role="group">
-        //                     {this.props.text}
-                            
-        //                 </div>
-        //             </div>
-                    
-        //     );
-        //     break;
-
-        //     case 'title':
-        //         display=(
-        //             <div className="btn-group" role="group">
-        //                 {this.props.text}
-        //             </div>
-                    
-        //     );
-        //     break;
-      //  }
-    // return display;
     }
 
 }

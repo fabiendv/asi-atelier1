@@ -40,7 +40,7 @@ class Order extends Component {
           "price": "100"
         }
       }
-    };
+  };
 
   render() {
     let table = [];

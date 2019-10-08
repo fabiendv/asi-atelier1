@@ -13,7 +13,7 @@ class Menu extends Component{
                 <div className="container-fluid">
                     <div className="menu-container">
                         <div className="row menu">
-                            <div class="col-sm-1"></div>
+                            <div className="col-sm-1"></div>
                             <div className="col-sm-4">
                                 <MenuElement 
                                     type ="buy"
@@ -21,7 +21,7 @@ class Menu extends Component{
                                     link = "" 
                                 />
                             </div>
-                            <div class="col-sm-2"></div>
+                            <div className="col-sm-2"></div>
                             <div className="col-sm-4"> 
                                 <MenuElement 
                                     type ="sell"
@@ -29,11 +29,11 @@ class Menu extends Component{
                                     link = "" 
                                 />
                             </div>
-                            <div class="col-sm-1"></div>
+                            <div className="col-sm-1"></div>
                             
                         </div>  
                         <div className="row menu">
-                            <div class="col-sm-4"></div>
+                            <div className="col-sm-4"></div>
                             <div className="col-sm-4"> 
                                 <MenuElement 
                                     type ="play"
@@ -41,7 +41,7 @@ class Menu extends Component{
                                     link = "" 
                                 />
                             </div>
-                            <div class="col-sm-4"></div>
+                            <div className="col-sm-4"></div>
                         </div>
                     </div>
                 </div>

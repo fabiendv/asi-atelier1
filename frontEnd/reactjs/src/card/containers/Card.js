@@ -18,11 +18,11 @@ class Card extends Component{
 		let display 
 		switch(type){
 			case 'small':
-				display = (<InlineCard card={this.props.card}></InlineCard>);
+				display = (<InlineCard orderType={this.props.orderType} card={this.props.card}></InlineCard>);
 				break;
 
 			case 'normal':
-				display = (<SelectedCardDisplay card={this.props.card}></SelectedCardDisplay>);
+				display = (<SelectedCardDisplay orderType={this.props.orderType} card={this.props.card}></SelectedCardDisplay>);
 				break;
 			default:
 				console.log("Error: type d'affichage non disponible " + type);
