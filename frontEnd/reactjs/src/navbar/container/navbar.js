@@ -72,6 +72,20 @@ class Navbar extends Component{
                         text = "" 
                     />
                 </div> 
+        {/* return (
+            <nav className="navbar navbar-light bg-light">
+                <NavbarElement 
+                    text = "5000" 
+                    type = "money"
+                />
+                <NavbarElement 
+                    text = "I am the title" 
+                    type = "title"
+                />
+                <NavbarElement 
+                    text = "J.Dhoe"
+                    type = "user" 
+                /> */}
             </nav>
 
             );

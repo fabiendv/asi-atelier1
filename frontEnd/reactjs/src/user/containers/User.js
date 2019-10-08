@@ -6,6 +6,7 @@ import UserForm from "../components/UserForm";
 import { connect } from 'react-redux';
 
 import {setLoginPage} from '../../actions';
+const axios = require('axios').default;
 
  class User extends Component{
     WALLET_LABEL='WALLET';
@@ -28,9 +29,20 @@ import {setLoginPage} from '../../actions';
        this.submitUserHandler=this.submitUserHandler.bind(this);
     }
 
+    submitUserHandler(data){
 
-    
-        submitUserHandler(data){
+        console.log("user to submit: "+JSON.stringify(data));
+        // AJAX INSCRIRE USER
+        axios.post('/TOEDIT', {
+            id:data.id,
+            surname:data.surname,
+            lastname:data.lastname,
+            login:data.login,
+            pwd:data.pwd,
+            account:data.money,
+            img:data.img
+        })
+        .then(function(response){
             this.setState({
                 id:data.id,
                 surname:data.surname,
@@ -39,16 +51,17 @@ import {setLoginPage} from '../../actions';
                 pwd:data.pwd,
                 account:data.money,
                 img:data.img,
-              });
+            });
+            console.log(response);
+            // REDIRIGER TO LOGIN
+            return this.props.dispatch(setLoginPage(true)); 
+        })
+        .catch(function(error){
+            console.log(error);
+            // REDIRIGER TO SIGNUP
+        });
 
-            console.log("user to submit: "+JSON.stringify(data));
-         
-            let requeteSuccess = true;
-            return this.props.dispatch(setLoginPage(requeteSuccess)); 
-          // AJAX INSCRIRE USER
-          // REDIRIGER LOGIN
-            
-        }
+    }
     
 
 
