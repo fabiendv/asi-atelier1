@@ -20,3 +20,22 @@
 .App-link {
   color: #09d3ac;
 }
+
+.menu-container{
+  position: absolute;
+  width:100%;
+  top:50%;
+  transform: translateY(-50%);
+}
+
+.menu{
+  width: 100%;
+}
+
+.menu:nth-child(2n){
+  margin-top:50px; 
+}
+
+.menu-icon{
+  margin-right:15px;
+}

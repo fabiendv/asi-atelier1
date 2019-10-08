@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import './App.css';
-import './bootstrap.min.css';
+import './Semantic-UI-CSS-master/semantic.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'font-awesome/css/font-awesome.min.css';
 import Login from './login/Login';
 import { connect } from 'react-redux';
 import User from './user/containers/User';
@@ -30,14 +32,14 @@ class App extends Component {
       // return Login view
       return(
 
-        <Login hasAccount={this.props.hasAccount}>
-        </Login>
+        // <Login hasAccount={this.props.hasAccount}>
+        // </Login>
 
-        // Store view
-        // <div>
-        //   <Navbar></Navbar>
-        //   <Menu></Menu>
-        // </div>
+        //Store view
+         <div>
+           <Navbar></Navbar>
+            <Menu></Menu>
+         </div>
       );
 
     }else{
