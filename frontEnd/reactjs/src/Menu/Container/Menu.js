@@ -11,33 +11,38 @@ class Menu extends Component{
 
         return (
                 <div className="container-fluid">
-                    <div className="row justify-content-center" >
-            
-                        <div className="col-md-3">
-                            <MenuElement 
-                                type ="buy"
-                                imgURL = ""
-                                link = "" 
-                            />
+                    <div className="menu-container">
+                        <div className="row menu">
+                            <div class="col-sm-1"></div>
+                            <div className="col-sm-4">
+                                <MenuElement 
+                                    type ="buy"
+                                    imgURL = "shopping cart icon menu-icon"
+                                    link = "" 
+                                />
+                            </div>
+                            <div class="col-sm-2"></div>
+                            <div className="col-sm-4"> 
+                                <MenuElement 
+                                    type ="sell"
+                                    imgURL = "money bill alternate icon menu-icon"
+                                    link = "" 
+                                />
+                            </div>
+                            <div class="col-sm-1"></div>
+                            
+                        </div>  
+                        <div className="row menu">
+                            <div class="col-sm-4"></div>
+                            <div className="col-sm-4"> 
+                                <MenuElement 
+                                    type ="play"
+                                    imgURL = "gamepad icon menu-icon"
+                                    link = "" 
+                                />
+                            </div>
+                            <div class="col-sm-4"></div>
                         </div>
-                        
-                        <div className="col-md-3"> 
-                            <MenuElement 
-                                type ="sell"
-                                imgURL = ""
-                                link = "" 
-                            />
-                        </div>
-                        
-                    </div>  
-                    <div className="row justify-content-center">
-                        <div className="col-md-3"> 
-                            <MenuElement 
-                                type ="play"
-                                imgURL = ""
-                                link = "" 
-                            />
-                    </div>
                     </div>
                 </div>
         );

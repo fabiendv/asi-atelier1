@@ -13,15 +13,12 @@ class MenuElement extends Component{
 
     render() {
 
-        return (
-                <div className="btn-group" role="group">
-                    <a className="btn btn-primary" role="button" href={this.props.link}>
-                        {this.props.type}
-                    </a>
-                    <img src={this.props.imgURL} alt="logo menu" />
-                </div>
+        return (    
+            <a className="btn btn-block btn-lg btn-primary" role="button" href={this.props.link}>
+                <i class={this.props.imgURL}></i>
+                  {this.props.type}
+            </a>
         );
     }
-
 }
 export default MenuElement;

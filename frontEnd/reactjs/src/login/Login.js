@@ -35,12 +35,10 @@ class Login extends Component {
                     </button> 
                 </div> 
         
-                <div className="col-md-6" > 
-                    <span>
-                        <a className="psw" onClick={()=>{this.handleSignupPageSelected(this.props.hasAccount)}}>
-                                Create an account
-                        </a> 
-                    </span>
+                <div className="col-md-6">
+                    <div className="btn btn-lg btn-dark" onClick={()=>{this.handleSignupPageSelected(this.props.hasAccount)}}>
+                    Create an account
+                    </div>
                 </div> 
             </div>
         );
