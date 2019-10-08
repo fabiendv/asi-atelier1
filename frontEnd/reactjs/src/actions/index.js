@@ -1,14 +1,15 @@
-export const setSignupPage=(hasAccount)=>{
+export const createAccount=(hasAccount)=>{
     return {
         type: 'GO_SIGNUP',
-        hasAccount: hasAccount
+        hasAccount: hasAccount,
     };
 }
 
-export const setLoginPage=(hasAccount)=>{
+export const setLoginPage = (hasAccount, isLogged)=>{
     return {
         type: 'GO_LOGIN',
-        hasAccount: hasAccount
+        hasAccount: hasAccount,
+        isLogged: isLogged
     };
 }
 

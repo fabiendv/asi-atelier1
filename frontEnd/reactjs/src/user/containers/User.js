@@ -3,6 +3,10 @@ import Wallet from "../components/Wallet";
 import Avatar from "../components/Avatar";
 import UserForm from "../components/UserForm";
 
+import { connect } from 'react-redux';
+
+import {setLoginPage} from '../../actions';
+
  class User extends Component{
     WALLET_LABEL='WALLET';
     AVATAR_LABEL='AVATAR';
@@ -38,9 +42,12 @@ import UserForm from "../components/UserForm";
               });
 
             console.log("user to submit: "+JSON.stringify(data));
+         
+            let requeteSuccess = true;
+            return this.props.dispatch(setLoginPage(requeteSuccess)); 
           // AJAX INSCRIRE USER
           // REDIRIGER LOGIN
-
+            
         }
     
 
@@ -75,4 +82,4 @@ import UserForm from "../components/UserForm";
          }
 
    }
-   export default User;
+   export default connect()(User);

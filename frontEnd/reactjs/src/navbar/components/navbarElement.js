@@ -14,8 +14,7 @@ class NavbarElement extends Component{
 
         return (
                 <div className="btn-group" role="group">
-                    {this.props.icon}
-                    {this.props.text}
+                    <h2><i class={this.props.icon}></i>{this.props.text}</h2>
                 </div>
         );
     }

@@ -16,34 +16,52 @@ class App extends Component {
     
     //creation of an initial state, a json object
     this.state = {
-        hasAccount:true,
-        islogged:false,
     }; 
   }
 
   render(){
 
-    let display=[];
-    if(this.props.hasAccount){
+    let display;
+  
+    if(this.props.hasAccount || this.props.hasAccount === "undefined"){  
       if(this.props.islogged){
+        display = (
+          <div>
+            <Navbar
+              isLogged="true"
+              name="JDoe"
+              title="Home"
+              money="500"
+            /> 
+            <Menu/>
+          </div>
+        );
+        
         // return store view
+      }else{
+        // return Login view
+        display = (
+
+          <div>  
+          
+            <Navbar
+              isLogged="false"
+              name=""
+              title="Sign In"
+              money=""
+            /> 
+
+            <Login>
+            </Login>
+
+          </div>
+        );
       }
-      // return Login view
-      return(
-
-        <Login hasAccount={this.props.hasAccount}>
-        </Login>
-
-        // Store view
-        // <div>
-        //   <Navbar></Navbar>
-        //   <Menu></Menu>
-        // </div>
-      );
+      
 
     }else{
       // return Signup view
-      return(
+      display = (
         <User 
         id="5"
         surname="Maxime"
@@ -56,13 +74,16 @@ class App extends Component {
     />  );
     }
 
+    return display;
+
   }
 
 }
 
 const mapState = (state, ownProps) => {
+  console.log(JSON.stringify(state));
   return {
-    hasAccount: state.loginReducer.hasaccount
+    hasAccount: state.loginReducer.hasaccount,
   }
 }
 

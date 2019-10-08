@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import {setSignupPage} from '../actions';
+import {createAccount} from '../actions';
 
 
 class Login extends Component {
@@ -12,7 +12,7 @@ class Login extends Component {
     }
 
     handleSignupPageSelected(hasAccount){
-        return this.props.dispatch(setSignupPage(hasAccount));   
+        return this.props.dispatch(createAccount(hasAccount));   
     }
      
     //render function use to update the virtual dom
@@ -36,7 +36,7 @@ class Login extends Component {
                 </div> 
         
                 <div className="col-md-6">
-                    <div className="btn btn-lg btn-dark" onClick={()=>{this.handleSignupPageSelected(this.props.hasAccount)}}>
+                    <div className="btn btn-lg btn-dark" onClick={()=>{this.handleSignupPageSelected(false)}}>
                     Create an account
                     </div>
                 </div> 
