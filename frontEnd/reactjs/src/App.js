@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
 import './bootstrap.min.css';
+import './Semantic-UI-CSS-master/semantic.min.css';
 import Login from './login/Login';
 import { connect } from 'react-redux';
 import User from './user/containers/User';
