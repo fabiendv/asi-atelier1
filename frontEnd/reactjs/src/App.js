@@ -59,7 +59,7 @@ class App extends Component {
           );
         } else if (this.props.play){
           // return play view
-
+          // TODO
         } else {
           // return store view
           display = (
