@@ -59,6 +59,8 @@ const axios = require('axios').default;
         .catch(function(error){
             console.log(error);
             // REDIRIGER TO SIGNUP
+            return this.props.dispatch(setLoginPage(true)); 
+
         });
 
     }
