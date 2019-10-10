@@ -9,6 +9,14 @@ const loginReducer=(state={},action)=>{
                 hasaccount:action.hasAccount,
                 islogged:action.isLogged
             };
+        case 'GO_MAINMENU':
+                return{
+                    hasaccount:action.hasAccount,
+                    islogged:action.isLogged,
+                    buyCard:action.buyCard,
+                    sellCard:action.sellCard,
+                    play:action.play
+                };
         case 'GO_BUY':
             return{
                 hasaccount:action.hasAccount,

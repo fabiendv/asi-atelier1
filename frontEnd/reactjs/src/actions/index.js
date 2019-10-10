@@ -13,6 +13,17 @@ export const setLoginPage = (hasAccount, isLogged)=>{
     };
 }
 
+export const setMainMenuPage = ()=>{
+    return{
+        type: 'GO_MAINMENU',
+        hasAccount: true,
+        isLogged: true,
+        buyCard:false,
+        sellCard:false,
+        play:false
+    }
+}
+
 export const setBuyPage = ()=>{
     return{
         type: 'GO_BUY',

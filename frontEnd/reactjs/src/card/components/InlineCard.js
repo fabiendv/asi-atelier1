@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import {setSelectedCard} from './../../actions/index'
+import {setSelectedCard, setMainMenuPage} from './../../actions/index'
 
 class InlineCard extends Component{
 
@@ -26,6 +26,9 @@ class InlineCard extends Component{
         if(this.props.orderType==="Sell"){
             // Need to sell the card
         }
+
+        // Return to the main view
+        this.props.dispatch(setMainMenuPage());
     }
 
 	render(){
@@ -43,7 +46,7 @@ class InlineCard extends Component{
                 <td>{this.state.card.attack}</td>
                 <td>{this.state.card.price}$</td>
                 <td>
-                    <div className="ui vertical animated button" tabIndex="0" onClick={()=>this.buyOrSellCard(this.props.card)}>
+                    <div className="ui vertical animated button" tabIndex="0" onClick={(e)=>{e.stopPropagation(); this.buyOrSellCard(this.props.card)}}>
                         <div className="hidden content">
                             {this.props.orderType}
                         </div>
