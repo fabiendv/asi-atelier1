@@ -6,12 +6,11 @@ var ioServer = io(server);
 const CONFIG = require('./config');
 var express = require('express');
 var md5 = require ('MD5');
+var randomColor = require('randomcolor');
 
 app.use(express.static(CONFIG.publicDir));
 
 var users={};
-var messages={};
-
 
 ioServer.on('connection', function(socket){
     var me;
@@ -44,16 +43,12 @@ ioServer.on('connection', function(socket){
     })
 
     socket.on('messageSent',function(data){
-        console.log("data"+data);
+        console.log("data"+JSON.stringify(data));
         date = new Date();
         data.hours = date.getHours();
         data.minutes = date.getMinutes();
         ioServer.emit("newMessage",data);
-
     })
-
-
-
 });
 
 server.listen(CONFIG.port, () => `App listenning on port ${CONFIG.port}`);

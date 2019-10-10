@@ -1,10 +1,9 @@
 (function($){
-
     var socket = io();
 
     socket.emit('login', {
             
-        username : Math.random()*100,
+        username : Math.trunc(Math.random()*100),
         mail     : '@cpe.fr'       
     })
     socket.on('newusr', function(username){
@@ -26,8 +25,9 @@
         socket.emit("messageSent",data);
     });
 
-    socket.on('newMessage',function(message){
-        console.log(message.hours);
-    })
+    socket.on('newMessage',function(data){
+        //console.log(JSON.stringify(color));
+        $('#messages').append('<div class="ui raised segment"><a class="ui green ribbon label">'+data.username+'</a><span>'+data.hours+':'+data.minutes+'</span><p>'+data.message+'</p></div>') 
+})
 
 })(jQuery);
