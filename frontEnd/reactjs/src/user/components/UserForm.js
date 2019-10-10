@@ -8,8 +8,6 @@ import {setLoginPage} from '../../actions';
     constructor(props) {
         super(props);
         this.state = {
-            // //handleChange:this.props.handleChange,
-            // submitUserHandler:this.props.submitUserHandler,
             id:"",
             surname:"",
             lastname:"",
@@ -20,9 +18,7 @@ import {setLoginPage} from '../../actions';
         };
         this.processInput=this.processInput.bind(this);
         this.submitOrder=this.submitOrder.bind(this);
-        //this.props.submitUserHandler=this.props.submitUserHandler.bind(this);
         this.handleLoginPageSelected = this.handleLoginPageSelected.bind(this);
-
     }
 
     processInput(event){
@@ -38,16 +34,13 @@ import {setLoginPage} from '../../actions';
     }
 
     submitOrder(){
-        console.log("submitOrder this.state: "+JSON.stringify(this.state));
-        console.log("submitOrder this.props: "+JSON.stringify(this.props));
         this.props.submitUserHandler(this.state);
         this.handleLoginPageSelected(this.props.hasAccount);
     }
 
     handleLoginPageSelected(hasAccount){
-        return this.props.dispatch(setLoginPage(hasAccount));   
+        return this.props.dispatch(setLoginPage(true,false));   
     }
-
 
     render() {
         return (
@@ -88,7 +81,7 @@ import {setLoginPage} from '../../actions';
                     Submit User
                 </div>
                 <div className="btn btn-light" tabIndex="1" onClick={()=>this.handleLoginPageSelected(this.props.hasAccount)}>
-                    Login
+                    Back
                 </div>
             </form>
         );

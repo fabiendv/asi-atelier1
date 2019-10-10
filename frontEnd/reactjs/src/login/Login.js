@@ -13,7 +13,6 @@ class Login extends Component {
         };
         this.processInput=this.processInput.bind(this);
         this.submitLogin=this.submitLogin.bind(this);
-        this.handleConnection=this.handleConnection.bind(this);
         this.handleSignupPageSelected = this.handleSignupPageSelected.bind(this);
     }
 
@@ -55,11 +54,6 @@ class Login extends Component {
 
     handleSignupPageSelected(hasAccount){
         return this.props.dispatch(createAccount(hasAccount));   
-    }
-
-    handleConnection(isLogged){
-        console.log('handleConnection');
-        return this.props.dispatch(setLoginPage(true,true));
     }
      
     //render function use to update the virtual dom
