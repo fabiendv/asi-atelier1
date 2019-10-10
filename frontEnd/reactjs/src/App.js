@@ -118,7 +118,7 @@ class App extends Component {
 }
 
 const mapState = (state, ownProps) => {
-  console.log("mapState in App.js => "+JSON.stringify(state));
+  // console.log("mapState in App.js => "+JSON.stringify(state));
   return {
     hasAccount: state.loginReducer.hasaccount,
     isLogged: state.loginReducer.islogged,

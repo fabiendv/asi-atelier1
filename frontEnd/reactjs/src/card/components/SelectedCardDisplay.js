@@ -11,7 +11,6 @@ class SelectedCardDisplay extends Component{
 	}
 
 	render(){
-        console.log('THIS IS CARD'+this.props.card)
 		let display = (
             <div className="ui special cards">
                 <div className="card">

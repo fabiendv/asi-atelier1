@@ -51,7 +51,6 @@ class Order extends Component {
 
   componentWillMount() {
     let that = this;
-    console.log("AAAAAAAAAAAAAAAAAAAA");
     axios({
       method: 'get',
       baseURL: 'http://localhost:8082',
@@ -60,23 +59,13 @@ class Order extends Component {
           'Access-Control-Allow-Origin':'*'
       }
     })
-    .then(function(response){
-        //console.log("Card list: "+ JSON.stringify(response.data));
-        // that.cards = response.data;
-        let table = [];
-        //console.log("card one"+this.cards[1]);
-        // REDIRIGER TO STORE VIEW
-        console.log("tesponse"+JSON.stringify(response.data));
+    .then(function(response){;
+        
+        // Getting all cards
+        // console.log("Getting cards: "+JSON.stringify(response.data));
         that.setState({ cards: response.data });
-        that.cards = that.state.cards;
+        that.cards = that.state.cards;   
 
-        console.log("TEST1");
-        for (let i in that.cards){
-          console.log("A card: "+JSON.stringify(that.cards[i].id));
-        };    
-        console.log("TEST2");
-
-        console.log("A map: "+ that.cards.map);
     })
     .catch(function(error){
         console.log("error"+error);
@@ -85,30 +74,32 @@ class Order extends Component {
   }
 
   render() {
-    console.log("IAM IN RENDER");
-    console.log("This is my state:"+JSON.stringify(this.state));
-    console.log("This is my state.cards:"+JSON.stringify(this.state.cards.length));
 
-    if(this.state.cards.length == 0){
-      console.log("is null");
+    if(this.state.cards.length === 0){
       return null;
     }else{
       
       let table = [];
       let selectedCardRender;
+
       for (let i in this.state.cards){
-        console.log("test"+JSON.stringify(this.state.cards[i]));
+
+        // List of all cards we can buy
+        if(this.state.cards[i].userId===null){
+          // Add all cards in the display line
+          table.push(<Card displayType='small' orderType={this.state.orderType} card={this.state.cards[i]}></Card>);
+
+          // Find the associated selected card to display on the right
+          if (this.props.selectedCard===undefined){
+            selectedCardRender = (<Card displayType='normal' orderType={this.state.orderType} card={this.state.cards[0]} ></Card>)
+          }
+          else if(this.props.selectedCard===this.state.cards[i].id){
+            selectedCardRender = (<Card displayType='normal' orderType={this.state.orderType} card={this.state.cards[i]} ></Card>)
+          }
+        }
+        
       }
-      for (let i in this.state.cards){
-        table.push(<Card displayType='small' orderType={this.state.orderType} card={this.state.cards[i]}></Card>);
-      }
-  
-      if (this.props.selectedCard==undefined){
-        selectedCardRender = (<Card displayType='normal' orderType={this.state.orderType} card={this.state.cards[this.state.selectedCard]} ></Card>)
-      }
-      else{
-        selectedCardRender = (<Card displayType='normal' orderType={this.state.orderType} card={this.state.cards[this.props.selectedCard]} ></Card>)
-      }
+
       return(
           <div className="ui grid">
             <div className="ten wide column">
