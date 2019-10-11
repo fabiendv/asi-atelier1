@@ -9,6 +9,8 @@ import User from './user/containers/User';
 import Menu from './menu/containers/Menu';
 import Navbar from './navbar/containers/navbar';
 import Order from './card/containers/Order';
+import WaitRoom from "./play/components/waitRoom"
+
 
 class App extends Component {
 
