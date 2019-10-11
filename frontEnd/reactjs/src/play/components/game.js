@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class WaitRoom extends Component{
+class Game extends Component{
 
     constructor(props) {
         super(props);
@@ -13,8 +13,8 @@ class WaitRoom extends Component{
 
         return (
                 <div className="center-container">
-                    <h3>Waiting for another player</h3>
-                    <div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                    <h3>This is the game !!!</h3>
+                    
                 </div>
             
         );
@@ -22,4 +22,4 @@ class WaitRoom extends Component{
     }
 
 }
-export default WaitRoom;
+export default Game;

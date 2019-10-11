@@ -31,7 +31,7 @@ class SelectInlineCard extends Component{
                 <td>{this.state.card.price}$</td>
                 <td>
                     <div className="form-check">
-                        <input type="checkbox" class="form-check-input" ></input>
+                        <input type="checkbox" className="form-check-input" ></input>
                     </div>
                 </td>
             </tr>     

@@ -14,17 +14,19 @@ class CardSelection extends Component{
     }
     
     startGame(){
-        let checkCounter = 3;
-        var listCardChecked = document.getElementsByClassName("form-check-input");
-        
-        for(var i=0; i<listCardChecked.length;i++){
+        let checkCounter = 0;
+        let listCardChecked = document.getElementsByClassName("form-check-input");
+        let listIndex = [];
+
+        for(let i=0; i<listCardChecked.length;i++){
             if(listCardChecked[i].checked === true){
                 checkCounter++;
+                listIndex.push(i);
+                console.log(listIndex);
             }
         }
         if (checkCounter === 4){
-            console.log("start game");
-            this.props.startGameHandler(true);
+            this.props.startGameHandler(listIndex);
         }else{
             console.log(checkCounter + "notif erreur");
 
@@ -49,7 +51,10 @@ class CardSelection extends Component{
 
 	render(){
         let display;
-        let renderList = <Card card={this.props.card} displayType="selectInline"></Card>
+        let renderList = [];
+        for (let i in this.props.card){
+            renderList.push(<Card card={this.props.card[i]} displayType="selectInline"></Card>)
+        }
         display = (
             <div className="cardSelection">
                 <NotificationAlert ref="notify" />
