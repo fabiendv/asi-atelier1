@@ -9,6 +9,7 @@ import User from './user/containers/User';
 import Menu from './menu/containers/Menu';
 import Navbar from './navbar/containers/navbar';
 import Order from './card/containers/Order';
+import Play from './play/containers/play';
 
 class App extends Component {
 
@@ -74,7 +75,18 @@ class App extends Component {
           );
         } else if (this.props.play){
           // return play view
-          // TODO
+          display = (
+            <div>
+              <Navbar
+                isLogged="true"
+                name={this.user.login}
+                title="Play"
+                money={this.user.account}
+              /> 
+              <Play/>
+            </div>
+          );
+
         } else {
           // return store view
           display = (

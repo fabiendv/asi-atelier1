@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { setBuyPage, setSellPage } from '../../actions';
+import { setBuyPage, setSellPage, setPlayPage } from '../../actions';
 import { connect } from 'react-redux';
 
 class MenuElement extends Component{
@@ -28,6 +28,7 @@ class MenuElement extends Component{
 
     handlePlaySelected(){
         console.log("Play selected");
+        this.props.dispatch(setPlayPage());
     }
 
     render() {

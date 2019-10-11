@@ -70,6 +70,17 @@ export const setSellPage = ()=>{
     }
 }
 
+export const setPlayPage = ()=>{
+    return{
+        type: 'GO_PLAY',
+        hasAccount: true,
+        isLogged: true,
+        buyCard:false,
+        sellCard:false,
+        play:true
+    }
+}
+
 export const setBuySelectedCard=(cardObject)=>{
     return{
         type: 'UPDATE_BUY_SELECTED_CARD',
