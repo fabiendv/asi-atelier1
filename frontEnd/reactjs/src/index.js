@@ -1,11 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import './lib/main.css';
+import './lib/animate.css';
 import * as serviceWorker from './serviceWorker';
 
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import globalReducer from './reducers';
+import Test from "./play/components/test"
+
 const store = createStore(globalReducer);
 
 ReactDOM.render(<Provider store={store} ><App /></Provider>, document.getElementById('root'));
