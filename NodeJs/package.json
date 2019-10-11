@@ -1,0 +1,16 @@
+{
+  "name": "back",
+  "version": "1.0.0",
+  "description": "backend pour lancer une partie entre 2 joueurs",
+  "main": "serv.js",
+  "scripts": {
+    "test": "node serv.js",
+    "start": "node serv.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0"
+  }
+}
