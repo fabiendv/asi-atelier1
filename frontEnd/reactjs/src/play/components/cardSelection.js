@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import SelectInlineCard from './../../card/components/selectInlineCard'
+import Card from './../../card/containers/Card'
 
 class CardSelection extends Component{
 
@@ -17,7 +17,7 @@ class CardSelection extends Component{
 
 	render(){
         let display;
-        let renderList = <SelectInlineCard card={this.props.card}></SelectInlineCard>
+        let renderList = <Card card={this.props.card} displayType="selectInline"></Card>
         display = (
             <div className="cardSelection">
                 <div className="ui grid">
@@ -42,6 +42,10 @@ class CardSelection extends Component{
                         </tbody>
                     </table>
                     </div>
+                </div>
+                <div>
+                    <br></br>
+                    <button type="button" className="btn btn-primary">Start game</button>
                 </div>
             </div>
         );

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import InlineCard from '../components/InlineCard'
 import SelectedCardDisplay from '../components/SelectedCardDisplay'
+import SelectInlineCard from './../components/selectInlineCard'
 
 class Card extends Component{
 
@@ -23,6 +24,9 @@ class Card extends Component{
 
 			case 'normal':
 				display = (<SelectedCardDisplay orderType={this.props.orderType} card={this.props.card}></SelectedCardDisplay>);
+				break;
+			case 'selectInline':
+				display = (<SelectInlineCard card={this.props.card}></SelectInlineCard>)
 				break;
 			default:
 				console.log("Error: type d'affichage non disponible " + type);
