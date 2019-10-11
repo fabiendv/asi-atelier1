@@ -1,25 +1,58 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import Card from './../../card/containers/Card'
+import NotificationAlert from 'react-notification-alert';
 
 class CardSelection extends Component{
 
 	constructor(props){
 		super(props);
 		this.state = {
-		};
-		this.handleOnCardSelected=this.handleOnCardSelected.bind(this);
-	}
-
-	handleOnCardSelected(cardObject){
+        };
         
-	}
+        
+    }
+    
+    startGame(){
+        let checkCounter = 3;
+        var listCardChecked = document.getElementsByClassName("form-check-input");
+        
+        for(var i=0; i<listCardChecked.length;i++){
+            if(listCardChecked[i].checked === true){
+                checkCounter++;
+            }
+        }
+        if (checkCounter === 4){
+            console.log("start game");
+            this.props.startGameHandler(true);
+        }else{
+            console.log(checkCounter + "notif erreur");
+
+            const options = {
+                place: 'tr',
+                message: (
+                    <div>
+                        <div>
+                            Please select exactly <b> 4 cards </b> from your deck.
+                        </div>
+                    </div>
+                ),
+                type: "danger",
+                icon: "now-ui-icons ui-1_bell-53",
+                autoDismiss: 7
+            }
+
+            this.refs.notify.notificationAlert(options);
+        }
+
+    }
 
 	render(){
         let display;
         let renderList = <Card card={this.props.card} displayType="selectInline"></Card>
         display = (
             <div className="cardSelection">
+                <NotificationAlert ref="notify" />
                 <div className="ui grid">
                     <div className="ten wide column">
                     <h3 className="ui aligned header"> Select 4 cards</h3>
@@ -45,7 +78,7 @@ class CardSelection extends Component{
                 </div>
                 <div>
                     <br></br>
-                    <button type="button" className="btn btn-primary">Start game</button>
+                    <button onClick={() => this.startGame()}type="button" className="btn btn-primary">Start game</button>
                 </div>
             </div>
         );
