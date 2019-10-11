@@ -20,12 +20,12 @@ class Login extends Component {
         const target = event.currentTarget;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
-        console.log(event.target.value);
+        // console.log(event.target.value);
         let currentVal=this.state;
         this.setState({
             [name]: value
           });
-        console.log(this.state);
+        // console.log(this.state);
     }
 
     submitLogin(){
@@ -86,9 +86,6 @@ class Login extends Component {
 
         return (
             <form className="ui form">
-                <h4 className="ui dividing header">
-                    Login
-                </h4>
 
                 <div className="col-md-6"> 
                     <label>

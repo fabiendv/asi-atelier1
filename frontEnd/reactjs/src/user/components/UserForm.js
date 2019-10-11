@@ -25,12 +25,12 @@ import {setLoginPage} from '../../actions';
         const target = event.currentTarget;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
-        console.log(event.target.value);
+        // console.log(event.target.value);
         let currentVal=this.state;
         this.setState({
             [name]: value
           });
-        console.log(this.state);
+        // console.log(this.state);
     }
 
     submitOrder(){
@@ -45,7 +45,7 @@ import {setLoginPage} from '../../actions';
     render() {
         return (
             <form className="ui form">
-                <h4 className="ui dividing header">User Registration</h4>
+                {/* <h4 className="ui dividing header">User Registration</h4> */}
                 <div className="field">
                     <label>Id</label>
                     <input type="number" name="id" placeholder="0" onChange={(ev)=>{this.processInput(ev)}} value={this.state.id}></input>
