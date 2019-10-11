@@ -45,7 +45,7 @@ import {setLoginPage} from '../../actions';
     render() {
         return (
             <form className="ui form">
-                <h4 className="ui dividing header">User Registration</h4>
+                {/* <h4 className="ui dividing header">User Registration</h4> */}
                 <div className="field">
                     <label>Id</label>
                     <input type="number" name="id" placeholder="0" onChange={(ev)=>{this.processInput(ev)}} value={this.state.id}></input>

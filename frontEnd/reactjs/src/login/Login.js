@@ -86,9 +86,6 @@ class Login extends Component {
 
         return (
             <form className="ui form">
-                <h4 className="ui dividing header">
-                    Login
-                </h4>
 
                 <div className="col-md-6"> 
                     <label>
