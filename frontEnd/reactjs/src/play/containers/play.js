@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import CardSelection from './../components/cardSelection'
 import WaitRoom from "./../components/waitRoom"
+import Game from "./../components/game"
 
 class Play extends Component {
     constructor(props){
@@ -24,9 +25,65 @@ class Play extends Component {
         this.startGameHandler=this.startGameHandler.bind(this);
     }
 
-    startGameHandler(){
-        console.log("start");
-        this.setState({view:"wait"});
+    test(){
+            // // Payer
+            // axios({
+            //     method: 'post',
+            //     baseURL: 'http://localhost:8082',
+            //     url:`/buy`,
+            //     data:
+            //     {
+            //         "user_id":`${that.props.user.id}`,
+            //         "card_id":`${cardObject.id}`
+            //     },
+            //     headers:{
+            //         'Access-Control-Allow-Origin':'*'
+            //     }
+            //     })
+            //     .then(function(response){;
+                    
+            //     console.log("Buying cards: "+JSON.stringify(response));
+            //     var those = that;
+
+            //     axios({
+            //         method: 'get',
+            //         baseURL: 'http://localhost:8082',
+            //         url:`/user/${those.props.user.id}`,
+            //         headers:{
+            //             'Access-Control-Allow-Origin':'*'
+            //         }
+            //         })
+            //         .then(function(response){;
+                        
+            //         console.log("Getting USER: "+JSON.stringify(response.data));
+            //         // Update the user's infomation
+            //         those.props.dispatch(setBuyAction(response.data));
+            //         those.props.dispatch(setMainMenuPage());
+            //         those.props.dispatch(setBuyPage());
+                
+            //         })
+            //         .catch(function(error){
+            //             console.log("error"+error);
+            //         });
+
+            
+            //     })
+            //     .catch(function(error){
+            //         console.log("error"+error);
+            //         // REDIRIGER TO LOGIN - MAYBE
+            //     });
+    }
+
+    startGameHandler(listIndex){
+        let that = this;
+        that.setState({view:"wait"});
+        //let username = document.getElementById
+        let socket = require('socket.io-client')('http://localhost:1337');
+        socket.emit("newPlayerIsWaiting",that.props.user);
+
+        socket.on("launchGame",function(){
+            that.setState({view:"game"});
+        });
     }
 
     render(){
@@ -41,12 +98,13 @@ class Play extends Component {
         let render
         switch(view){
             case "cardSelection":
-                render = (<CardSelection card={this.card} startGameHandler={this.startGameHandler}></CardSelection>)
+                render = (<CardSelection card={this.props.user.cardList} startGameHandler={this.startGameHandler}></CardSelection>)
                 break;
             case "wait":
                 render = (<WaitRoom />)
                 break;
             case "game":
+                render = (<Game />)
                 break;
             default:
                 console.log("Error: this view doesn't exist !");

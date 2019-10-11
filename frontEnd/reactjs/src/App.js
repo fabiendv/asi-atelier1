@@ -11,6 +11,9 @@ import Navbar from './navbar/containers/navbar';
 import Order from './card/containers/Order';
 import WaitRoom from "./play/components/waitRoom";
 import Play from './play/containers/play';
+import io from 'socket.io-client';
+
+
 
 class App extends Component {
 
@@ -84,7 +87,7 @@ class App extends Component {
                 title="Play"
                 money={this.user.account}
               /> 
-              <Play/>
+              <Play user={this.user}/>
             </div>
           );
 
