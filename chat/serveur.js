@@ -16,6 +16,7 @@ ioServer.on('connection', function(socket){
     var me;
     var color;
     console.log('nouvel utilisateur');
+    console.log(socket.id);
 
     /** Récupérer la liste des utilisateurs */
     for( var k in users){
@@ -25,6 +26,7 @@ ioServer.on('connection', function(socket){
     socket.on('login', function(user){
         me=user;
         me.usercolor = randomColor();
+        me.socketId = socket.id;
         //** Ajout d'un nouvel utilisateur */
         ioServer.emit('newusr',me);
 
@@ -43,23 +45,18 @@ ioServer.on('connection', function(socket){
     })
 
     socket.on('messageSent',function(data){
-        console.log("message recu cote serveur");
         data.color = users[data.username].usercolor;
         date = new Date();
         data.hours = date.getHours();
         data.minutes = date.getMinutes();
         //ioServer.emit("newMessage",data); //brocoast
-        //socket.broadcast.to(data.target).emit("newMessage",data);  //from https://dev.to/moz5691/socketio-for-simple-chatting---1k8n
-        io.in('room1').emit('newMessage',data);
-        console.log("message renvoye pour destinataire : "+ data.target);
-    })
-
-    socket.on('createRoom', function(data){
-        socket.join('room1');
-        //ioServer.in('room1').emit("newMessage", data);
-        
+        console.log("sender   "+users[data.username].socketId);
+        console.log("receiver   "+users[data.target].socketId);
+        ioServer.to(users[data.target].socketId).to(users[data.username].socketId).emit("newMessage",data);//from https://dev.to/moz5691/socketio-for-simple-chatting---1k8nconsole.log
     })
 
 });
 
 server.listen(CONFIG.port, () => `App listenning on port ${CONFIG.port}`);
+
+
