@@ -14,6 +14,7 @@ var users={};
 
 ioServer.on('connection', function(socket){
     var me;
+    var color;
     console.log('nouvel utilisateur');
 
     /** Récupérer la liste des utilisateurs */
@@ -22,17 +23,16 @@ ioServer.on('connection', function(socket){
     }
 
     socket.on('login', function(user){
-
         me=user;
+        me.usercolor = randomColor();
         //** Ajout d'un nouvel utilisateur */
-        ioServer.emit('newusr',me.username);
+        ioServer.emit('newusr',me);
 
         /** Ajouter ce dernier à la liste d'utilisateurs en ligne */
-        users[me.username]=me.username;
+        users[me.username]=me;
 
         //** Mettre le nom de l'utilisateur local */
-        socket.emit('currentUser',me.username);
-       
+        socket.emit('currentUser',me);
     })
 
 
@@ -43,12 +43,22 @@ ioServer.on('connection', function(socket){
     })
 
     socket.on('messageSent',function(data){
-        console.log("data"+JSON.stringify(data));
+        console.log("message recu cote serveur");
+        data.color = users[data.username].usercolor;
         date = new Date();
         data.hours = date.getHours();
         data.minutes = date.getMinutes();
-        ioServer.emit("newMessage",data);
+        //ioServer.emit("newMessage",data); //brocoast
+        //socket.broadcast.to(data.target).emit("newMessage",data);  //from https://dev.to/moz5691/socketio-for-simple-chatting---1k8n
+        io.in('room1').emit('newMessage',data);
+        console.log("message renvoye pour destinataire : "+ data.target);
     })
+
+    socket.on('createRoom', function(data){
+        socket.join('room1');
+        ioServer.in('room1').emit("newMessage", data);
+    })
+
 });
 
 server.listen(CONFIG.port, () => `App listenning on port ${CONFIG.port}`);
