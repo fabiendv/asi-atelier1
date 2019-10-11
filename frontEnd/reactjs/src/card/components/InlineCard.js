@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import {setBuySelectedCard, setSellSelectedCard, setMainMenuPage, setBuyAction} from './../../actions/index'
+import {setBuySelectedCard, setSellSelectedCard, setMainMenuPage, setBuyAction, setBuyPage, setSellPage} from './../../actions/index'
 const axios = require('axios').default;
 
 class InlineCard extends Component{
@@ -66,8 +66,10 @@ class InlineCard extends Component{
                       .then(function(response){;
                           
                         console.log("Getting USER: "+JSON.stringify(response.data));
+                        // Update the user's infomation
                         those.props.dispatch(setBuyAction(response.data));
-                        
+                        those.props.dispatch(setMainMenuPage());
+                        those.props.dispatch(setBuyPage());
                   
                       })
                       .catch(function(error){
@@ -116,7 +118,8 @@ class InlineCard extends Component{
                       
                     console.log("Getting USER: "+JSON.stringify(response.data));
                     those.props.dispatch(setBuyAction(response.data));
-
+                    those.props.dispatch(setMainMenuPage());
+                    those.props.dispatch(setSellPage());
               
                   })
                   .catch(function(error){
@@ -132,7 +135,6 @@ class InlineCard extends Component{
 
         }
 
-        // this.props.dispatch(setMainMenuPage());
 
     }
 

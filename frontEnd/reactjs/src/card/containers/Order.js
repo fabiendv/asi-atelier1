@@ -99,7 +99,6 @@ class Order extends Component {
   }
 
   render() {
-    console.log('rennnnnnnder');
 
     if(this.state.cards){
       if(this.state.cards.length === 0){
@@ -109,7 +108,7 @@ class Order extends Component {
         let table = [];
         let selectedCardRender;
 
-        console.log('this.state.cards'+JSON.stringify(this.state.cards));
+        // console.log('this.state.cards'+JSON.stringify(this.state.cards));
 
         for (let i in this.state.cards){
   
@@ -129,7 +128,7 @@ class Order extends Component {
         return(
             <div className="ui grid">
               <div className="ten wide column">
-                <h3 className="ui aligned header"> My Card List</h3>
+                {/* <h3 className="ui aligned header"> My Card List</h3> */}
                 <table className="ui selectable celled table" id="cardListId">
                   <thead>
                     <tr>
