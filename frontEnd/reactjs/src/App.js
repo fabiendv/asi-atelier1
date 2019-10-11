@@ -24,21 +24,21 @@ class App extends Component {
   }
 
   render(){
-
-    let display = {};
     console.log("Let's render the app!");
 
+    let display = {};
+
     if(this.props.user){
-      // Keep user information
+      // Save the user information
       this.user=this.props.user;
     }
 
     // console.log("This is my user: "+JSON.stringify(this.user));
 
     if(this.props.hasAccount || this.props.hasAccount === "undefined"){
-      console.log(this.props.islogged);  
+
       if(this.props.isLogged){
-        console.log("islogged");
+
         if(this.props.buyCard){
           // return buy card view
           display = (
@@ -49,7 +49,10 @@ class App extends Component {
                 title="Buy cards"
                 money={this.user.account}
               /> 
-              <Order orderType="Buy" user={this.user}/>
+              <Order 
+                orderType="Buy"
+                user={this.user}
+              />
             </div>
           );
           
@@ -63,7 +66,10 @@ class App extends Component {
                 title="Sell cards"
                 money={this.user.account}
               /> 
-              <Order orderType="Sell" user={this.user}/>
+              <Order
+                orderType="Sell"
+                user={this.user}
+              />
             </div>
           );
         } else if (this.props.play){
@@ -88,18 +94,14 @@ class App extends Component {
         // return Login view
 
         display = (
-
           <div>  
-          
             <Navbar
               isLogged="false"
               name=""
-              title="Sign In"
+              title="Login"
               money=""
             />
-            <Login>
-            </Login>
-
+            <Login/>
           </div>
         );
       }
@@ -108,16 +110,25 @@ class App extends Component {
     }else{
       // return Signup view
       display = (
-        <User 
-        id="5"
-        surname="Maxime"
-        lastname="Delahodde"
-        login="m-delahodee"
-        pwd = "max"
-        account="2.3"
-        img=""
-        display_type="USER_FORM"
-    />  );
+        <div>
+          <Navbar
+            isLogged="false"
+            name=""
+            title="Signup"
+            money=""
+          />
+          <User 
+            id="5"
+            surname="Maxime"
+            lastname="Delahodde"
+            login="m-delahodee"
+            pwd = "max"
+            account="2.3"
+            img=""
+            display_type="USER_FORM"
+          /> 
+        </div>
+        );
     }
 
     return display;

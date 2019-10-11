@@ -29,9 +29,8 @@ const axios = require('axios').default;
 
     submitUserHandler(data){
         var that = this;
-        console.log("user to submit: "+JSON.stringify(data));
+        
         // AJAX INSCRIRE USER
-
         axios({
             method: 'post',
             baseURL: 'http://localhost:8082',
@@ -62,20 +61,14 @@ const axios = require('axios').default;
                 img:data.img,
             });
             // REDIRIGER TO LOGIN
-            //applyData();
             return this.props.dispatch(setLoginPage(true)); 
         })
         .catch(function(error){
             console.log(error);
             // REDIRIGER TO SIGNUP
             // return this.props.dispatch(setLoginPage(true)); 
-
         });
 
-    }
-
-    applyData(){
-        console.log("APLLY THE DATA");
     }
 
        render() {

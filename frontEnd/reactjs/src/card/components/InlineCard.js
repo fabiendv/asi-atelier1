@@ -26,9 +26,6 @@ class InlineCard extends Component{
     
     buyOrSellCard(cardObject){
 
-        console.log('THIS IS MY USER: '+JSON.stringify(this.props.user));
-        console.log('THIS IS MY CARD: '+JSON.stringify(cardObject));
-
         var that = this;
 
         if(this.props.orderType==="Buy"){
