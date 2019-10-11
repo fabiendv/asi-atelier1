@@ -56,7 +56,8 @@ ioServer.on('connection', function(socket){
 
     socket.on('createRoom', function(data){
         socket.join('room1');
-        ioServer.in('room1').emit("newMessage", data);
+        //ioServer.in('room1').emit("newMessage", data);
+        
     })
 
 });
