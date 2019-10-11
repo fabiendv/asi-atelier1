@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import CardSelection from './../components/cardSelection'
+import WaitRoom from "./../components/waitRoom"
 
 class Play extends Component {
     constructor(props){
@@ -19,6 +20,13 @@ class Play extends Component {
             price:"100",
             smallImgUrl:"https://vignette.wikia.nocookie.net/lego/images/4/48/76096_Minifigure_04.jpg/revision/latest/scale-to-width-down/250?cb=20190729133554"
         }
+
+        this.startGameHandler=this.startGameHandler.bind(this);
+    }
+
+    startGameHandler(){
+        console.log("start");
+        this.setState({view:"wait"});
     }
 
     render(){
@@ -33,9 +41,10 @@ class Play extends Component {
         let render
         switch(view){
             case "cardSelection":
-                render = (<CardSelection card={this.card}></CardSelection>)
+                render = (<CardSelection card={this.card} startGameHandler={this.startGameHandler}></CardSelection>)
                 break;
             case "wait":
+                render = (<WaitRoom />)
                 break;
             case "game":
                 break;
