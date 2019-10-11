@@ -15,20 +15,20 @@ class Order extends Component {
     };
 
     // this.cards =[
-    //   {
-    //     "id": "0",
-    //     "name": "Superman",
-    //     "description": "desc superman",
-    //     "family": "DC",
-    //     "affinity": "",
-    //     "imgUrl": "https://static.hitek.fr/img/actualite/2017/06/27/i_deadpool-2.jpg",
-    //     "smallImgUrl": "https://vignette.wikia.nocookie.net/lego/images/4/48/76096_Minifigure_04.jpg/revision/latest/scale-to-width-down/250?cb=20190729133554",
-    //     "energy": "10",
-    //     "hp": "10",
-    //     "defence": "2",
-    //     "attack": "5",
-    //     "price": "1000"
-    //   },
+    //{
+    //  "id": "0",
+    //  "name": "Superman",
+    //  "description": "desc superman",
+    //  "family": "DC",
+    //  "affinity": "",
+    //  "imgUrl": "https://static.hitek.fr/img/actualite/2017/06/27/i_deadpool-2.jpg",
+    //  "smallImgUrl": "https://vignette.wikia.nocookie.net/lego/images/4/48/76096_Minifigure_04.jpg/revision/latest/scale-to-width-down/250?cb=20190729133554",
+    //  "energy": "10",
+    //  "hp": "10",
+    //  "defence": "2",
+    //  "attack": "5",
+    //  "price": "1000"
+    //},
     //   {
     //     "id":"1",
     //     "name": "Batman",
@@ -52,105 +52,113 @@ class Order extends Component {
 
   componentWillMount() {
     let that = this;
-    axios({
-      method: 'get',
-      baseURL: 'http://localhost:8082',
-      url:`/cards`,
-      headers:{
-          'Access-Control-Allow-Origin':'*'
-      }
-    })
-    .then(function(response){;
-        
-        // Getting all cards
-        // console.log("Getting cards: "+JSON.stringify(response.data));
-        that.setState({ cards: response.data });
+    if(this.state.orderType==="Buy"){
+      // Get cards to buy
+      axios({
+        method: 'get',
+        baseURL: 'http://localhost:8082',
+        url:`/cards_to_sell`,
+        headers:{
+            'Access-Control-Allow-Origin':'*'
+        }
+      })
+      .then(function(response){;
+          
+          console.log('Making request'+JSON.stringify(response.data));
+
+          that.setState({ cards: response.data });
+          that.cards = that.state.cards;   
+  
+      })
+      .catch(function(error){
+          console.log("error"+error);
+          // REDIRIGER TO LOGIN - MAYBE
+      });
+    }else{
+      // Get cards to sell 
+      axios({
+        method: 'get',
+        baseURL: 'http://localhost:8082',
+        url:`/user/${that.props.user.id}`,
+        headers:{
+            'Access-Control-Allow-Origin':'*'
+        }
+      })
+      .then(function(response){;
+          
+        that.setState({ cards: response.data.cardList });
         that.cards = that.state.cards;   
 
-    })
-    .catch(function(error){
-        console.log("error"+error);
-        // REDIRIGER TO LOGIN - MAYBE
-    });
+      })
+      .catch(function(error){
+          console.log("error"+error);
+          // REDIRIGER TO LOGIN - MAYBE
+      });
+    }
+
   }
 
   render() {
+    console.log('rennnnnnnder');
 
-    if(this.state.cards.length === 0){
-      return null;
-    }else{
-      
-      let table = [];
-      let selectedCardRender;
+    if(this.state.cards){
+      if(this.state.cards.length === 0){
+        return null;
+      }else{
+        
+        let table = [];
+        let selectedCardRender;
 
-      for (let i in this.state.cards){
+        console.log('this.state.cards'+JSON.stringify(this.state.cards));
 
-        // Buy cards
-        if(this.state.orderType==="Buy"){
-          // List of all cards we can buy
-          if(this.state.cards[i].userId===null){
-            // Add all cards in the display line
-            table.push(<Card displayType='small' orderType={this.state.orderType} card={this.state.cards[i]}></Card>);
+        for (let i in this.state.cards){
+  
+          // Add all cards in the display line
+          table.push(<Card displayType='small' orderType={this.state.orderType} card={this.state.cards[i]} user={this.props.user}></Card>);
 
-            // Find the associated selected card to display on the right
-            if (this.props.selectedCard===undefined){
-              selectedCardRender = (<Card displayType='normal' orderType={this.state.orderType} card={this.state.cards[0]} ></Card>)
-            }
-            else if(this.props.selectedCard===this.state.cards[i].id){
-              selectedCardRender = (<Card displayType='normal' orderType={this.state.orderType} card={this.state.cards[i]} ></Card>)
-            }
+          // Find the associated selected card to display on the right
+          if (this.props.selectedCard===undefined){
+            selectedCardRender = (<Card displayType='normal' orderType={this.state.orderType} card={this.state.cards[0]} ></Card>)
           }
-        }
-
-        // Sell cards
-        if(this.state.orderType==="Sell"){
-          // List of all cards we can buy
-          if(this.state.cards[i].userId!==null){
-            // Add all cards in the display line
-            table.push(<Card displayType='small' orderType={this.state.orderType} card={this.state.cards[i]}></Card>);
-
-            // Find the associated selected card to display on the right
-            if (this.props.selectedCard===undefined){
-              selectedCardRender = (<Card displayType='normal' orderType={this.state.orderType} card={this.state.cards[0]} ></Card>)
-            }
-            else if(this.props.selectedCard===this.state.cards[i].id){
-              selectedCardRender = (<Card displayType='normal' orderType={this.state.orderType} card={this.state.cards[i]} ></Card>)
-            }
+          else if(this.props.selectedCard===this.state.cards[i].id){
+            selectedCardRender = (<Card displayType='normal' orderType={this.state.orderType} card={this.state.cards[i]} ></Card>)
           }
-        }
 
+        }
+  
+        return(
+            <div className="ui grid">
+              <div className="ten wide column">
+                <h3 className="ui aligned header"> My Card List</h3>
+                <table className="ui selectable celled table" id="cardListId">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Description</th>
+                      <th>Family</th>
+                      <th>HP</th>
+                      <th>Energy</th>
+                      <th>Defence</th>
+                      <th>Attack</th>
+                      <th>Price</th>
+                      <th></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                    {table}
+                  </tbody>
+                </table>
+              </div>
+              <div className=" five wide column">
+                {selectedCardRender}
+              </div>
+
+            </div>
+        );
       }
-
-      return(
-          <div className="ui grid">
-            <div className="ten wide column">
-              <h3 className="ui aligned header"> My Card List</h3>
-              <table className="ui selectable celled table" id="cardListId">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Family</th>
-                    <th>HP</th>
-                    <th>Energy</th>
-                    <th>Defence</th>
-                    <th>Attack</th>
-                    <th>Price</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                  {table}
-                </tbody>
-              </table>
-            </div>
-            <div className=" five wide column">
-              {selectedCardRender}
-            </div>
-          </div>
-      );
+    }else{
+      return null;
     }
-
     
   }
 

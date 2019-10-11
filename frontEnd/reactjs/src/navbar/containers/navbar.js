@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { setMainMenuPage } from '../../actions';
 import NavbarElement from '../components/navbarElement';
 
 class Navbar extends Component{
@@ -7,6 +9,11 @@ class Navbar extends Component{
         super(props);
         this.state = {
         };
+        this.setHome=this.setHome.bind(this);
+    }
+
+    setHome(){
+        this.props.dispatch(setMainMenuPage());
     }
 
     render() {
@@ -21,24 +28,27 @@ class Navbar extends Component{
             display = (
                 <nav className="navbar shadow navbar-light bg-light">
 
-                <div className="col-sm-4 text-center">
-                    <NavbarElement 
-                        icon = "dollar sign icon"
-                        text = {this.props.money}
-                    />
+                <div className="btn btn-lg btn-info" onClick={()=>{this.setHome()}}>
+                    Home
                 </div>
-                <div className="col-sm-4 text-center">
+                <div className="col-sm-3 text-center">
                     <NavbarElement 
                         icon = ""
                         text = {this.props.title}
                     />
                 </div>
-                <div className="col-sm-4 text-center">
+                <div className="col-sm-3 text-center">
                     <NavbarElement 
                         icon = "user icon"
                         text = {this.props.name}
                     />
                 </div> 
+                <div className="col-sm-3 text-center">
+                    <NavbarElement 
+                        icon = "dollar sign icon"
+                        text = {this.props.money}
+                    />
+                </div>
             </nav>
 
             );
@@ -79,4 +89,4 @@ class Navbar extends Component{
     }
 
 }
-export default Navbar;
+export default connect()(Navbar);

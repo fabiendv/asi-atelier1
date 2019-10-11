@@ -16,16 +16,25 @@ class App extends Component {
   constructor(props) {
     super(props);
     
-    //creation of an initial state, a json object
     this.state = {
     }; 
+
+    //creation of an initial state, a json object
+    this.user = {};
   }
 
   render(){
 
     let display = {};
     console.log("Let's render the app!");
-  
+
+    if(this.props.user){
+      // Keep user information
+      this.user=this.props.user;
+    }
+
+    // console.log("This is my user: "+JSON.stringify(this.user));
+
     if(this.props.hasAccount || this.props.hasAccount === "undefined"){
       console.log(this.props.islogged);  
       if(this.props.isLogged){
@@ -36,11 +45,11 @@ class App extends Component {
             <div>
               <Navbar
                 isLogged="true"
-                name="JDoe"
+                name={this.user.login}
                 title="Buy cards"
-                money="500"
+                money={this.user.account}
               /> 
-              <Order orderType="Buy"/>
+              <Order orderType="Buy" user={this.user}/>
             </div>
           );
           
@@ -50,11 +59,11 @@ class App extends Component {
             <div>
               <Navbar
                 isLogged="true"
-                name="JDoe"
+                name={this.user.login}
                 title="Sell cards"
-                money="500"
+                money={this.user.account}
               /> 
-              <Order orderType="Sell"/>
+              <Order orderType="Sell" user={this.user}/>
             </div>
           );
         } else if (this.props.play){
@@ -66,9 +75,9 @@ class App extends Component {
             <div>
               <Navbar
                 isLogged="true"
-                name="JDoe"
+                name={this.user.login}
                 title="Home"
-                money="500"
+                money={this.user.account}
               /> 
               <Menu/>
             </div>
@@ -118,10 +127,11 @@ class App extends Component {
 }
 
 const mapState = (state, ownProps) => {
-  console.log("mapState in App.js => "+JSON.stringify(state));
+  // console.log("mapState in App.js => "+JSON.stringify(state));
   return {
     hasAccount: state.loginReducer.hasaccount,
     isLogged: state.loginReducer.islogged,
+    user: state.loginReducer.user,
     buyCard: state.loginReducer.buyCard,
     sellCard: state.loginReducer.sellCard,
     play: state.loginReducer.play

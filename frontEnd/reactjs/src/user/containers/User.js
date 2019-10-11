@@ -28,7 +28,7 @@ const axios = require('axios').default;
     }
 
     submitUserHandler(data){
-
+        var that = this;
         console.log("user to submit: "+JSON.stringify(data));
         // AJAX INSCRIRE USER
 
@@ -52,16 +52,15 @@ const axios = require('axios').default;
         .then(function(response){
             // Created user
             console.log("Added user :"+JSON.stringify(response));
-            // this.setState({
-            //     id:data.id,
-            //     surname:data.surname,
-            //     lastname:data.lastname,
-            //     login:data.login,
-            //     pwd:data.pwd,
-            //     account:data.money,
-            //     img:data.img,
-            // });
-            console.log(response);
+            that.setState({
+                id:data.id,
+                surname:data.surname,
+                lastname:data.lastname,
+                login:data.login,
+                pwd:data.pwd,
+                account:data.money,
+                img:data.img,
+            });
             // REDIRIGER TO LOGIN
             //applyData();
             return this.props.dispatch(setLoginPage(true)); 
@@ -101,7 +100,6 @@ const axios = require('axios').default;
                            <UserForm 
                                 submitUserHandler={this.submitUserHandler}
                            />
-                        
                        );
                    break;
                }

@@ -13,6 +13,30 @@ export const setLoginPage = (hasAccount, isLogged)=>{
     };
 }
 
+export const setUserSession = (element)=>{
+    return{
+        type: 'SET_USERSESSION',
+        user: element,
+        hasAccount: true,
+        isLogged: true,
+        buyCard:false,
+        sellCard:false,
+        play:false
+    }
+}
+
+export const setBuyAction = (element)=>{
+    return{
+        type: 'SET_BUYACTION',
+        user: element,
+        hasAccount: true,
+        isLogged: true,
+        buyCard:true,
+        sellCard:false,
+        play:false
+    }
+}
+
 export const setMainMenuPage = ()=>{
     return{
         type: 'GO_MAINMENU',
@@ -46,9 +70,16 @@ export const setSellPage = ()=>{
     }
 }
 
-export const setSelectedCard=(cardObject)=>{
+export const setBuySelectedCard=(cardObject)=>{
     return{
-        type: 'UPDATE_SELECTED_CARD',
+        type: 'UPDATE_BUY_SELECTED_CARD',
+        obj: cardObject
+    };
+}
+
+export const setSellSelectedCard=(cardObject)=>{
+    return{
+        type: 'UPDATE_SELL_SELECTED_CARD',
         obj: cardObject
     };
 }

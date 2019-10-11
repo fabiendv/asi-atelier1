@@ -9,6 +9,24 @@ const loginReducer=(state={},action)=>{
                 hasaccount:action.hasAccount,
                 islogged:action.isLogged
             };
+        case 'SET_USERSESSION':
+            return {
+                hasaccount:action.hasAccount,
+                islogged:action.isLogged,
+                user:action.user,
+                buyCard:action.buyCard,
+                sellCard:action.sellCard,
+                play:action.play
+            }
+        case 'SET_BUYACTION':
+            return {
+                hasaccount:action.hasAccount,
+                islogged:action.isLogged,
+                user:action.user,
+                buyCard:action.buyCard,
+                sellCard:action.sellCard,
+                play:action.play
+            }
         case 'GO_MAINMENU':
                 return{
                     hasaccount:action.hasAccount,
@@ -32,6 +50,22 @@ const loginReducer=(state={},action)=>{
                 buyCard:action.buyCard,
                 sellCard:action.sellCard,
                 play:action.play
+            };
+        case 'UPDATE_BUY_SELECTED_CARD':
+            return{
+                hasaccount:true,
+                islogged:true,
+                buyCard:true,
+                sellCard:false,
+                play:false,
+            };
+        case 'UPDATE_SELL_SELECTED_CARD':
+            return{
+                hasaccount:true,
+                islogged:true,
+                buyCard:false,
+                sellCard:true,
+                play:false,
             };
         default:
             return {hasaccount:true,islogged:undefined,};

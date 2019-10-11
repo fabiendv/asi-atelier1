@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import {setSelectedCard, setMainMenuPage} from './../../actions/index'
+import {setBuySelectedCard, setSellSelectedCard, setMainMenuPage, setBuyAction} from './../../actions/index'
+const axios = require('axios').default;
 
 class InlineCard extends Component{
 
@@ -11,28 +12,133 @@ class InlineCard extends Component{
 		};
         this.handleOnCardSelected=this.handleOnCardSelected.bind(this);
         this.buyOrSellCard=this.buyOrSellCard.bind(this);
-
 	}
 
 	handleOnCardSelected(cardObject){
-        this.props.dispatch(setSelectedCard(cardObject));
+        if(this.props.orderType==="Buy"){
+            this.props.dispatch(setBuySelectedCard(cardObject));
+        }
+
+        if(this.props.orderType==="Sell"){
+            this.props.dispatch(setSellSelectedCard(cardObject));
+        }
     }
     
     buyOrSellCard(cardObject){
+
+        console.log('THIS IS MY USER: '+JSON.stringify(this.props.user));
+        console.log('THIS IS MY CARD: '+JSON.stringify(cardObject));
+
+        var that = this;
+
         if(this.props.orderType==="Buy"){
             // Need to buy the card
+
+            // Check the user's money
+            if(this.props.user.account>=cardObject.price){
+                // Payer
+                axios({
+                    method: 'post',
+                    baseURL: 'http://localhost:8082',
+                    url:`/buy`,
+                    data:
+                    {
+                        "user_id":`${that.props.user.id}`,
+                        "card_id":`${cardObject.id}`
+                    },
+                    headers:{
+                        'Access-Control-Allow-Origin':'*'
+                    }
+                  })
+                  .then(function(response){;
+                      
+                    console.log("Buying cards: "+JSON.stringify(response));
+                    var those = that;
+
+                    axios({
+                        method: 'get',
+                        baseURL: 'http://localhost:8082',
+                        url:`/user/${those.props.user.id}`,
+                        headers:{
+                            'Access-Control-Allow-Origin':'*'
+                        }
+                      })
+                      .then(function(response){;
+                          
+                        console.log("Getting USER: "+JSON.stringify(response.data));
+                        those.props.dispatch(setBuyAction(response.data));
+                        
+                  
+                      })
+                      .catch(function(error){
+                          console.log("error"+error);
+                      });
+
+              
+                  })
+                  .catch(function(error){
+                      console.log("error"+error);
+                      // REDIRIGER TO LOGIN - MAYBE
+                  });
+            }
         }
 
         if(this.props.orderType==="Sell"){
             // Need to sell the card
+
+            axios({
+                method: 'post',
+                baseURL: 'http://localhost:8082',
+                url:`/sell`,
+                data:
+                {
+                    "user_id":`${that.props.user.id}`,
+                    "card_id":`${cardObject.id}`
+                },
+                headers:{
+                    'Access-Control-Allow-Origin':'*'
+                }
+              })
+              .then(function(response){;
+                  
+                console.log("Selling cards: "+JSON.stringify(response));
+                var those = that;
+
+                axios({
+                    method: 'get',
+                    baseURL: 'http://localhost:8082',
+                    url:`/user/${those.props.user.id}`,
+                    headers:{
+                        'Access-Control-Allow-Origin':'*'
+                    }
+                  })
+                  .then(function(response){;
+                      
+                    console.log("Getting USER: "+JSON.stringify(response.data));
+                    those.props.dispatch(setBuyAction(response.data));
+
+              
+                  })
+                  .catch(function(error){
+                      console.log("error"+error);
+                  });
+
+          
+              })
+              .catch(function(error){
+                  console.log("error"+error);
+                  // REDIRIGER TO LOGIN - MAYBE
+              });
+
         }
 
-        // Return to the main view
-        this.props.dispatch(setMainMenuPage());
+        // this.props.dispatch(setMainMenuPage());
+
     }
 
 	render(){
-		let display;
+        let display;
+        // console.log("THIS IS THE CARD: "+JSON.stringify(this.props.card));
         display = (
             <tr onClick={()=>{this.handleOnCardSelected(this.props.card)}}>
                 <td>

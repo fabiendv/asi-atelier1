@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {createAccount, setLoginPage} from '../actions';
+import {createAccount, setLoginPage, setUserSession} from '../actions';
 const axios = require('axios').default;
 
 class Login extends Component {
@@ -31,7 +31,7 @@ class Login extends Component {
     submitLogin(){
         console.log("User to login: "+JSON.stringify(this.state));
         // AJAX INSCRIRE USER
-        let that=this
+        let that=this;
 
         axios({
             method: 'get',
@@ -43,8 +43,33 @@ class Login extends Component {
         })
         .then(function(response){
             console.log("response: "+response.data);
+            if(response.data){
             // REDIRIGER TO STORE VIEW
-            return that.props.dispatch(setLoginPage(true,response.data));
+                // Get user's information
+                axios({
+                    method: 'get',
+                    baseURL: 'http://localhost:8082',
+                    url:`/users`,
+                    headers:{
+                        'Access-Control-Allow-Origin':'*'
+                    }
+                }).then(function(user){
+                    console.log('Login :'+JSON.stringify(that.state.login));
+
+                    user.data.forEach(function(element){
+                        if(that.state.login===element.login){
+                            return that.props.dispatch(setUserSession(element));
+                        }
+                    });
+
+                }).catch(function(error){
+                    console.log("error"+error);
+                })
+
+            }else{
+                // Stay on login page
+                return that.props.dispatch(setLoginPage(true,response.data));
+            }
         })
         .catch(function(error){
             console.log("error"+error);
