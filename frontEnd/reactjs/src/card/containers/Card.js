@@ -15,10 +15,10 @@ class Card extends Component{
 
 	render(){
 		let type = this.props.displayType;
-		let display 
+		let display;
 		switch(type){
 			case 'small':
-				display = (<InlineCard orderType={this.props.orderType} card={this.props.card}></InlineCard>);
+				display = (<InlineCard orderType={this.props.orderType} card={this.props.card} user={this.props.user}></InlineCard>);
 				break;
 
 			case 'normal':

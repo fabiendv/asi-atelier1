@@ -8,8 +8,6 @@ import {setLoginPage} from '../../actions';
     constructor(props) {
         super(props);
         this.state = {
-            // //handleChange:this.props.handleChange,
-            // submitUserHandler:this.props.submitUserHandler,
             id:"",
             surname:"",
             lastname:"",
@@ -20,39 +18,34 @@ import {setLoginPage} from '../../actions';
         };
         this.processInput=this.processInput.bind(this);
         this.submitOrder=this.submitOrder.bind(this);
-        //this.props.submitUserHandler=this.props.submitUserHandler.bind(this);
         this.handleLoginPageSelected = this.handleLoginPageSelected.bind(this);
-
     }
 
     processInput(event){
         const target = event.currentTarget;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
-        console.log(event.target.value);
+        // console.log(event.target.value);
         let currentVal=this.state;
         this.setState({
             [name]: value
           });
-        console.log(this.state);
+        // console.log(this.state);
     }
 
     submitOrder(){
-        console.log("submitOrder this.state: "+JSON.stringify(this.state));
-        console.log("submitOrder this.props: "+JSON.stringify(this.props));
         this.props.submitUserHandler(this.state);
         this.handleLoginPageSelected(this.props.hasAccount);
     }
 
     handleLoginPageSelected(hasAccount){
-        return this.props.dispatch(setLoginPage(hasAccount));   
+        return this.props.dispatch(setLoginPage(true,false));   
     }
-
 
     render() {
         return (
             <form className="ui form">
-                <h4 className="ui dividing header">User Registration</h4>
+                {/* <h4 className="ui dividing header">User Registration</h4> */}
                 <div className="field">
                     <label>Id</label>
                     <input type="number" name="id" placeholder="0" onChange={(ev)=>{this.processInput(ev)}} value={this.state.id}></input>
@@ -88,7 +81,7 @@ import {setLoginPage} from '../../actions';
                     Submit User
                 </div>
                 <div className="btn btn-light" tabIndex="1" onClick={()=>this.handleLoginPageSelected(this.props.hasAccount)}>
-                    Login
+                    Back
                 </div>
             </form>
         );

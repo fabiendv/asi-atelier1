@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {createAccount, setLoginPage} from '../actions';
+import {createAccount, setLoginPage, setUserSession} from '../actions';
 const axios = require('axios').default;
 
 class Login extends Component {
@@ -13,7 +13,6 @@ class Login extends Component {
         };
         this.processInput=this.processInput.bind(this);
         this.submitLogin=this.submitLogin.bind(this);
-        this.handleConnection=this.handleConnection.bind(this);
         this.handleSignupPageSelected = this.handleSignupPageSelected.bind(this);
     }
 
@@ -21,18 +20,18 @@ class Login extends Component {
         const target = event.currentTarget;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
-        console.log(event.target.value);
+        // console.log(event.target.value);
         let currentVal=this.state;
         this.setState({
             [name]: value
           });
-        console.log(this.state);
+        // console.log(this.state);
     }
 
-    submitLogin(props){
+    submitLogin(){
         console.log("User to login: "+JSON.stringify(this.state));
         // AJAX INSCRIRE USER
-        let that=this
+        let that=this;
 
         axios({
             method: 'get',
@@ -44,8 +43,33 @@ class Login extends Component {
         })
         .then(function(response){
             console.log("response: "+response.data);
+            if(response.data){
             // REDIRIGER TO STORE VIEW
-            return that.props.dispatch(setLoginPage(true,response.data));
+                // Get user's information
+                axios({
+                    method: 'get',
+                    baseURL: 'http://localhost:8082',
+                    url:`/users`,
+                    headers:{
+                        'Access-Control-Allow-Origin':'*'
+                    }
+                }).then(function(user){
+                    console.log('Login :'+JSON.stringify(that.state.login));
+
+                    user.data.forEach(function(element){
+                        if(that.state.login===element.login){
+                            return that.props.dispatch(setUserSession(element));
+                        }
+                    });
+
+                }).catch(function(error){
+                    console.log("error"+error);
+                })
+
+            }else{
+                // Stay on login page
+                return that.props.dispatch(setLoginPage(true,response.data));
+            }
         })
         .catch(function(error){
             console.log("error"+error);
@@ -56,20 +80,12 @@ class Login extends Component {
     handleSignupPageSelected(hasAccount){
         return this.props.dispatch(createAccount(hasAccount));   
     }
-
-    handleConnection(isLogged){
-        console.log('handleConnection');
-        return this.props.dispatch(setLoginPage(true,true));
-    }
      
     //render function use to update the virtual dom
     render() {
 
         return (
             <form className="ui form">
-                <h4 className="ui dividing header">
-                    Login
-                </h4>
 
                 <div className="col-md-6"> 
                     <label>
@@ -86,7 +102,7 @@ class Login extends Component {
                     </label> 
                     <input type="password" placeholder="Enter Password" name="pwd" onChange={(ev)=>{this.processInput(ev)}} required/> 
         
-                    <button className="btn btn-lg btn-info" type="button" onClick={()=>{this.submitLogin(this.props)}}>
+                    <button className="btn btn-lg btn-info" type="button" onClick={()=>{this.submitLogin()}}>
                         Login
                     </button> 
                 </div> 
