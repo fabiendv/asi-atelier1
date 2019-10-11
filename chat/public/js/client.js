@@ -1,5 +1,6 @@
 (function($){
     var socket = io();
+    var conversations = [];
     var messages = [];
 
     socket.emit('login', {
