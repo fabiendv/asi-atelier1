@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import PlayerCardsSelect from '../components/playerCardsSelect';
 
 class Game extends Component{
 
     constructor(props) {
         super(props);
         this.state = {
-       
+            player1:this.props.player1,
+            player2:this.props.player2
         }
     }
 
@@ -13,8 +15,7 @@ class Game extends Component{
 
         return (
                 <div className="center-container">
-                    <h3>This is the game !!!</h3>
-                    
+                    <PlayerCardsSelect cards={this.state.player1.cardList}></PlayerCardsSelect>
                 </div>
             
         );

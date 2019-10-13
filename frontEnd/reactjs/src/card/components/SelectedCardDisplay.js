@@ -72,10 +72,6 @@ class SelectedCardDisplay extends Component{
                         <i className="protect icon"></i>
                         <span id="cardDefenceId">Defense {this.props.card.defence}</span> 
                     </div>
-                    <div className="ui bottom attached button">
-                        <i className="money icon"></i>
-                        Actual Value <span id="cardPriceId"> {this.props.card.price}$</span>
-                    </div>
                 </div>
             </div>
         );

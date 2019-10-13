@@ -2,76 +2,18 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import CardSelection from './../components/cardSelection'
 import WaitRoom from "./../components/waitRoom"
-import Game from "./../components/game"
+import Game from "../components/game/containers/game"
 
 class Play extends Component {
     constructor(props){
         super(props);
         this.state = {
-            view:"cardSelection"
+            view:"cardSelection",
+            player1:null,
+            player2:null
         };
-        this.card = {
-            name:"nom",
-            description:"desc",
-            family:"fam",
-            hp:"10",
-            energy:"20",
-            defence:"15",
-            attack:"02",
-            price:"100",
-            smallImgUrl:"https://vignette.wikia.nocookie.net/lego/images/4/48/76096_Minifigure_04.jpg/revision/latest/scale-to-width-down/250?cb=20190729133554"
-        }
 
         this.startGameHandler=this.startGameHandler.bind(this);
-    }
-
-    test(){
-            // // Payer
-            // axios({
-            //     method: 'post',
-            //     baseURL: 'http://localhost:8082',
-            //     url:`/buy`,
-            //     data:
-            //     {
-            //         "user_id":`${that.props.user.id}`,
-            //         "card_id":`${cardObject.id}`
-            //     },
-            //     headers:{
-            //         'Access-Control-Allow-Origin':'*'
-            //     }
-            //     })
-            //     .then(function(response){;
-                    
-            //     console.log("Buying cards: "+JSON.stringify(response));
-            //     var those = that;
-
-            //     axios({
-            //         method: 'get',
-            //         baseURL: 'http://localhost:8082',
-            //         url:`/user/${those.props.user.id}`,
-            //         headers:{
-            //             'Access-Control-Allow-Origin':'*'
-            //         }
-            //         })
-            //         .then(function(response){;
-                        
-            //         console.log("Getting USER: "+JSON.stringify(response.data));
-            //         // Update the user's infomation
-            //         those.props.dispatch(setBuyAction(response.data));
-            //         those.props.dispatch(setMainMenuPage());
-            //         those.props.dispatch(setBuyPage());
-                
-            //         })
-            //         .catch(function(error){
-            //             console.log("error"+error);
-            //         });
-
-            
-            //     })
-            //     .catch(function(error){
-            //         console.log("error"+error);
-            //         // REDIRIGER TO LOGIN - MAYBE
-            //     });
     }
 
     startGameHandler(listIndex){
@@ -81,8 +23,12 @@ class Play extends Component {
         let socket = require('socket.io-client')('http://localhost:1337');
         socket.emit("newPlayerIsWaiting",that.props.user);
 
-        socket.on("launchGame",function(){
-            that.setState({view:"game"});
+        socket.on("launchGame",function(player1, player2){
+            that.setState({
+                view:"game",
+                player1:player1,
+                player2:player2
+            });
         });
     }
 
@@ -104,7 +50,7 @@ class Play extends Component {
                 render = (<WaitRoom />)
                 break;
             case "game":
-                render = (<Game />)
+                render = (<Game player1={this.state.player1} player2={this.state.player2}/>)
                 break;
             default:
                 console.log("Error: this view doesn't exist !");

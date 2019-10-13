@@ -27,7 +27,7 @@ ioServer.on('connection', function(socket){
             //Retirer premier joueur de la liste
             list_users_playroom.shift(); 
             console.log(socket.id);
-            ioServer.to(player1.socketID).to(socket.id).emit("launchGame");
+            ioServer.to(player1.socketID).to(socket.id).emit("launchGame",player1, player2);
 
         }else{
             console.log("pas d'utilisateur");
