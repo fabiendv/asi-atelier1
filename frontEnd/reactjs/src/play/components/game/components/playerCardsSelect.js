@@ -16,6 +16,7 @@ class PlayerCardsSelect extends Component{
     
     HandleCardSelect(card){
         this.setState({cardSelected:card});
+        this.props.onCardSelect(card);
     }
 
 	render(){

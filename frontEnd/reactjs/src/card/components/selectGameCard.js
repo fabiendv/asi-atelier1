@@ -13,7 +13,7 @@ class SelectGameCard extends Component{
 	render(){
 		let display = (
             <div className="ui special cards centered">
-                <div className="selectGameCard card">
+                <div className="selectGameCard card ui button">
                     <div className="content">
                         <h5 className="">{this.props.card.name}</h5>
                     </div>

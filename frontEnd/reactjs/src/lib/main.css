@@ -183,6 +183,11 @@ code {
   margin-top: -.875em !important;
 }
 
+.actionButtons{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 /** Play **/
 
 .play{
