@@ -46,17 +46,17 @@ class Game extends Component{
                         </div>
                         <div className="twelve wide column">
                             <div className="row player1">
-                                <div className="ui grid">
-                                    <div className="three wide column">
-                                        <p>player 1 info</p>
-                                        <br/>
-                                        <User display_type="AVATAR" login={this.props.player1.login}></User>
-                                    </div>
-                                    <div className="thirteen wide column">
-                                        <PlayerCardsSelect 
-                                            cards={this.state.player1.cardList} 
-                                            onCardSelect={this.handlePlayer1CardSelection}
-                                        ></PlayerCardsSelect>
+                                <div className="ui center aligned fluid container">
+                                    <div className="ui grid">
+                                        <div className="three wide column">
+                                            <User display_type="AVATAR" login={this.props.player1.login}></User>
+                                        </div>
+                                        <div className="thirteen wide column">
+                                            <PlayerCardsSelect 
+                                                cards={this.state.player1.cardList} 
+                                                onCardSelect={this.handlePlayer1CardSelection}
+                                            ></PlayerCardsSelect>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -66,6 +66,7 @@ class Game extends Component{
                                         <button className="ui large button" onClick={this.handleEndTurn}>End turn</button>
                                     </div>
                                     <div className="ten wide column ui fluid ">
+                                        <div className="ui divider"></div>
                                     </div>
                                     <div className="three wide column">
                                         <button className="ui large button" onClick={this.handleAttack}>Attack</button>
@@ -73,15 +74,17 @@ class Game extends Component{
                                 </div>
                             </div>
                             <div className="row player2">
-                                <div className="ui grid">
-                                    <div className="three wide column">
-                                        <p>player 2 info</p>
-                                    </div>
-                                    <div className="thirteen wide column">
-                                        <PlayerCardsSelect 
-                                            cards={this.state.player2.cardList}
-                                            onCardSelect={this.handlePlayer2CardSelection}
-                                        ></PlayerCardsSelect>
+                                <div className="ui center aligned fluid container">
+                                    <div className="ui grid">
+                                        <div className="three wide column">
+                                            <User display_type="AVATAR" login={this.props.player2.login}></User>
+                                        </div>
+                                        <div className="thirteen wide column">
+                                            <PlayerCardsSelect 
+                                                cards={this.state.player2.cardList}
+                                                onCardSelect={this.handlePlayer2CardSelection}
+                                            ></PlayerCardsSelect>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

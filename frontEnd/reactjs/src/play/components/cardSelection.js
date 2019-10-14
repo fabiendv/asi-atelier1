@@ -22,7 +22,6 @@ class CardSelection extends Component{
             if(listCardChecked[i].checked === true){
                 checkCounter++;
                 listIndex.push(i);
-                console.log(listIndex);
             }
         }
         if (checkCounter === 4){

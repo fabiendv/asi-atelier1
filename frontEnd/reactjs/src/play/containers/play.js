@@ -17,11 +17,18 @@ class Play extends Component {
     }
 
     startGameHandler(listIndex){
+        let player = this.props.user
+        let cardList = [];
+        listIndex.forEach((index) => {
+            cardList.push(player.cardList[index])
+        })
+        player.cardList = cardList;
+
         let that = this;
         that.setState({view:"wait"});
         //let username = document.getElementById
         let socket = require('socket.io-client')('http://localhost:1337');
-        socket.emit("newPlayerIsWaiting",that.props.user);
+        socket.emit("newPlayerIsWaiting",player);
 
         socket.on("launchGame",function(player1, player2){
             that.setState({
@@ -50,6 +57,9 @@ class Play extends Component {
                 render = (<WaitRoom />)
                 break;
             case "game":
+                console.log('players:')
+                console.log(this.state.player1)
+                console.log(this.state.player2)
                 render = (<Game player1={this.state.player1} player2={this.state.player2}/>)
                 break;
             default:
