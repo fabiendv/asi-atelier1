@@ -36,8 +36,8 @@ public class UserRestController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST,value="/user")
-	public void addUser(@RequestBody UserModel user) {
-		userService.addUser(user);
+	public UserModel addUser(@RequestBody UserModel user) {
+		return userService.addUser(user);
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT,value="/user/{id}")

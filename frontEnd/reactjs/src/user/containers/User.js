@@ -36,7 +36,7 @@ const axios = require('axios').default;
             baseURL: 'http://localhost:8082',
             url: `/user`,
             data:{
-                id:data.id,
+                //id:data.id,
                 surname:data.surname,
                 lastname:data.lastname,
                 login:data.login,
@@ -50,14 +50,15 @@ const axios = require('axios').default;
         })
         .then(function(response){
             // Created user
-            console.log("Added user :"+JSON.stringify(response));
+            console.log("Added user : ");
+            console.log(response);
             that.setState({
-                id:data.id,
-                surname:data.surname,
-                lastname:data.lastname,
-                login:data.login,
-                pwd:data.pwd,
-                account:data.money,
+                id:response.data.id,
+                surname:response.data.surName,
+                lastname:response.data.lastName,
+                login:response.data.login,
+                pwd:response.data.pwd,
+                account:response.data.account,
                 img:data.img,
             });
             // REDIRIGER TO LOGIN

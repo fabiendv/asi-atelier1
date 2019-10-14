@@ -45,11 +45,10 @@ import {setLoginPage} from '../../actions';
     render() {
         return (
             <form className="ui form">
-                {/* <h4 className="ui dividing header">User Registration</h4> */}
-                <div className="field">
+                {/* <div className="field hidden content">
                     <label>Id</label>
                     <input type="number" name="id" placeholder="0" onChange={(ev)=>{this.processInput(ev)}} value={this.state.id}></input>
-                </div>
+                </div> */}
                 <div className="field">
                     <label>Name</label>
                     <div className="two fields">

@@ -34,14 +34,14 @@ public class UserService {
 		return userRepository.findById(id);
 	}
 
-	public void addUser(UserModel user) {
+	public UserModel addUser(UserModel user) {
 		// needed to avoid detached entity passed to persist error
 		userRepository.save(user);
 		List<CardModel> cardList=cardModelService.getRandCard(5);
 		for(CardModel card: cardList) {
 			user.addCard(card);
 		}
-		userRepository.save(user);
+		return userRepository.save(user);
 	}
 
 	public void updateUser(UserModel user) {
