@@ -50,7 +50,9 @@ ioServer.on('connection', function(socket){
         //ioServer.emit("newMessage",data); //brocoast
         console.log("Sender: "+users[data.username].socketId);
         console.log("Receiver: "+users[data.target].socketId);
-        ioServer.to(users[data.target].socketId).to(users[data.username].socketId).emit("newMessage",data);//from https://dev.to/moz5691/socketio-for-simple-chatting---1k8nconsole.log
+        
+        //from https://dev.to/moz5691/socketio-for-simple-chatting---1k8nconsole.log
+        ioServer.to(users[data.target].socketId).to(users[data.username].socketId).emit("newMessage",data);
     })
 
 });
