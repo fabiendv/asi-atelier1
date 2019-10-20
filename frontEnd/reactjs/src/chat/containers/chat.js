@@ -10,7 +10,8 @@ class Chat extends Component{
 		super(props);
 		this.state = {
 			userConnectedList:[],
-			talkingTo:""
+			talkingTo:"",
+			firstTime: true
 		};
 		this.sendMessage = this.sendMessage.bind(this);
 	}
@@ -47,6 +48,7 @@ class Chat extends Component{
 
 	render(){
 		var that = this;
+
 		console.log("Render");
 		console.log("This is the log: "+ JSON.stringify(this.state.userConnectedList));
 		socket.on('newusr', function(user){
@@ -69,11 +71,21 @@ class Chat extends Component{
 		});	
 	
 		socket.on('newMessage',function(data){
-			if(data.username == $("#current-user .column:last-child").text()){
-				$('#messages').append('<div class="ui raised segment"><a class="ui ribbon label" style="background-color:'+data.color+'">'+data.username+'</a><span>'+data.hours+':'+data.minutes+'</span><p>'+data.message+'</p></div>')        
+			console.log('There is a new message');
+			if(that.state.firstTime){
+				if(data.username == $("#current-user .column:last-child").text()){
+					console.log("From me!");
+					$('#messages').append('<div class="ui raised segment"><a class="ui ribbon label" style="background-color:'+data.color+'">'+data.username+'</a><span>'+data.hours+':'+data.minutes+'</span><p>'+data.message+'</p></div>')        
+				}else{
+					console.log("From someonelse!");
+					$('#messages').append('<div class="ui raised segment"><a class="ui right ribbon label" style="background-color:'+data.color+'">'+data.username+'</a><span>'+data.hours+':'+data.minutes+'</span><p>'+data.message+'</p></div>')
+				} 
+				that.state.firstTime = false;
+
 			}else{
-				$('#messages').append('<div class="ui raised segment"><a class="ui right ribbon label" style="background-color:'+data.color+'">'+data.username+'</a><span>'+data.hours+':'+data.minutes+'</span><p>'+data.message+'</p></div>')
-			} 
+				that.state.firstTime=true;
+			}
+
 		});
 
 		return (
