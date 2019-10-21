@@ -12,7 +12,7 @@ class Game extends Component{
             player2:this.props.player2,
             player1CardSelected:this.props.player1.cardList[0],
             player2CardSelected:this.props.player2.cardList[0],
-            currentPlayer: "player1"
+            currentPlayerIsPlayer1: true
         }
         this.handlePlayer1CardSelection = this.handlePlayer1CardSelection.bind(this);
         this.handlePlayer2CardSelection = this.handlePlayer2CardSelection.bind(this);
@@ -29,12 +29,18 @@ class Game extends Component{
     }
 
     handleAttack(){
-        //todo : action on attack button
-        console.log("attack")
+        // TODO : action on attack button
+        // Prendre la valeur de l'attaque de la carte selectionnee
+        // Enlever les pdv sur la carte adversaire
+        // Mettre a jour les donnes, client ou serveur?
+        console.log("attack");
     }
 
     handleEndTurn(){
-        console.log(this.state.currentPlayer + ' end of turn')
+        // Switch the player's turn
+        this.setState({
+            currentPlayerIsPlayer1: !currentPlayerIsPlayer1
+        });
     }
 
     render() {
