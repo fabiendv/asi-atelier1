@@ -38,11 +38,12 @@ class Game extends Component{
     }
 
     render() {
+        console.log("This is my user in Game:"+JSON.stringify(this.props.user));
         return (
                 <div className="ui fluid">
                     <div className="ui grid">
                         <div className="four wide column">
-                            <Chat></Chat>
+                            <Chat user={this.props.user}></Chat>
                         </div>
                         <div className="twelve wide column">
                             <div className="row player1">
