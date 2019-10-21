@@ -52,7 +52,7 @@ class SelectedCardDisplay extends Component{
                         <div className="ui form tiny">
                             <div className="field">
                                 <label id="cardNameId"></label>
-                                <textarea id="cardDescriptionId" className="overflowHiden" readOnly="" rows="5">{this.props.card.description}</textarea>
+                                <p id="cardDescriptionId" className="overflowHiden" >{this.props.card.description}</p>
                             </div>
                         </div>
                     </div>
