@@ -120,7 +120,7 @@ class Login extends Component {
                     <div className="field">
                         <div className="ui left icon input">
                         <i className="user icon"></i>
-                        <input type="text" name="login" onChange={(ev)=>{this.processInput(ev)}} placeholder="Username" />
+                        <input type="text" name="username" onChange={(ev)=>{this.processInput(ev)}} placeholder="Username" />
                         </div>
                     </div>
                     <div className="field">
@@ -133,11 +133,11 @@ class Login extends Component {
                     </div>
             
                     <div className="ui error message"></div>
-            
+
                 </form>
             
                 <div className="ui message">
-                    New to us? <span class="register" onClick={()=>{this.handleSignupPageSelected(false)}}>Register</span>
+                    New to us? <span className="register" onClick={()=>{this.handleSignupPageSelected(false)}}>Register</span>
                 </div>
                 </div>
             </div>
