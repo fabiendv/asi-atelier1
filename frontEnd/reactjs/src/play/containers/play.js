@@ -45,8 +45,8 @@ class Play extends Component {
         let render
         switch(view){
             case "cardSelection":
-                /* render = (<CardSelection card={this.props.user.cardList} startGameHandler={this.startGameHandler}></CardSelection>) */
-                render = (<CardSelection card={this.state.cards} startGameHandler={this.startGameHandler}></CardSelection>)
+                render = (<CardSelection card={this.props.user.cardList} startGameHandler={this.startGameHandler}></CardSelection>)
+                /*render = (<CardSelection card={this.state.cards} startGameHandler={this.startGameHandler}></CardSelection>)*/
                 break;
             case "wait":
                 render = (<WaitRoom />)
