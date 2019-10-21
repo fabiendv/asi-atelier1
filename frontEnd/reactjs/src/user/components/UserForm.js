@@ -26,7 +26,7 @@ import {setLoginPage} from '../../actions';
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
         // console.log(event.target.value);
-        let currentVal=this.state;
+        //let currentVal=this.state;
         this.setState({
             [name]: value
           });

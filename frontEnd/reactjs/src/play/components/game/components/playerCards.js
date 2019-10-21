@@ -21,7 +21,7 @@ class PlayerCards extends Component{
 			)
         }
 		let display = (
-            <div className="PlayerCards ui grid">
+            <div className="PlayerCards ui grid block-container">
                 {renderCards}
             </div>
         );

@@ -12,7 +12,7 @@ class SelectedCardDisplay extends Component{
 
 	render(){
 		let display = (
-            <div className="ui special cards">
+            <div className="ui special cards centered">
                 <div className="card">
                     <div className="content">
                         <div className="ui grid">
@@ -44,7 +44,7 @@ class SelectedCardDisplay extends Component{
                                 <a className="ui left corner label" href="">
                                     {this.props.card.name}
                                     </a>
-                                <img id="cardImgId" className="ui centered image" src={this.props.card.imgUrl}></img>
+                                <img id="cardImgId" alt="card" className="ui centered image" src={this.props.card.imgUrl}></img>
                             </div>
                         </div>
                     </div>
@@ -52,7 +52,7 @@ class SelectedCardDisplay extends Component{
                         <div className="ui form tiny">
                             <div className="field">
                                 <label id="cardNameId"></label>
-                                <textarea id="cardDescriptionId" className="overflowHiden" readonly="" rows="5">{this.props.card.description}</textarea>
+                                <textarea id="cardDescriptionId" className="overflowHiden" readOnly="" rows="5">{this.props.card.description}</textarea>
                             </div>
                         </div>
                     </div>

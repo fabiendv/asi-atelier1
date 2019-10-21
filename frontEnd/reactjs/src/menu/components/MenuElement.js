@@ -37,28 +37,29 @@ class MenuElement extends Component{
         switch(type){
             case 'buy':
                 display = (
-                    <a className="btn btn-block btn-lg btn-primary" role="button" onClick={()=>{this.handleBuySelected()}}>
+                    <button className="btn btn-block btn-lg btn-custom"  onClick={()=>{this.handleBuySelected()}}>
                         <i className={this.props.imgURL}></i>
-                        {this.props.type}
-                    </a>
+                        <span className="text-button">{this.props.type}</span>
+                    </button>
                 );
                 break;
             case 'sell':
                 display = (
-                    <a className="btn btn-block btn-lg btn-primary" role="button" onClick={()=>{this.handleSellSelected()}}>
+                    <button className="btn btn-block btn-lg btn-custom"  onClick={()=>{this.handleSellSelected()}}>
                         <i className={this.props.imgURL}></i>
-                        {this.props.type}
-                    </a>
+                        <span className="text-button">{this.props.type}</span>
+                    </button>
                 );
                 break;
             case 'play':
                 display = (
-                    <a className="btn btn-block btn-lg btn-primary" role="button" onClick={()=>{this.handlePlaySelected()}}>
+                    <button className="btn btn-block btn-lg btn-custom"  onClick={()=>{this.handlePlaySelected()}}>
                         <i className={this.props.imgURL}></i>
-                        {this.props.type}
-                    </a>
+                        <span className="text-button">{this.props.type}</span>
+                    </button>
                 );
                 break;
+            default:
         }
         return display;
     }

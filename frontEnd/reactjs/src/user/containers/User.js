@@ -96,6 +96,7 @@ const axios = require('axios').default;
                            />
                        );
                    break;
+                default:
                }
            return display;
          }

@@ -27,7 +27,7 @@ class SelectGameCard extends Component{
                                 </div>
                             </div>
                             <div className="ui fluid image">
-                                <img id="cardImgId" className="ui centered image" src={this.props.card.imgUrl}></img>
+                                <img id="cardImgId" alt="card" className="ui centered image" src={this.props.card.imgUrl}></img>
                             </div>
                         </div>
                     </div>

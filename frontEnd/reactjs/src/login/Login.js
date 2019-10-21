@@ -4,7 +4,7 @@ import {createAccount, setLoginPage, setUserSession} from '../actions';
 const axios = require('axios').default;
 
 class Login extends Component {
-    //class constructor whith given properties
+    //className constructor whith given properties
     constructor(props) {
         super(props);      
         this.state = {
@@ -21,7 +21,7 @@ class Login extends Component {
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
         // console.log(event.target.value);
-        let currentVal=this.state;
+        //let currentVal=this.state;
         this.setState({
             [name]: value
           });
@@ -85,9 +85,9 @@ class Login extends Component {
     render() {
 
         return (
-            <form className="ui form">
+         /*    <form classNameName="ui form">
 
-                <div className="col-md-6"> 
+                <div classNameName="col-md-6"> 
                     <label>
                         <b>
                             Username
@@ -101,18 +101,46 @@ class Login extends Component {
                         </b>
                     </label> 
                     <input type="password" placeholder="Enter Password" name="pwd" onChange={(ev)=>{this.processInput(ev)}} required/> 
-        
-                    <button className="btn btn-lg btn-info" type="button" onClick={()=>{this.submitLogin()}}>
+                    
+                    <button classNameName="btn btn-lg btn-login" type="button" onClick={()=>{this.submitLogin()}}>
                         Login
                     </button> 
                 </div> 
         
-                <div className="col-md-6">
-                    <div className="btn btn-lg btn-dark" onClick={()=>{this.handleSignupPageSelected(false)}}>
+                <div classNameName="col-md-6">
+                    <div classNameName="btn btn-lg btn-custom" onClick={()=>{this.handleSignupPageSelected(false)}}>
                         Create an account
                     </div>
                 </div> 
-            </form>
+            </form> */
+            <div className="ui middle aligned center aligned grid">
+                <div className="column">
+                <form className="ui large form">
+                    <div className="ui stacked secondary segment">
+                    <div className="field">
+                        <div className="ui left icon input">
+                        <i className="user icon"></i>
+                        <input type="text" name="login" onChange={(ev)=>{this.processInput(ev)}} placeholder="Username" />
+                        </div>
+                    </div>
+                    <div className="field">
+                        <div className="ui left icon input">
+                        <i className="lock icon"></i>
+                        <input type="password" name="pwd"  onChange={(ev)=>{this.processInput(ev)}} placeholder="Password" />
+                        </div>
+                    </div>
+                    <div className="ui fluid large teal submit button" onClick={()=>{this.submitLogin()}}>Login</div>
+                    </div>
+            
+                    <div className="ui error message"></div>
+            
+                </form>
+            
+                <div className="ui message">
+                    New to us? <span class="register" onClick={()=>{this.handleSignupPageSelected(false)}}>Register</span>
+                </div>
+                </div>
+            </div>
         );
     }
 }

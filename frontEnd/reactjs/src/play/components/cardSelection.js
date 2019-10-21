@@ -8,6 +8,7 @@ class CardSelection extends Component{
 	constructor(props){
 		super(props);
 		this.state = {
+            
         };
         
         
@@ -58,7 +59,7 @@ class CardSelection extends Component{
         display = (
             <div className="cardSelection">
                 <NotificationAlert ref="notify" />
-                <div className="ui grid">
+                <div className="ui grid block-container">
                     <div className="ten wide column">
                     <h3 className="ui aligned header"> Select 4 cards</h3>
                     <table className="ui selectable celled table" id="cardListId">
@@ -83,7 +84,7 @@ class CardSelection extends Component{
                 </div>
                 <div>
                     <br></br>
-                    <button onClick={() => this.startGame()}type="button" className="btn btn-primary">Start game</button>
+                    <button onClick={() => this.startGame()}type="button" className="btn  btn-custom">Start game</button>
                 </div>
             </div>
         );

@@ -21,7 +21,7 @@ class PlayerCardsSelect extends Component{
 
 	render(){
 		let display = (
-            <div className="PlayerCardsSelect ui grid">
+            <div className="PlayerCardsSelect ui grid block-container">
                 <div className="twelve wide column">
                     <PlayerCards cards={this.props.cards} onCardClick={this.HandleCardSelect}></PlayerCards>
                 </div>
