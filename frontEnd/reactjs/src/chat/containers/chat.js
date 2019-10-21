@@ -51,7 +51,7 @@ class Chat extends Component{
 		console.log("This is the log: "+ JSON.stringify(this.state.userConnectedList));
 		socket.on('newusr', function(user){
 			 // Do not add the current user to the list
-			 if(that.props.user.login!=user.username){
+			 if(that.props.user.login!==user.username){
 				console.log("There is a new user: "+JSON.stringify(user));
 				that.state.userConnectedList.push({label:user.username,value:user.socketId});
 			 }
@@ -71,7 +71,7 @@ class Chat extends Component{
 		socket.on('newMessage',function(data){
 			console.log('There is a new message');
 			if(that.state.firstTime){
-				if(data.username == that.props.user.login){
+				if(data.username === that.props.user.login){
 					console.log("From me!");
 					$('#messages').append('<div class="ui raised segment"><a class="ui ribbon label" style="background-color:'+data.color+'">'+data.username+'</a><span>'+data.hours+':'+data.minutes+'</span><p>'+data.message+'</p></div>')        
 				}else{
