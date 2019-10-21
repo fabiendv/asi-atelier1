@@ -52,7 +52,7 @@ class Play extends Component {
                 render = (<WaitRoom />)
                 break;
             case "game":
-                render = (<Game player1={this.state.player1} player2={this.state.player2}/>)
+                render = (<Game user={this.props.user} player1={this.state.player1} player2={this.state.player2}/>)
                 break;
             default:
                 console.log("Error: this view doesn't exist !");

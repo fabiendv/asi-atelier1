@@ -29,8 +29,9 @@ class Chat extends Component{
 
 	componentDidMount(){
 		// TODO: envoyer les informations du prop
+		console.log("I am: "+JSON.stringify(this.props.user));
 		socket.emit('login', {
-			username : Math.trunc(Math.random()*100),
+			username : this.props.user.login,
 			mail     : '@cpe.fr',  
 			usercolor:''  
 		});
@@ -48,16 +49,14 @@ class Chat extends Component{
 
 	render(){
 		var that = this;
-
-		console.log("Render");
 		console.log("This is the log: "+ JSON.stringify(this.state.userConnectedList));
 		socket.on('newusr', function(user){
-			// TODO : Do not add the current user to the list
-			// if(this.props.user.username!=user.username){
-				
-			// }
-			console.log("There is a new user: "+JSON.stringify(user));
-			that.state.userConnectedList.push({label:user.username,value:user.socketId});
+			 // Do not add the current user to the list
+			 if(that.props.user.login!=user.username){
+				console.log("There is a new user: "+JSON.stringify(user));
+				that.state.userConnectedList.push({label:user.username,value:user.socketId});
+			 }
+
 			// $('#users').append('<div class="dropdown-item" id="'+user.username+'" data-value="jd"}><i class="jd user circle icon"></i>'+user.username+'</div>')
 		});
 	
@@ -67,7 +66,7 @@ class Chat extends Component{
 		});
 	
 		socket.on('deleteUser', function(user){
-			document.getElementById(user.username).remove();
+			// document.getElementById(user.username).remove();
 		});	
 	
 		socket.on('newMessage',function(data){
