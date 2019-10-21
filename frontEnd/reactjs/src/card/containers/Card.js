@@ -30,6 +30,7 @@ class Card extends Component{
 				break;
 			case 'selectGame':
 				display = (<SelectGameCard card={this.props.card}></SelectGameCard>)
+				break;
 			default:
 				console.log("Error: type d'affichage non disponible " + type);
 		}

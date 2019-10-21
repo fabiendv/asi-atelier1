@@ -26,7 +26,7 @@ import {setLoginPage} from '../../actions';
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
         // console.log(event.target.value);
-        let currentVal=this.state;
+        //let currentVal=this.state;
         this.setState({
             [name]: value
           });
@@ -53,7 +53,7 @@ import {setLoginPage} from '../../actions';
                     <label>Name</label>
                     <div className="two fields">
                         <div className="field">
-                            <input className="text" name="surname" placeholder="SurName" onChange={(ev)=>{this.processInput(ev)}} value={this.state.surname}></input>
+                            <input className="text" name="surname" placeholder="FirstName" onChange={(ev)=>{this.processInput(ev)}} value={this.state.surname}></input>
                         </div>
                         <div className="field">
                         <input className="text" name="lastname" placeholder="LastName" onChange={(ev)=>{this.processInput(ev)}} value={this.state.lastname}></input>

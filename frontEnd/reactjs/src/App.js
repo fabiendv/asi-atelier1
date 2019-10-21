@@ -1,17 +1,15 @@
 import React, {Component} from 'react';
-import './lib/main.css';
 import './lib/Semantic-UI-CSS-master/semantic.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
+import './lib/main.css';
 import Login from './login/Login';
 import { connect } from 'react-redux';
 import User from './user/containers/User';
 import Menu from './menu/containers/Menu';
 import Navbar from './navbar/containers/navbar';
 import Order from './card/containers/Order';
-import WaitRoom from "./play/components/waitRoom";
 import Play from './play/containers/play';
-import io from 'socket.io-client';
 
 
 
@@ -41,13 +39,13 @@ class App extends Component {
     // console.log("This is my user: "+JSON.stringify(this.user));
 
     if(this.props.hasAccount || this.props.hasAccount === "undefined"){
-
+      
       if(this.props.isLogged){
-
+    
         if(this.props.buyCard){
           // return buy card view
           display = (
-            <div>
+            <div className="main-container">
               <Navbar
                 isLogged="true"
                 name={this.user.login}
@@ -64,7 +62,7 @@ class App extends Component {
         } else if (this.props.sellCard){
           // return sell card view
           display = (
-            <div>
+            <div className="main-container">
               <Navbar
                 isLogged="true"
                 name={this.user.login}
@@ -80,7 +78,7 @@ class App extends Component {
         } else if (this.props.play){
           // return play view
           display = (
-            <div>
+            <div className="main-container">
               <Navbar
                 isLogged="true"
                 name={this.user.login}
@@ -94,7 +92,7 @@ class App extends Component {
         } else {
           // return store view
           display = (
-            <div>
+            <div className="main-container">
               <Navbar
                 isLogged="true"
                 name={this.user.login}
@@ -110,7 +108,7 @@ class App extends Component {
         // return Login view
 
         display = (
-          <div>  
+          <div className="main-container">   
             <Navbar
               isLogged="false"
               name=""
@@ -126,7 +124,7 @@ class App extends Component {
     }else{
       // return Signup view
       display = (
-        <div>
+        <div className="main-container">
           <Navbar
             isLogged="false"
             name=""

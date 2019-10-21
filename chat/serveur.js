@@ -5,7 +5,6 @@ var io = require('socket.io');
 var ioServer = io(server);
 const CONFIG = require('./config');
 var express = require('express');
-var md5 = require ('MD5');
 var randomColor = require('randomcolor');
 
 app.use(express.static(CONFIG.publicDir));
@@ -15,8 +14,8 @@ var users={};
 ioServer.on('connection', function(socket){
     var me;
     var color;
-    console.log('nouvel utilisateur');
-    console.log(socket.id);
+    
+    console.log('Nouvelle socket detectee: '+socket.id);
 
     /** Récupérer la liste des utilisateurs */
     for( var k in users){
@@ -24,6 +23,9 @@ ioServer.on('connection', function(socket){
     }
 
     socket.on('login', function(user){
+
+        console.log('Nouvel user detecte: '+JSON.stringify(user));
+
         me=user;
         me.usercolor = randomColor();
         me.socketId = socket.id;
@@ -39,20 +41,29 @@ ioServer.on('connection', function(socket){
 
 
     socket.on('disconnect',function(){
-       
         delete users[me.username];
         ioServer.emit("deleteUser",me);
     })
 
     socket.on('messageSent',function(data){
+
+        console.log('Gotcha. I send a message.');
+
+        console.log("This is my data:"+JSON.stringify(data));
+        console.log("this is my user:"+JSON.stringify(users));
         data.color = users[data.username].usercolor;
         date = new Date();
         data.hours = date.getHours();
         data.minutes = date.getMinutes();
-        //ioServer.emit("newMessage",data); //brocoast
-        console.log("sender   "+users[data.username].socketId);
-        console.log("receiver   "+users[data.target].socketId);
-        ioServer.to(users[data.target].socketId).to(users[data.username].socketId).emit("newMessage",data);//from https://dev.to/moz5691/socketio-for-simple-chatting---1k8nconsole.log
+
+        // Broadcast example
+        //ioServer.emit("newMessage",data); 
+
+        // console.log("Sender: "+users[data.username].socketId);
+        // console.log("Receiver: "+users[data.target].socketId);
+        
+        //from https://dev.to/moz5691/socketio-for-simple-chatting---1k8nconsole.log
+        ioServer.to(users[data.target].socketId).to(users[data.username].socketId).emit("newMessage",data);
     })
 
 });

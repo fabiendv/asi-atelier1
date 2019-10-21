@@ -2,7 +2,7 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  font-family: "Open Sans",-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -44,12 +44,46 @@ code {
   color: #09d3ac;
 }
 
+.main-container{
+  height: 100%;
+}
+
+.main-container:last-child,.block-container{
+  padding-top: 60px;
+}
+
+@media (max-width: 830px) {
+  .main-container:last-child,.block-container{
+    padding-top: 85px;
+  }
+}
+
+@media (max-width: 575px) {
+  .main-container:last-child,.block-container{
+    padding-top: 150px;
+  } 
+}
+
+
 /* Menu */
 .menu-container{
   position: absolute;
   width:100%;
-  top:50%;
+  top:40%;
+  color:#EEF0f8;
+  font-family: "Open Sans";
   transform: translateY(-50%);
+}
+
+@media (max-height: 200px) {
+  .menu-container{
+    transform: translateY(0%); 
+  }
+}
+
+.container-fluid{
+  height: 100%;
+  position: relative;
 }
 
 .center-container{
@@ -67,10 +101,85 @@ code {
   margin-top:50px; 
 }
 
+@media (max-width: 575px) {
+  .menu:nth-child(2n){
+    margin-top:0px; 
+  }
+}
+
 .menu-icon{
   margin-right:15px;
 }
 
+/** Button Menu **/
+
+.btn-custom{
+  border: 2px solid #ADC2FE;
+  background-color:#ADC2FE;
+  text-transform: uppercase;
+  color:white;
+  font-weight: 600;
+  cursor: pointer;
+  transition:0.5s;
+}
+
+.btn-custom:hover{
+  background-color:white;
+  -webkit-box-shadow: 0px 0px 1px 0px rgba(173,194,254,1);
+  -moz-box-shadow: 0px 0px 1px 0px rgba(173,194,254,1);
+  box-shadow: 0px 0px 1px 0px rgba(173,194,254,1);
+}
+
+.btn-custom:hover span,.btn-custom:hover i,.btn-custom:hover {
+  color:#ADC2FE;
+}
+
+.btn-custom span,.btn-custom i{
+  color:white;
+}
+
+/*
+.btn-login{
+  border: 2px solid #349375;
+  background-color:#349375;
+  text-transform: uppercase;
+  color:white;
+  font-weight: 600;
+  cursor: pointer;
+  padding-left:70px;
+  padding-right:70px;
+  transition:0.5s;
+}
+.btn-login:hover{
+  color:#349375;
+  background-color:white;
+}*/
+
+
+
+.text-button{
+  padding-left:7px;
+}
+
+
+/** Navbar **/
+
+#home-button{
+  cursor: pointer;
+  transition:0.8s;
+}
+
+#home-button:hover{
+  opacity: 0.8;
+  
+}
+
+.navbar h2{
+  font-weight: 800;
+  font-family: "Open Sans";
+  color: #474c5d;
+  text-transform: uppercase;
+}
 /** waitRoom **/
 
 .lds-roller {
@@ -188,8 +297,75 @@ code {
   margin-bottom: 10px;
 }
 
+
+/** Card to sell or to buy **/
+
+.ui.grid{
+  margin-left:2px;
+}
+
+.card-block{
+  margin-top: 5px;
+}
+
+#cardListIdContainer{
+  min-width: 750px;
+}
+
+
 /** Play **/
 
 .play{
   height: 100%;
+}
+.ui.header{
+  font-family: "Open Sans";
+  color:#474c5d;
+}
+
+.cardSelection button{
+  color:white;
+  margin-left: 14px;
+  transition:0.6s;
+}
+
+.cardSelection button:hover{
+  color:#ADC2FE;
+}
+
+h1, h2, h3, h4, h5{
+  font-family: "Open Sans";
+}
+
+/** Login **/
+
+#root > div > div.ui.aligned.center.aligned.grid > .column{
+  width: 600px;
+  margin-top: 5%;
+}
+
+.ui.teal.button{
+  background-color: #349375;
+  border: 2px solid #349375;
+  font-family: "Open Sans";
+  transition: 0.6s;
+}
+
+.ui.teal.button:hover{
+  color: #349375;
+  background-color: white;
+ 
+}
+
+.register{
+  cursor: pointer;
+  color:#6a90fd;
+  text-decoration: underline;
+  font-family: "Open Sans";
+  transition: 0.1s;
+}
+
+.register:hover{
+  text-decoration: none;
+  color:#ADC2FE;
 }

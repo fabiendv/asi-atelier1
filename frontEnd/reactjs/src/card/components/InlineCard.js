@@ -141,7 +141,7 @@ class InlineCard extends Component{
         display = (
             <tr onClick={()=>{this.handleOnCardSelected(this.props.card)}}>
                 <td>
-                    <img className="ui avatar image" src={this.state.card.smallImgUrl}></img><span>{this.state.card.name}</span>
+                    <img className="ui avatar image" alt="avatar" src={this.state.card.smallImgUrl}></img><span>{this.state.card.name}</span>
                 </td>
                 <td>{this.state.card.description}</td>
                 <td>{this.state.card.family}</td>

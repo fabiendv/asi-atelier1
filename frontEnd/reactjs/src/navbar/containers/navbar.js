@@ -26,10 +26,13 @@ class Navbar extends Component{
         if (this.props.isLogged==="true"){
 
             display = (
-                <nav className="navbar shadow navbar-light bg-light">
+                <nav className="navbar fixed-top shadow navbar-light bg-light">
 
-                <div className="btn btn-lg btn-info" onClick={()=>{this.setHome()}}>
-                    Home
+                <div className="col-sm-3 text-center" id="home-button" onClick={()=>{this.setHome()}}>
+                <NavbarElement 
+                        icon = "home icon"
+                        text = ""
+                    />
                 </div>
                 <div className="col-sm-3 text-center">
                     <NavbarElement 
@@ -59,7 +62,7 @@ class Navbar extends Component{
          */
         else{
             display = (
-                <nav className="navbar shadow navbar-light bg-light">
+                <nav className="navbar shadow fixed-top navbar-light bg-light">
 
                 <div className="col-sm-4 text-center">
                     <NavbarElement 
