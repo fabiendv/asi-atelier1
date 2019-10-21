@@ -62,7 +62,7 @@ public class CardModelService {
 			currentCard.setDefence(Math.round(rand.nextFloat()*100));
 			currentCard.setEnergy(100);
 			currentCard.setHp(Math.round(rand.nextFloat()*100));
-			currentCard.setPrice(111);
+			currentCard.setPrice(Math.round((currentCard.getAttack()*3)+(currentCard.getDefence()*2)+(currentCard.getHp())));
 			//save new card before sending for user creation
 			//this.addCard(currentCard);
 			cardList.add(currentCard);
