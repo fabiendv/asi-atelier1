@@ -20,15 +20,14 @@ class Chat extends Component{
 		var data={};
 		window.$ = $;
 		data.message = $("textarea").val();
-		data.username = $("#current-user .column:last-child").text();
+		data.username = this.props.user.login;
 		// data.target = document.getElementById("users").getElementsByClassName("active selected")[0].id;
 		data.target = this.state.talkingTo;
 		socket.emit("messageSent",data);
 		$("textarea").val('');
 	}
-
-	componentDidMount(){
-		// TODO: envoyer les informations du prop
+	
+	componentWillMount(){
 		console.log("I am: "+JSON.stringify(this.props.user));
 		socket.emit('login', {
 			username : this.props.user.login,
@@ -61,8 +60,8 @@ class Chat extends Component{
 		});
 	
 		socket.on('currentUser', function(user){
-			console.log("I am in currentUser: "+JSON.stringify(user));
-			$('#current-user').append('<div class="column">'+user.username+'</div> ')
+			// console.log("I am in currentUser: "+JSON.stringify(user));
+			// $('#current-user').append('<div class="column">'+user.username+'</div> ')
 		});
 	
 		socket.on('deleteUser', function(user){
@@ -72,7 +71,7 @@ class Chat extends Component{
 		socket.on('newMessage',function(data){
 			console.log('There is a new message');
 			if(that.state.firstTime){
-				if(data.username == $("#current-user .column:last-child").text()){
+				if(data.username == that.props.user.login){
 					console.log("From me!");
 					$('#messages').append('<div class="ui raised segment"><a class="ui ribbon label" style="background-color:'+data.color+'">'+data.username+'</a><span>'+data.hours+':'+data.minutes+'</span><p>'+data.message+'</p></div>')        
 				}else{
@@ -91,20 +90,21 @@ class Chat extends Component{
             <div className="chat">
                 <div className="ui segment">
                     <div className="ui five column grid">
-                        <div className="">
+                        <div className="" style={{paddingTop: '1em', paddingBottom: '1em', paddingLeft:'0px', width:'100%'}}>
                             <div className="ui segment">
                                 <div className="ui top attached label">
                                     <div className="ui two column grid">
                                         <div className="column">
 											Chat
 										</div>
-										<div className="column">
+										{/* <div className="column">
 												<div className="ui two column grid" id="current-user">
 														<div className="column">
 															<i className="user circle icon"></i>
 														</div>
+														{this.props.user.login}
 												</div>
-										</div>
+										</div> */}
                                     </div>
                                 </div>
                         	</div>

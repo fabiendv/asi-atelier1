@@ -5,7 +5,6 @@ var io = require('socket.io');
 var ioServer = io(server);
 const CONFIG = require('./config');
 var express = require('express');
-var md5 = require ('MD5');
 var randomColor = require('randomcolor');
 
 app.use(express.static(CONFIG.publicDir));
@@ -15,7 +14,8 @@ var users={};
 ioServer.on('connection', function(socket){
     var me;
     var color;
-    console.log('Nouvel utilisateur: '+socket.id);
+    
+    console.log('Nouvelle socket detectee: '+socket.id);
 
     /** Récupérer la liste des utilisateurs */
     for( var k in users){
@@ -23,6 +23,9 @@ ioServer.on('connection', function(socket){
     }
 
     socket.on('login', function(user){
+
+        console.log('Nouvel user detecte: '+JSON.stringify(user));
+
         me=user;
         me.usercolor = randomColor();
         me.socketId = socket.id;
@@ -46,6 +49,8 @@ ioServer.on('connection', function(socket){
 
         console.log('Gotcha. I send a message.');
 
+        console.log("This is my data:"+JSON.stringify(data));
+        console.log("this is my user:"+JSON.stringify(users));
         data.color = users[data.username].usercolor;
         date = new Date();
         data.hours = date.getHours();
