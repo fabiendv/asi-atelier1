@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import './lib/Semantic-UI-CSS-master/semantic.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
-import 'jquery-validation';
 import './lib/main.css';
 import Login from './login/Login';
 import { connect } from 'react-redux';
