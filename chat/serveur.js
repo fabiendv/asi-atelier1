@@ -56,11 +56,10 @@ ioServer.on('connection', function(socket){
         data.hours = date.getHours();
         data.minutes = date.getMinutes();
 
+        // TODO: Need to send the data to ActiveMQ in order to save the historic in a log file via SpringBoot
+
         // Broadcast example
         //ioServer.emit("newMessage",data); 
-
-        // console.log("Sender: "+users[data.username].socketId);
-        // console.log("Receiver: "+users[data.target].socketId);
         
         //from https://dev.to/moz5691/socketio-for-simple-chatting---1k8nconsole.log
         ioServer.to(users[data.target].socketId).to(users[data.username].socketId).emit("newMessage",data);
