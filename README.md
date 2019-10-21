@@ -1,4 +1,4 @@
-# ASI2-Ateliers
+# ASI2 - Cards game 
 
 Auteurs : 
  - Martin Thénot 
@@ -16,11 +16,13 @@ Activités réalisées par personne :
 	- Module backend Springboot communicant par un bus avec une application indépendante
 	- Backend Node.js associant 2 joueurs dans une partie
  - Martin : 
-	- 
+	- TODO
  - Fabien :
-	-
+	- Composants React pour les pages Login et Signup (User view)
+	- Assemblage de toutes les parties du front-end pour l'atelier 1 (en utilisant directement le projet SpringBoot)
+	- Implementation du composant du chat
  - Maxime :
-	-
+	- TODO
 
 Eléments réalisés : 
  - Diagramme de classe de l'architecture monolithique

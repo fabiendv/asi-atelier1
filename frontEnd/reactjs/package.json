@@ -13,6 +13,7 @@
     "react-notification-alert": "0.0.12",
     "react-redux": "^7.1.1",
     "react-scripts": "3.2.0",
+    "react-select": "^3.0.8",
     "reactstrap": "^8.0.1",
     "redux": "^4.0.4",
     "socket.io-client": "^2.3.0"
