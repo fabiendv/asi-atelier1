@@ -22,12 +22,15 @@ ioServer.on('connection', function(socket){
             player2.socketID = socket.id;
             let game = new Game("",player1,player2);
 
-            console.log(game);
+            // console.log(game);
 
             //Retirer premier joueur de la liste
             list_users_playroom.shift(); 
-            console.log(socket.id);
-            ioServer.to(player1.socketID).to(socket.id).emit("launchGame",player1, player2);
+            // console.log(socket.id);
+            ioServer.to(player1.socketID).to(player2.socketID).emit("launchGame",player1, player2);
+
+            console.log("player1socketID"+player1.socketID);
+            console.log("player2socketID"+player2.socketID);
 
         }else{
             console.log("Pas d'utilisateur en attente.");
@@ -39,6 +42,21 @@ ioServer.on('connection', function(socket){
             list_users_playroom.push(User);
         }
 
+    })
+
+
+    socket.on("attack", function(data){
+        console.log("This is my victim socketId: "+data.victim.socketID);
+        console.log("This is my user socketId: "+data.user.socketID);
+        console.log("This is my attackValue: "+JSON.stringify(data.attackValue));
+        ioServer.to(data.victim.socketID).to(data.user.socketID).emit("handleAttack",data.attackValue);
+        // ioServer.to(data.victim.socketID).to(data.user.socketID).emit("launchGame",data.user, data.user);
+        // socket.emit("handleAttack",data.attackValue);
+    })
+
+    socket.on("switchTurn", function(data){
+        ioServer.to(data.turnNext.socketID).emit("handleEndTurn");
+        console.log("ok martin");
     })
 
 });
