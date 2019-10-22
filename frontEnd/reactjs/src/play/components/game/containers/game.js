@@ -38,9 +38,9 @@ class Game extends Component{
 
     handleEndTurn(){
         // Switch the player's turn
-        this.setState({
-            currentPlayerIsPlayer1: !currentPlayerIsPlayer1
-        });
+        // this.setState({
+        //     currentPlayerIsPlayer1: !currentPlayerIsPlayer1
+        // });
     }
 
     render() {
