@@ -41,7 +41,7 @@ ioServer.on('connection', function(socket){
 
 
     socket.on('disconnect',function(){
-        if(users[me.username]){
+        if(me){
             delete users[me.username];
             ioServer.emit("deleteUser",me);
         }
