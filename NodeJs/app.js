@@ -10,7 +10,7 @@ const Game  =require('./game/game');
 let list_users_playroom = []
 
 ioServer.on('connection', function(socket){
-    console.log('nouvel utilisateur');
+    console.log('Nouvel utilisateur.');
 
     socket.on("newPlayerIsWaiting",function(user){
         if(typeof list_users_playroom !== 'undefined' && list_users_playroom.length > 0){
@@ -30,7 +30,7 @@ ioServer.on('connection', function(socket){
             ioServer.to(player1.socketID).to(socket.id).emit("launchGame",player1, player2);
 
         }else{
-            console.log("pas d'utilisateur");
+            console.log("Pas d'utilisateur en attente.");
             
             let User = {};
             //Ajouter joueur à la liste d'attente

@@ -21,6 +21,7 @@ class Chat extends Component{
 		var data={};
 		window.$ = $;
 		data.message = $("textarea").val();
+		data.id = this.props.user.id;
 		data.username = this.props.user.login;
 		// data.target = document.getElementById("users").getElementsByClassName("active selected")[0].id;
 		data.target = this.state.talkingTo;
@@ -31,7 +32,7 @@ class Chat extends Component{
 	componentWillMount(){
 		console.log("I am: "+JSON.stringify(this.props.user));
 		socket.emit('login', {
-			username : this.props.user.login,
+			id : this.props.user.id,
 			mail     : '@cpe.fr',  
 			usercolor:''  
 		});
@@ -54,7 +55,7 @@ class Chat extends Component{
 		console.log("This is the log: "+ JSON.stringify(this.state.userConnectedList));
 		socket.on('newusr', function(user){
 			 // Do not add the current user to the list
-			 if(that.props.user.login!==user.username){
+			 if(that.props.user.id!==user.username){
 				console.log("There is a new user: "+JSON.stringify(user));
 				updatedTable = that.state.userConnectedList;
 				that.state.userConnectedList.push({label:user.username,value:user.socketId});
@@ -81,7 +82,7 @@ class Chat extends Component{
 		socket.on('newMessage',function(data){
 			console.log('There is a new message');
 			if(that.state.firstTimeChat){
-				if(data.username === that.props.user.login){
+				if(data.username === that.props.user.id){
 					console.log("From me!");
 					$('#messages').append('<div class="ui raised segment"><a class="ui ribbon label" style="background-color:'+data.color+'">'+data.username+'</a><span>'+data.hours+':'+data.minutes+'</span><p>'+data.message+'</p></div>')        
 				}else{
@@ -123,20 +124,21 @@ class Chat extends Component{
 															<div className="column">
 																<i className="user circle icon"></i>
 															</div>
-															{this.props.user.login}
+															{this.props.user.id}
 													</div>
 											</div> */}
 										</div>
 									</div>
 								</div>
-	
-								<Select
+								
+								{/* Add select componant for futur dev */}
+								{/* <Select
 									// value={selectedOption}
 									defaultValue={this.state.userConnectedList[0].value}
 									onChange={this.handleChangeUser}
 									options={this.state.userConnectedList}
 									// placeholder="Select User"
-								/>
+								/> */}
 								
 								<div className="ui segment" id="messages">
 	
