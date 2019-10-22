@@ -1,0 +1,26 @@
+#!/bin/bash
+#
+#
+
+
+
+{ # try
+
+   gnome-terminal -e "bash -c \"cd frontEnd/reactjms/; exit} || echo "jj"; exec bash; \"" & gnome-terminal -e "bash -c \"cd NodeJs; exec bash\"" & gnome-terminal -e "bash -c \"cd chat ; exec bash\"" 
+
+   
+   echo "oui"
+
+} || { #catch
+
+    echo "non"
+}
+
+
+done
+
+ret=true
+
+if [ "$ret" = true ] ; then
+    exit
+fi
