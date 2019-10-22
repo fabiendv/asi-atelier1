@@ -129,14 +129,15 @@ class Chat extends Component{
 										</div>
 									</div>
 								</div>
-	
-								<Select
+								
+								{/* Add select componant for futur dev */}
+								{/* <Select
 									// value={selectedOption}
 									defaultValue={this.state.userConnectedList[0].value}
 									onChange={this.handleChangeUser}
 									options={this.state.userConnectedList}
 									// placeholder="Select User"
-								/>
+								/> */}
 								
 								<div className="ui segment" id="messages">
 	
