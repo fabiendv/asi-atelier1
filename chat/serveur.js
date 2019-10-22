@@ -41,8 +41,10 @@ ioServer.on('connection', function(socket){
 
 
     socket.on('disconnect',function(){
-        delete users[me.username];
-        ioServer.emit("deleteUser",me);
+        if(users[me.username]){
+            delete users[me.username];
+            ioServer.emit("deleteUser",me);
+        }
     })
 
     socket.on('messageSent',function(data){
