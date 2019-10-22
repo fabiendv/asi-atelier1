@@ -10,7 +10,15 @@ const stompit = require('stompit');
 
 app.use(express.static(CONFIG.publicDir));
 
-const connectOptions = {'host': 'localhost','port': 61616};
+const connectOptions = {
+    'host': 'localhost',
+    'port': 61613,
+    'connectHeaders':{
+        'host': '/',
+        'login': 'admin',
+        'passcode': 'admin'
+    }
+};
 
 var users={};
 var chats={};
@@ -76,23 +84,24 @@ ioServer.on('connection', function(socket){
 
         if (chatLog == undefined){
             // creation d'un log dans la DB
-            let headers = {'destination': 'chatIn.queue'};
+            let headersIn = {'destination': 'chatIn.queue'};
             stompit.connect(connectOptions, (error, client) => {
                 if (error) {
+                    console.log("err")
                     return console.error(error);
                 }
-                const frame = client.send(headers);
+                const frame = client.send(headersIn);
                 frame.write('{"id":"","userOneId":"'+me.id+'","userTwoId":"'+target.id+'"}');
                 frame.end();    
                 client.disconnect();
             });
             // recupere le nouveau log
-            headers = {'destination': 'chatOut.queue'};
+            headersOut = {'destination': 'chatOut.queue'};
             stompit.connect(connectOptions, (error, client) => {
                 if (error) {
                     return console.error(error);    
                 }    
-                client.subscribe(headers, (error, message) => {
+                client.subscribe(headersOut, (error, message) => {
                     if (error) {
                         return console.error(error);        
                     }        
@@ -102,23 +111,42 @@ ioServer.on('connection', function(socket){
                         }
                         console.log('received chatLog: ' + body); 
                         chatLog = JSON.parse(body);
-                        chats[chatLog.id]=chatLog;       
+                        chats[chatLog.id]=chatLog; 
+                        console.log(chatLog);
+                        
+                        //log du nouveau message
+                        let headersIn = {'destination': 'chatIn.queue'};
+                        stompit.connect(connectOptions, (error, client) => {
+                            if (error) {
+                                return console.error(error);
+                            }
+                            console.log(chatLog.id);
+                            const frame = client.send(headersIn);
+                            frame.write('{"id":"'+chatLog.id+'","username":"'+me.username+'","message":"'+data.message+'"}');
+                            frame.end();    
+                            client.disconnect();
+                        });
+
                     });    
                 });
             });
         }
-
-        //log du nouveau message
-        let headers = {'destination': 'chatIn.queue'};
+        else{
+            console.log(chatLog);
+            //log du nouveau message
+            let headersIn = {'destination': 'chatIn.queue'};
             stompit.connect(connectOptions, (error, client) => {
                 if (error) {
                     return console.error(error);
                 }
-                const frame = client.send(headers);
+                const frame = client.send(headersIn);
                 frame.write('{"id":"'+chatLog.id+'","username":"'+me.username+'","message":"'+data.message+'"}');
                 frame.end();    
                 client.disconnect();
             });
+        }
+
+        
         
 
         // Broadcast example
