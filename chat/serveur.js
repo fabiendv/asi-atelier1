@@ -79,7 +79,7 @@ ioServer.on('connection', function(socket){
             let headers = {'destination': 'chatIn.queue'};
             stompit.connect(connectOptions, (error, client) => {
                 if (error) {
-                    returnconsole.error(error);
+                    return console.error(error);
                 }
                 const frame = client.send(headers);
                 frame.write('{"id":"","userOneId":"'+me.id+'","userTwoId":"'+target.id+'"}');
@@ -112,7 +112,7 @@ ioServer.on('connection', function(socket){
         let headers = {'destination': 'chatIn.queue'};
             stompit.connect(connectOptions, (error, client) => {
                 if (error) {
-                    returnconsole.error(error);
+                    return console.error(error);
                 }
                 const frame = client.send(headers);
                 frame.write('{"id":"'+chatLog.id+'","username":"'+me.username+'","message":"'+data.message+'"}');
@@ -125,7 +125,7 @@ ioServer.on('connection', function(socket){
         //ioServer.emit("newMessage",data); 
         
         //from https://dev.to/moz5691/socketio-for-simple-chatting---1k8nconsole.log
-        ioServer.to(users[data.target].socketId).to(users[data.id].socketId).emit("newMessage",data);
+        ioServer.to(target.socketId).to(me.socketId).emit("newMessage",data);
     })
 
 });
