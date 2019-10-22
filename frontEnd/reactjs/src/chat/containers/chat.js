@@ -33,6 +33,7 @@ class Chat extends Component{
 		console.log("I am: "+JSON.stringify(this.props.user));
 		socket.emit('login', {
 			id : this.props.user.id,
+			username : this.props.user.login,
 			mail     : '@cpe.fr',  
 			usercolor:''  
 		});
@@ -44,7 +45,7 @@ class Chat extends Component{
 		  { selectedUser },
 		  () => {
 			  console.log(`Option selected:`, selectedUser);
-			  this.state.talkingTo = selectedUser.label;
+			  this.state.talkingTo = selectedUser.id;
 		  }
 		);
 	  };
@@ -55,10 +56,10 @@ class Chat extends Component{
 		console.log("This is the log: "+ JSON.stringify(this.state.userConnectedList));
 		socket.on('newusr', function(user){
 			 // Do not add the current user to the list
-			 if(that.props.user.id!==user.username){
+			 if(that.props.user.id!==user.id){
 				console.log("There is a new user: "+JSON.stringify(user));
 				updatedTable = that.state.userConnectedList;
-				that.state.userConnectedList.push({label:user.username,value:user.socketId});
+				that.state.userConnectedList.push({id:user.id,label:user.username,value:user.socketId});
 
 				that.setState(
 					{
@@ -82,7 +83,7 @@ class Chat extends Component{
 		socket.on('newMessage',function(data){
 			console.log('There is a new message');
 			if(that.state.firstTimeChat){
-				if(data.username === that.props.user.id){
+				if(data.id === that.props.user.id){
 					console.log("From me!");
 					$('#messages').append('<div class="ui raised segment"><a class="ui ribbon label" style="background-color:'+data.color+'">'+data.username+'</a><span>'+data.hours+':'+data.minutes+'</span><p>'+data.message+'</p></div>')        
 				}else{
@@ -103,7 +104,7 @@ class Chat extends Component{
 
 			if(this.state.firstTimeList){
 				console.log("FIRST TIME");
-				this.state.talkingTo = this.state.userConnectedList[0].label;
+				this.state.talkingTo = this.state.userConnectedList[0].id;
 				console.log(this.state.talkingTo);
 				this.state.firstTimeList = false;
 			}
