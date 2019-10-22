@@ -1,7 +1,6 @@
 package com.cpe.springboot.chat.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +22,7 @@ public class ChatRestController {
 	
 	@RequestMapping("/chat/{id}")
 	private ChatModel getChat(@PathVariable String id) {
-		Optional<ChatModel> chat;
+		ChatModel chat;
 		chat = chatService.getChat(Integer.valueOf(id));
 		return chat;
 	}

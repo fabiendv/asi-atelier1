@@ -16,19 +16,29 @@ public class ChatService {
 	private ChatRepository chatRepository;
 
     public ChatModel addChat(Integer userOneId, Integer userTwoId){
-        chat = new ChatModel(userOneId, userTwoId);
+    	ChatModel chat = new ChatModel(userOneId, userTwoId);
         chatRepository.save(chat);
         return chat;
     }
 
     public ChatModel addMessage(Integer chatId, String username, String message){
-        chat = chatRepository.findById(chatId);
-        chat.addMessage(username, message);
-        return chat;
+    	Optional<ChatModel> chat = chatRepository.findById(chatId);
+    	if (chat.isPresent()) {
+    		ChatModel c = chat.get();
+    		c.addMessage(username, message);
+    		chatRepository.save(c);
+    		return c;
+    	}
+        return null;
     }
 
-    public Optional<ChatModel> getChat(Integer chatId){
-        return chatRepository.findById(chatId);
+    public ChatModel getChat(Integer chatId){
+    	Optional<ChatModel> chat = chatRepository.findById(chatId);
+    	if (chat.isPresent()) {
+    		ChatModel c = chat.get();
+    		return c;
+    	}
+        return null;
     }
 
     public List<ChatModel> getAllChats() {

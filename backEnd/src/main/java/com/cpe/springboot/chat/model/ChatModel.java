@@ -15,10 +15,15 @@ public class ChatModel {
     private Integer userTwoId;
 	private String data;
 	
+	public ChatModel() {
+		this.userOneId = null;
+		this.userTwoId = null;
+		this.data = "";
+	}
 
     public ChatModel(Integer userOneId, Integer userTwoId){
         this.userOneId = userOneId;
-        this.userTwoId = userTwoId
+        this.userTwoId = userTwoId;
         this.data = "";
     }
 
@@ -33,15 +38,21 @@ public class ChatModel {
     public Integer getuserTwoId() {
         return userTwoId;
 	}
+    
+    public String getData() {
+    	return this.data;
+    }
 
 	public String addMessage(String username, String message){
-        this.data = this.data + username + " : " + message + "\n";
+        this.data = this.data.concat(username + " : " + message + "\n");
         return this.data;
     }
 
     public String toJSONString(){
-        return '{"id":"'+Integer.valueOf(this.id)+'","userOneId":"'+Integer.valueOf(this.userOneId)
-        +'","userTwoId":"'+Integer.valueOf(this.userOneId)+'","data":"'+this.data+'"}';
+    	return "{'id':'" + this.id.toString() + "',"
+    			+ "'userOneId':'" + this.userOneId.toString() + "',"
+    			+ "'userTwoId':'" + this.userTwoId.toString() + "',"
+    			+ "'data':'" + this.data + "'}";
     }
 
 }
