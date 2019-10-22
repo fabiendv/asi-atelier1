@@ -21,7 +21,8 @@ class Chat extends Component{
 		var data={};
 		window.$ = $;
 		data.message = $("textarea").val();
-		data.username = this.props.user.id;
+		data.id = this.props.user.id;
+		data.username = this.props.user.login;
 		// data.target = document.getElementById("users").getElementsByClassName("active selected")[0].id;
 		data.target = this.state.talkingTo;
 		socket.emit("messageSent",data);
@@ -31,7 +32,7 @@ class Chat extends Component{
 	componentWillMount(){
 		console.log("I am: "+JSON.stringify(this.props.user));
 		socket.emit('login', {
-			username : this.props.user.id,
+			id : this.props.user.id,
 			mail     : '@cpe.fr',  
 			usercolor:''  
 		});
