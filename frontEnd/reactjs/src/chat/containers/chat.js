@@ -20,17 +20,22 @@ class Chat extends Component{
 	sendMessage(){
 		var data={};
 		window.$ = $;
+
+		// Recupere les valeurs (message, userID, userLogin, et target)
 		data.message = $("textarea").val();
 		data.id = this.props.user.id;
 		data.username = this.props.user.login;
-		// data.target = document.getElementById("users").getElementsByClassName("active selected")[0].id;
 		data.target = this.state.talkingTo;
+
+		// Envoyer le message au serveur
 		socket.emit("messageSent",data);
+
+		// Effacer le message ecrit
 		$("textarea").val('');
 	}
 	
 	componentWillMount(){
-		console.log("I am: "+JSON.stringify(this.props.user));
+		// Envoyer les informations au serveur pour informer d'une connexion
 		socket.emit('login', {
 			id : this.props.user.id,
 			username : this.props.user.login,
@@ -39,8 +44,8 @@ class Chat extends Component{
 		});
 	}
 
-
 	handleChangeUser = selectedUser => {
+		// Change la valeur de l'id de la personne a qui l'utilisateur veut parler.
 		this.setState(
 		  { selectedUser },
 		  () => {
@@ -54,38 +59,36 @@ class Chat extends Component{
 		var that = this;
 		var updatedTable = [];
 		console.log("This is the log: "+ JSON.stringify(this.state.userConnectedList));
+
+		// Le serveur nous informe qu'un nouvel utilisateur s'est connecte
 		socket.on('newusr', function(user){
-			 // Do not add the current user to the list
+			 // Check si l'utilisateur detecte est different de lui meme
 			 if(that.props.user.id!==user.id){
 				console.log("There is a new user: "+JSON.stringify(user));
-
+				// Ajouter le nouvel utilisateur dans la liste des selections
 				updatedTable = that.state.userConnectedList;
 				updatedTable.push({id:user.id,label:user.username,value:user.socketId});
-
 				that.setState(
 					{
 						userConnectedList: updatedTable,
 					}
 				);
 			 }
-
-			// $('#users').append('<div class="dropdown-item" id="'+user.username+'" data-value="jd"}><i class="jd user circle icon"></i>'+user.username+'</div>')
 		});
 	
 		socket.on('currentUser', function(user){
-			// console.log("I am in currentUser: "+JSON.stringify(user));
-			// $('#current-user').append('<div class="column">'+user.username+'</div> ')
+			// unused
 		});
 	
 		socket.on('deleteUser', function(user){
-			// document.getElementById(user.username).remove();
+			// TODO: update la liste des utilisateurs connecte
 		});	
 	
+		// Un nouveau message nous est envoye
 		socket.on('newMessage',function(data){
-			console.log('There is a new message');
+			console.log('There is a new received message.');
 			if(that.state.firstTimeChat){
 				if(data.id === that.props.user.id){
-					console.log("From me!");
 					$('#messages').append('<div class="ui raised segment"><a class="ui ribbon label" style="background-color:'+data.color+'">'+data.username+'</a><span>'+data.hours+':'+data.minutes+'</span><p>'+data.message+'</p></div>')        
 				}else{
 					console.log("From someonelse!");
@@ -99,14 +102,12 @@ class Chat extends Component{
 
 		});
 
-
-		console.log("This is my TEST:"+JSON.stringify(this.state.userConnectedList));
+		// Il devrait avoir au moins un utilisateur avant de render() le componant
 		if(this.state.userConnectedList.length>0){
 
+			// Initialise la premiere personne de la liste lors de la premiere connection
 			if(this.state.firstTimeList){
-				console.log("FIRST TIME");
 				this.state.talkingTo = this.state.userConnectedList[0].id;
-				console.log(this.state.talkingTo);
 				this.state.firstTimeList = false;
 			}
 
@@ -160,6 +161,7 @@ class Chat extends Component{
 			</div>
 			);
 		}else{
+			// On ne retourne rien tant que les informations sont undefined
 			return null;
 		}
 
