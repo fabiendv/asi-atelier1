@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PlayerCardsSelect from '../components/playerCardsSelect';
 import Chat from './../../../../chat/containers/chat'
 import User from './../../../../user/containers/User'
-const socket = require('socket.io-client')('http://localhost:1337');
+
+//let socket = require('socket.io-client')('http://localhost:1337');
 
 class Game extends Component{
 
@@ -13,7 +14,8 @@ class Game extends Component{
             player2:this.props.player2,
             player1CardSelected:this.props.player1.cardList[0],
             player2CardSelected:this.props.player2.cardList[0],
-            currentPlayerIsPlayer1: true
+            currentPlayerIsPlayer1: true,
+            socket: this.props.socket
         }
         this.handlePlayer1CardSelection = this.handlePlayer1CardSelection.bind(this);
         this.handlePlayer2CardSelection = this.handlePlayer2CardSelection.bind(this);
@@ -36,21 +38,23 @@ class Game extends Component{
             if(this.state.currentPlayerIsPlayer1){
                 console.log("JATTAQUE");
                 // Envoyer la valeur de l'attaque de la carte selectionnee
-                socket.emit('attack', {
+                this.state.socket.emit('attack', {
                     victim : this.props.player2,
                     user: this.props.player1,
                     attackValue : this.state.player1CardSelected.attack,
                 });
+                this.state.currentPlayerIsPlayer1 = false;
             }else{}
         }else{
             // Si c'est au joueur 2 de jouer
             if(!this.state.currentPlayerIsPlayer1){
                 console.log("JATTAQUE");
                 // Envoyer la valeur de l'attaque de la carte selectionnee
-                socket.emit('attack', {
+                this.state.socket.emit('attack', {
                     victim : this.props.player1,
                     attackValue : this.state.player2CardSelected.attack,
                 });
+                this.state.currentPlayerIsPlayer1 = true;
             }else{}
         }
     }
@@ -61,7 +65,7 @@ class Game extends Component{
             // Si c'est au tour du joueur 1 de jouer
             if(this.state.currentPlayerIsPlayer1){
                 console.log("JE PASSE MON TOUR");
-                socket.emit('switchTurn', {
+                this.state.socket.emit('switchTurn', {
                     turnNext : this.state.player2,
                 });
                 this.state.currentPlayerIsPlayer1 = false;
@@ -70,7 +74,7 @@ class Game extends Component{
             // Si c'est au joueur 2 de jouer
             if(!this.state.currentPlayerIsPlayer1){
                 console.log("JE PASSE MON TOUR");
-                socket.emit('switchTurn', {
+                this.state.socket.emit('switchTurn', {
                     turnNext : this.state.player1,
                 });
                 this.state.currentPlayerIsPlayer1 = true;
@@ -80,35 +84,27 @@ class Game extends Component{
 
     render() {
         console.log("This is my user in Game:"+JSON.stringify(this.props.user));
-
+        
         // Mon adversaire m'attaque
-        socket.on('handleAttack', function(attackValue){
+        this.state.socket.on('sendAttack', function(attackValue){
             console.log("I AM IN HANDLE ATTACK");
             // Si l'utilisateur est joueur 1, Sinon l'utilisateur est le joueur 2
-            if(this.props.user.id==this.props.player1.id){
+            if(this.props.user.id===this.state.player1.id){
                 console.log("Le joueur 2 m'a attaque de:"+attackValue);
-                this.state.currentPlayerIsPlayer1 = true;
             }else{
                 console.log("Le joueur 1 m'a attaque de:"+attackValue);
-                this.state.currentPlayerIsPlayer1 = false;
             }
-		});
-    
+        });
+
         // Mon adversaire passe son tour
-		socket.on('handleEndTurn', function(){
+        this.state.socket.on('sendEndTurn', function(){
             console.log("I AM IN HANDLE END TURN");
             // Si l'utilisateur est joueur 1, Sinon l'utilisateur est le joueur 2
-            if(this.props.user.id==this.props.player1.id){
+            if(this.props.user.id===this.state.player1.id){
                 console.log("Le joueur 2 a passe son tour");
-                this.state.currentPlayerIsPlayer1 = true;
             }else{
                 console.log("Le joueur 1 a passe son tour");
-                this.state.currentPlayerIsPlayer1 = false;
             }		
-        });
-        
-        socket.emit('switchTurn', {
-            turnNext : this.state.player1,
         });
 
         return (

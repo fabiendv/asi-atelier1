@@ -4,6 +4,8 @@ import CardSelection from './../components/cardSelection'
 import WaitRoom from "./../components/waitRoom"
 import Game from "../components/game/containers/game"
 
+let socket = require('socket.io-client')('http://localhost:1337');
+
 class Play extends Component {
     constructor(props){
         super(props);
@@ -28,7 +30,6 @@ class Play extends Component {
         let that = this;
         that.setState({view:"wait"});
         //let username = document.getElementById
-        let socket = require('socket.io-client')('http://localhost:1337');
         socket.emit("newPlayerIsWaiting",player);
 
         socket.on("launchGame",function(player1, player2){
@@ -38,6 +39,7 @@ class Play extends Component {
                 player2:player2
             });
         });
+
     }
 
     render(){
@@ -59,7 +61,7 @@ class Play extends Component {
                 render = (<WaitRoom />)
                 break;
             case "game":
-                render = (<Game user={this.props.user} player1={this.state.player1} player2={this.state.player2}/>)
+                render = (<Game user={this.props.user} socket={socket} player1={this.state.player1} player2={this.state.player2}/>)
                 break;
             default:
                 console.log("Error: this view doesn't exist !");
