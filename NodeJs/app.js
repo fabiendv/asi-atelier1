@@ -46,17 +46,11 @@ ioServer.on('connection', function(socket){
 
 
     socket.on("attack", function(data){
-        console.log("This is my victim socketId: "+data.victim.socketID);
-        console.log("This is my user socketId: "+data.user.socketID);
-        console.log("This is my attackValue: "+JSON.stringify(data.attackValue));
-        ioServer.to(data.victim.socketID).to(data.user.socketID).emit("handleAttack",data.attackValue);
-        // ioServer.to(data.victim.socketID).to(data.user.socketID).emit("launchGame",data.user, data.user);
-        // socket.emit("handleAttack",data.attackValue);
+        ioServer.to(data.victim.socketID).emit("sendAttack",data.attackValue);
     })
 
     socket.on("switchTurn", function(data){
-        ioServer.to(data.turnNext.socketID).emit("handleEndTurn");
-        console.log("ok martin");
+        ioServer.to(data.turnNext.socketID).emit("sendEndTurn");
     })
 
 });
