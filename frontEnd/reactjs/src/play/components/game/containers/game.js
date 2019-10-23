@@ -84,27 +84,31 @@ class Game extends Component{
 
     render() {
         console.log("This is my user in Game:"+JSON.stringify(this.props.user));
-        
+        var that = this;
         // Mon adversaire m'attaque
         this.state.socket.on('sendAttack', function(attackValue){
             console.log("I AM IN HANDLE ATTACK");
             // Si l'utilisateur est joueur 1, Sinon l'utilisateur est le joueur 2
-            if(this.props.user.id===this.state.player1.id){
+            if(that.props.user.id===that.state.player1.id){
                 console.log("Le joueur 2 m'a attaque de:"+attackValue);
             }else{
                 console.log("Le joueur 1 m'a attaque de:"+attackValue);
             }
+            that.state.currentPlayerIsPlayer1 = !that.state.currentPlayerIsPlayer1;
+
         });
 
         // Mon adversaire passe son tour
         this.state.socket.on('sendEndTurn', function(){
             console.log("I AM IN HANDLE END TURN");
             // Si l'utilisateur est joueur 1, Sinon l'utilisateur est le joueur 2
-            if(this.props.user.id===this.state.player1.id){
+            if(that.props.user.id===that.state.player1.id){
                 console.log("Le joueur 2 a passe son tour");
             }else{
                 console.log("Le joueur 1 a passe son tour");
             }		
+            that.state.currentPlayerIsPlayer1 = !that.state.currentPlayerIsPlayer1;
+
         });
 
         return (
