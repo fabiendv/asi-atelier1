@@ -36,7 +36,7 @@ ioServer.on('connection', function(socket){
 
     socket.on('login', function(user){
 
-        console.log('Nouvel user detecte: '+JSON.stringify(user));
+        console.log('Nouvel user connecte: '+JSON.stringify(user));
 
         me=user;
         me.usercolor = randomColor();
@@ -45,13 +45,13 @@ ioServer.on('connection', function(socket){
         ioServer.emit('newusr',me);
 
         /** Ajouter ce dernier à la liste d'utilisateurs en ligne */
-        users[me.id]=me; //TODO: 
+        users[me.id]=me;
 
         //** Mettre le nom de l'utilisateur local */
-        socket.emit('currentUser',me);
+        // socket.emit('currentUser',me);
     })
 
-
+    // Lorsqu'un utilisateur se deconnecte: on l'enleve du tableau
     socket.on('disconnect',function(){
         if(me){
             delete users[me.id];
