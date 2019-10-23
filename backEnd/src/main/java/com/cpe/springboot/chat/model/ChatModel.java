@@ -43,8 +43,8 @@ public class ChatModel {
     	return this.data;
     }
 
-	public String addMessage(String username, String message){
-        this.data = this.data.concat(username + " : " + message + "\n");
+	public String addMessage(String date, String time, String username, String message){
+        this.data = this.data.concat(date + " : " + time + " : " + username + " : " + message + ";");
         return this.data;
     }
 

@@ -69,14 +69,17 @@ ioServer.on('connection', function(socket){
         date = new Date();
         data.hours = date.getHours();
         data.minutes = date.getMinutes();
+        data.date = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
+        data.time = date.getHours() + "." + date.getMinutes() + "." + date.getSeconds();
 
         // TODO: Need to send the data to ActiveMQ in order to save the historic in a log file via SpringBoot
         let me = users[data.id];
         let target = users[data.target];
         let chatLog;
-        for (let chat in chats){
-            if ((chat.userOneId == me.id && chat.userTwoId == target.id)
-                || (chat.userOneId == target.id && chat.userTwoId == me.id)){
+        for (let i in chats){
+            let chat = chats[i];
+            if ((chat.userOneId === me.id.toString() && chat.userTwoId === target.id.toString())
+                || (chat.userOneId === target.id.toString() && chat.userTwoId === me.id.toString())){
                     // le log existe deja
                     chatLog = chat;
             }
@@ -84,6 +87,7 @@ ioServer.on('connection', function(socket){
 
         if (chatLog == undefined){
             // creation d'un log dans la DB
+            console.log("unknow chatlog");
             let headersIn = {'destination': 'chatIn.queue'};
             stompit.connect(connectOptions, (error, client) => {
                 if (error) {
@@ -95,41 +99,6 @@ ioServer.on('connection', function(socket){
                 frame.end();    
                 client.disconnect();
             });
-            // recupere le nouveau log
-            headersOut = {'destination': 'chatOut.queue'};
-            stompit.connect(connectOptions, (error, client) => {
-                if (error) {
-                    return console.error(error);    
-                }    
-                client.subscribe(headersOut, (error, message) => {
-                    if (error) {
-                        return console.error(error);        
-                    }        
-                    message.readString('utf-8', (error, body) => {
-                        if (error) {
-                            return console.error(error);            
-                        }
-                        console.log('received chatLog: ' + body); 
-                        chatLog = JSON.parse(body);
-                        chats[chatLog.id]=chatLog; 
-                        console.log(chatLog);
-                        
-                        //log du nouveau message
-                        let headersIn = {'destination': 'chatIn.queue'};
-                        stompit.connect(connectOptions, (error, client) => {
-                            if (error) {
-                                return console.error(error);
-                            }
-                            console.log(chatLog.id);
-                            const frame = client.send(headersIn);
-                            frame.write('{"id":"'+chatLog.id+'","username":"'+me.username+'","message":"'+data.message+'"}');
-                            frame.end();    
-                            client.disconnect();
-                        });
-
-                    });    
-                });
-            });
         }
         else{
             console.log(chatLog);
@@ -140,14 +109,50 @@ ioServer.on('connection', function(socket){
                     return console.error(error);
                 }
                 const frame = client.send(headersIn);
-                frame.write('{"id":"'+chatLog.id+'","username":"'+me.username+'","message":"'+data.message+'"}');
+                frame.write('{"id":"'+chatLog.id+'","username":"'+me.username+'","message":"'+data.message+'","date":"'+data.date+'","time":"'+data.time+'"}');
                 frame.end();    
                 client.disconnect();
             });
         }
+        // Ecoute de message sur la queue de reponse
+        headersOut = {'destination': 'chatOut.queue'};
+        stompit.connect(connectOptions, (error, client) => {
+            if (error) {
+                return console.error(error);    
+            }    
+            client.subscribe(headersOut, (error, message) => {
+                if (error) {
+                    return console.error(error);        
+                }        
+                message.readString('utf-8', (error, body) => {
+                    if (error) {
+                        return console.error(error);            
+                    }
+                    console.log('received message: ' + body);
 
-        
-        
+                    if (JSON.parse(body).data === ""){
+                        chatLog = JSON.parse(body);
+                        chats[chatLog.id]=chatLog; 
+
+                        //log du nouveau message
+                        let headersIn = {'destination': 'chatIn.queue'};
+                        stompit.connect(connectOptions, (error, client) => {
+                            if (error) {
+                                return console.error(error);
+                            }
+                            const frame = client.send(headersIn);
+                            frame.write('{"id":"'+chatLog.id+'","username":"'+me.username+'","message":"'+data.message+'","date":"'+data.date+'","time":"'+data.time+'"}');
+                            frame.end();    
+                            client.disconnect();
+                        });
+                    }
+                    else{
+                        //no change in the log
+                        console.log('null');
+                    }
+                });    
+            });
+        });
 
         // Broadcast example
         //ioServer.emit("newMessage",data); 

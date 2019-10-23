@@ -56,12 +56,14 @@ public class ChatQueueListener {
             }
             if (JSONChat.has("id") && !JSONChat.getString("id").equals("")){
             	System.out.println("Nouveau message dans le chat log " + JSONChat.getString("id"));
-            	if (JSONChat.has("username") && JSONChat.has("message")){
+            	if (JSONChat.has("username") && JSONChat.has("message") && JSONChat.has("date") && JSONChat.has("time")){
                     Integer id = Integer.valueOf(JSONChat.getString("id"));
                     String username = JSONChat.getString("username");
                     String message = JSONChat.getString("message");
+                    String date = JSONChat.getString("date");
+                    String time = JSONChat.getString("time");
                     //add a message to a chat log
-                    ChatModel chat = chatService.addMessage(id, username, message);
+                    ChatModel chat = chatService.addMessage(id, date, time, username, message);
                     response = chat.toJSONString();
                 }
             }

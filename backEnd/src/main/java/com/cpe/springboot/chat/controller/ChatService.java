@@ -21,11 +21,11 @@ public class ChatService {
         return chat;
     }
 
-    public ChatModel addMessage(Integer chatId, String username, String message){
+    public ChatModel addMessage(Integer chatId, String date, String time, String username, String message){
     	Optional<ChatModel> chat = chatRepository.findById(chatId);
     	if (chat.isPresent()) {
     		ChatModel c = chat.get();
-    		c.addMessage(username, message);
+    		c.addMessage(date, time, username, message);
     		chatRepository.save(c);
     		return c;
     	}
