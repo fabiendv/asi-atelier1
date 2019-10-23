@@ -58,8 +58,9 @@ class Chat extends Component{
 			 // Do not add the current user to the list
 			 if(that.props.user.id!==user.id){
 				console.log("There is a new user: "+JSON.stringify(user));
+
 				updatedTable = that.state.userConnectedList;
-				that.state.userConnectedList.push({id:user.id,label:user.username,value:user.socketId});
+				updatedTable.push({id:user.id,label:user.username,value:user.socketId});
 
 				that.setState(
 					{

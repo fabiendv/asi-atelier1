@@ -17,20 +17,37 @@ ioServer.on('connection', function(socket){
             console.log("deja un utilisateur");
 
             //Création d'une nouvelle partie
+
             let player1 = list_users_playroom[0];
             let player2 = user;
-            player2.socketID = socket.id;
-            let game = new Game("",player1,player2);
 
-            // console.log(game);
+            console.log(player1.id);
+            console.log(player2.id);
+            
+            
+            if(player1.id!==player2.id){
+                player2.socketID = socket.id;
+                let game = new Game("",player1,player2);
 
-            //Retirer premier joueur de la liste
-            list_users_playroom.shift(); 
-            // console.log(socket.id);
-            ioServer.to(player1.socketID).to(player2.socketID).emit("launchGame",player1, player2);
+                // console.log(game);
 
-            console.log("player1socketID"+player1.socketID);
-            console.log("player2socketID"+player2.socketID);
+                //Retirer premier joueur de la liste
+                list_users_playroom.shift(); 
+                // console.log(socket.id);
+                ioServer.to(player1.socketID).to(player2.socketID).emit("launchGame",player1, player2);
+
+                console.log("player1socketID"+player1.socketID);
+                console.log("player2socketID"+player2.socketID);
+
+            }else{
+                let User = {};
+                User = user;
+                User.socketID = socket.id;
+                list_users_playroom.push(User);
+            }
+
+            
+            
 
         }else{
             console.log("Pas d'utilisateur en attente.");

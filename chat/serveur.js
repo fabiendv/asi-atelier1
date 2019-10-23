@@ -45,7 +45,7 @@ ioServer.on('connection', function(socket){
         ioServer.emit('newusr',me);
 
         /** Ajouter ce dernier à la liste d'utilisateurs en ligne */
-        users[me.id]=me;
+        users[me.id]=me; //TODO: 
 
         //** Mettre le nom de l'utilisateur local */
         socket.emit('currentUser',me);
@@ -72,7 +72,6 @@ ioServer.on('connection', function(socket){
         data.date = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
         data.time = date.getHours() + "." + date.getMinutes() + "." + date.getSeconds();
 
-        // TODO: Need to send the data to ActiveMQ in order to save the historic in a log file via SpringBoot
         let me = users[data.id];
         let target = users[data.target];
         let chatLog;
