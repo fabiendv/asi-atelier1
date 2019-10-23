@@ -49,10 +49,10 @@ public class ChatModel {
     }
 
     public String toJSONString(){
-    	return "{'id':'" + this.id.toString() + "',"
-    			+ "'userOneId':'" + this.userOneId.toString() + "',"
-    			+ "'userTwoId':'" + this.userTwoId.toString() + "',"
-    			+ "'data':'" + this.data + "'}";
+    	return "{\"id\":\"" + this.id.toString() + "\","
+    			+ "\"userOneId\":\"" + this.userOneId.toString() + "\","
+    			+ "\"userTwoId\":\"" + this.userTwoId.toString() + "\","
+    			+ "\"data\":\"" + this.data + "\"}";
     }
 
 }

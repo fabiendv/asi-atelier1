@@ -25,7 +25,7 @@ class CardSelection extends Component{
                 listIndex.push(i);
             }
         }
-        if (checkCounter === 4){
+        if (checkCounter === 1){
             this.props.startGameHandler(listIndex);
         }else{
             console.log(checkCounter + "notif erreur");
@@ -35,7 +35,7 @@ class CardSelection extends Component{
                 message: (
                     <div>
                         <div>
-                            Please select exactly <b> 4 cards </b> from your deck.
+                            Please select exactly <b> 1 card </b> from your deck.
                         </div>
                     </div>
                 ),
@@ -60,7 +60,7 @@ class CardSelection extends Component{
                 <NotificationAlert ref="notify" />
                 <div className="ui grid block-container">
                     <div className="ten wide column">
-                    <h3 className="ui aligned header"> Select 4 cards</h3>
+                    <h3 className="ui aligned header"> Select 1 card</h3>
                     <table className="ui selectable celled table" id="cardListId">
                         <thead>
                         <tr>
