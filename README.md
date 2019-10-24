@@ -21,6 +21,7 @@ Activités réalisées par personne :
 	- Composants React pour les pages Login et Signup (User view)
 	- Assemblage de toutes les parties du front-end pour l'atelier 1 (en utilisant directement le projet SpringBoot)
 	- Implementation du composant du chat
+	- Creation et implementation du deroulement d'une partie (front-end et back-end)
  - Maxime :
 	- TODO
 
@@ -36,10 +37,10 @@ Eléments réalisés :
  - Backend Node.js indépendant permettant de créer un chat entre deux utilisateurs
  - BackEnd Node.js indépendant permettant d’associer les utilisateurs souhaitant jouer entre eux.
  - Frontend React d'une partie de jeux
-
-Eléments non réalidés : 
  - Diagramme de séquence expliquant les interactions entre Node.js et le FrontEnd lors d’un jeu entre deux joueurs
  - Backend Node.js d'une partie de jeu
  - Sauvegarde de l’historique des conversations du Chat en envoyant les données du BackEnd Node.js vers le BackEnd Springboot
+
+Eléments non réalidés : 
  - Informer le BackEnd SpringBoot gérant les utilisateurs et les cartes du résultats du jeu par Bus de communication
  - Mise en place d'un proxy permettant de rediriger les requêtes http entre les 2 backends
