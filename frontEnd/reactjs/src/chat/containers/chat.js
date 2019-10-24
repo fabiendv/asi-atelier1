@@ -50,7 +50,9 @@ class Chat extends Component{
 		  { selectedUser },
 		  () => {
 			  console.log(`Option selected:`, selectedUser);
-			  this.state.talkingTo = selectedUser.id;
+			  this.setState({
+				  talkingTo: selectedUser.id
+			  })
 		  }
 		);
 	  };
@@ -102,8 +104,10 @@ class Chat extends Component{
 
 			// Initialise la premiere personne de la liste lors de la premiere connection
 			if(this.state.firstTimeList){
-				this.state.talkingTo = this.state.userConnectedList[0].id;
-				this.state.firstTimeList = false;
+				this.setState({
+					talkingTo: this.state.userConnectedList[0].id,
+					firstTimeList: false
+				})
 			}
 
 			return (
