@@ -3,7 +3,6 @@ import './lib/Semantic-UI-CSS-master/semantic.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
 import './lib/main.css';
-//import './lib/custom.js';
 import Login from './login/Login';
 import { connect } from 'react-redux';
 import User from './user/containers/User';
