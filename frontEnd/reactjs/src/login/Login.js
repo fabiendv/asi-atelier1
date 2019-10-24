@@ -13,6 +13,7 @@ class Login extends Component {
         };
         this.processInput=this.processInput.bind(this);
         this.submitLogin=this.submitLogin.bind(this);
+        this.checkRequiredFields=this.checkRequiredFields.bind(this);
         this.handleSignupPageSelected = this.handleSignupPageSelected.bind(this);
     }
 
@@ -28,53 +29,82 @@ class Login extends Component {
         // console.log(this.state);
     }
 
-    submitLogin(){
-        console.log("User to login: "+JSON.stringify(this.state));
-        // AJAX INSCRIRE USER
-        let that=this;
-
-        axios({
-            method: 'get',
-            baseURL: 'http://localhost:8082',
-            url:`/auth?login=${this.state.login}&pwd=${this.state.pwd}`,
-            headers:{
-                'Access-Control-Allow-Origin':'*'
-            }
-        })
-        .then(function(response){
-            console.log("response: "+response.data);
-            if(response.data){
-            // REDIRIGER TO STORE VIEW
-                // Get user's information
-                axios({
-                    method: 'get',
-                    baseURL: 'http://localhost:8082',
-                    url:`/users`,
-                    headers:{
-                        'Access-Control-Allow-Origin':'*'
-                    }
-                }).then(function(user){
-                    console.log('Login :'+JSON.stringify(that.state.login));
-
-                    user.data.forEach(function(element){
-                        if(that.state.login===element.login){
-                            return that.props.dispatch(setUserSession(element));
-                        }
-                    });
-
-                }).catch(function(error){
-                    console.log("error"+error);
-                })
-
+    checkRequiredFields(){
+        var form = document.getElementsByTagName('form')[0];
+        var fillFields = true;
+        for(var i=0; i < form.elements.length; i++){
+            if(form.elements[i].value === '' && form.elements[i].hasAttribute('required')){
+            form.elements[i].style.borderColor = 'red';
+            fillFields = false;
             }else{
-                // Stay on login page
-                return that.props.dispatch(setLoginPage(true,response.data));
-            }
-        })
-        .catch(function(error){
-            console.log("error"+error);
-            // REDIRIGER TO LOGIN - MAYBE
-        });
+                form.elements[i].style.borderColor = 'rgba(34,36,38,.15)';
+            }    
+        }
+
+        return fillFields;
+    }
+
+    submitLogin(){
+
+        var form = document.getElementsByTagName('form')[0];
+        let fillFields = this.checkRequiredFields();
+
+        if(fillFields === true){
+            console.log("User to login: "+JSON.stringify(this.state));
+            // AJAX INSCRIRE USER
+            let that=this;
+
+            axios({
+                method: 'get',
+                baseURL: 'http://localhost:8082',
+                url:`/auth?login=${this.state.login}&pwd=${this.state.pwd}`,
+                headers:{
+                    'Access-Control-Allow-Origin':'*'
+                }
+            })
+            .then(function(response){
+                console.log("response: "+response.data);
+                if(response.data){
+                // REDIRIGER TO STORE VIEW
+                    // Get user's information
+                    axios({
+                        method: 'get',
+                        baseURL: 'http://localhost:8082',
+                        url:`/users`,
+                        headers:{
+                            'Access-Control-Allow-Origin':'*'
+                        }
+                    }).then(function(user){
+                        console.log('Login :'+JSON.stringify(that.state.login));
+
+                        user.data.forEach(function(element){
+                            if(that.state.login===element.login){
+                                return that.props.dispatch(setUserSession(element));
+                            }
+                        });
+
+                    }).catch(function(error){
+                        console.log("error"+error);
+                    })
+
+                }else{
+                    // Stay on login page
+                    return that.props.dispatch(setLoginPage(true,response.data));
+                }
+            })
+            .catch(function(error){
+                console.log("error"+error);
+                form.getElementsByClassName('error')[0].style.display = "block";
+                form.getElementsByClassName('error')[0].innerHTML = "The username and password entered do not match any accounts. Please try again.";
+                // REDIRIGER TO LOGIN - MAYBE
+            });
+
+        }else{
+            form.getElementsByClassName('error')[0].style.display = "block";
+            form.getElementsByClassName('error')[0].innerHTML = "All fields must be completed !";
+        }
+
+        
     }
 
     handleSignupPageSelected(hasAccount){
@@ -120,19 +150,21 @@ class Login extends Component {
                     <div className="field">
                         <div className="ui left icon input">
                         <i className="user icon"></i>
-                        <input type="text" name="login" onChange={(ev)=>{this.processInput(ev)}} placeholder="Username" />
+                        <input type="text" name="login" required onChange={(ev)=>{this.processInput(ev)}} placeholder="Username" />
                         </div>
                     </div>
                     <div className="field">
                         <div className="ui left icon input">
                         <i className="lock icon"></i>
-                        <input type="password" name="pwd"  onChange={(ev)=>{this.processInput(ev)}} placeholder="Password" />
+                        <input type="password" name="pwd"  required onChange={(ev)=>{this.processInput(ev)}} placeholder="Password" />
                         </div>
                     </div>
                     <div className="ui fluid large teal submit button" onClick={()=>{this.submitLogin()}}>Login</div>
                     </div>
             
-                    <div className="ui error message"></div>
+                    <div className="ui error message">
+                        
+                    </div>
 
                 </form>
             

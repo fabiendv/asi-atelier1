@@ -10,7 +10,6 @@ import globalReducer from './reducers';
 
 
 
-
 const store = createStore(globalReducer);
 
 ReactDOM.render(<Provider store={store} ><App /></Provider>, document.getElementById('root'));
