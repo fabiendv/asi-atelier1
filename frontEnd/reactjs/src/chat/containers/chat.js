@@ -58,31 +58,26 @@ class Chat extends Component{
 	render(){
 		var that = this;
 		var updatedTable = [];
+		console.log("I am: "+JSON.stringify(this.props.user.login));
 		console.log("This is the connected user list: "+ JSON.stringify(this.state.userConnectedList));
-
-		// Le serveur nous informe qu'un nouvel utilisateur s'est connecte
-		socket.on('newusr', function(user){
-			 // Check si l'utilisateur detecte est different de lui meme
-			 if(that.props.user.id!==user.id){
-				console.log("There is a new user: "+JSON.stringify(user));
-				// Ajouter le nouvel utilisateur dans la liste des selections
-				updatedTable = that.state.userConnectedList;
-				updatedTable.push({id:user.id,label:user.username,value:user.socketId});
-				that.setState(
-					{
-						userConnectedList: updatedTable,
-					}
-				);
-			 }
-		});
 	
-		socket.on('currentUser', function(user){
-			// unused
+		socket.on('updateYourTable', function(usersTable){
+			var user;
+			for(user in usersTable){
+				console.log("This is a user:"+JSON.stringify(usersTable[user]));
+				// Je teste si c'est moi
+				if(usersTable[user].id===that.props.user.id){
+					// c'est moi je ne m'ajoute pas a la liste
+				}else{
+					updatedTable.push({id:usersTable[user].id,label:usersTable[user].username,value:usersTable[user].socketId});
+				}
+			}
+			that.setState(
+				{
+					userConnectedList: updatedTable,
+				}
+			);
 		});
-	
-		socket.on('deleteUser', function(user){
-			// TODO: update la liste des utilisateurs connecte
-		});	
 	
 		// Un nouveau message nous est envoye
 		socket.on('newMessage',function(data){
@@ -135,13 +130,13 @@ class Chat extends Component{
 								</div>
 								
 								{/* Add select componant for futur dev */}
-								{/* <Select
+								<Select
 									// value={selectedOption}
 									defaultValue={this.state.userConnectedList[0].value}
 									onChange={this.handleChangeUser}
 									options={this.state.userConnectedList}
 									// placeholder="Select User"
-								/> */}
+								/>
 								
 								<div className="ui segment" id="messages">
 	
@@ -161,8 +156,29 @@ class Chat extends Component{
 			</div>
 			);
 		}else{
-			// On ne retourne rien tant que les informations sont undefined
-			return null;
+			// On ne retourne que personne n'est connecte pour parler
+			return (<div className="chat">
+			<div className="ui segment">
+				<div className="ui five column grid">
+					<div className="" style={{paddingTop: '1em', paddingBottom: '1em', paddingLeft:'0px', width:'100%'}}>
+						<div className="ui segment">
+							<div className="ui top attached label">
+								<div className="ui two column grid">
+									<div className="column">
+										Chat unavailable
+									</div>
+								</div>
+							</div>
+						</div>
+												
+						<div className="ui segment" id="messages">
+							You are the only user connected
+						</div>
+	
+					</div>
+				</div>
+		</div>
+	</div>);
 		}
 
 	}
