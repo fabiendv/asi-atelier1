@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PlayerCardsSelect from '../components/playerCardsSelect';
 import Chat from './../../../../chat/containers/chat'
 import User from './../../../../user/containers/User'
+import { connect } from 'react-redux';
+import { setMainMenuPage } from '../../../../actions';
 
 class Game extends Component{
 
@@ -21,6 +23,7 @@ class Game extends Component{
         this.sendAttack = this.sendAttack.bind(this);
         this.sendEndTurn = this.sendEndTurn.bind(this);
         this.isMyTurnToPlay = this.isMyTurnToPlay.bind(this);
+        this.setHome=this.setHome.bind(this);
     }
 
     handlePlayer1CardSelection(card){
@@ -29,6 +32,10 @@ class Game extends Component{
 
     handlePlayer2CardSelection(card){
         this.setState({player2CardSelected:card});
+    }
+
+    setHome(){
+        this.props.dispatch(setMainMenuPage());
     }
 
     isMyTurnToPlay(){
@@ -174,14 +181,16 @@ class Game extends Component{
         this.state.socket.on('youLoose', function(){
             console.log("J'ai perdu");
             // TODO: - Popup looser
-            // TODO: - Redirect to the home page
+            // Redirect to the home page
+            this.setHome();
         })
 
         this.state.socket.on('youWin', function(){
             console.log("J'ai Gagne");
             // TODO: - Popup avec firework
-            // TODO: - Redirect to the home page
             // TODO: - Credit the money to the bank account via axios
+            // Redirect to the home page
+            this.setHome();
         })
 
         return (
@@ -243,4 +252,4 @@ class Game extends Component{
     }
 
 }
-export default Game;
+export default connect()(Game);
