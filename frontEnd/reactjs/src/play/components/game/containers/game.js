@@ -4,6 +4,7 @@ import Chat from './../../../../chat/containers/chat'
 import User from './../../../../user/containers/User'
 import { connect } from 'react-redux';
 import { setMainMenuPage } from '../../../../actions';
+const axios = require('axios').default;
 
 class Game extends Component{
 
@@ -181,6 +182,7 @@ class Game extends Component{
         this.state.socket.on('youLoose', function(){
             console.log("J'ai perdu");
             // TODO: - Popup looser
+            
             // Redirect to the home page
             this.setHome();
         })
@@ -188,7 +190,31 @@ class Game extends Component{
         this.state.socket.on('youWin', function(){
             console.log("J'ai Gagne");
             // TODO: - Popup avec firework
-            // TODO: - Credit the money to the bank account via axios
+
+            // Credit the money to the bank account via axios
+            // TODO: test
+            axios({
+                method: 'put',
+                baseURL: 'http://localhost:8082',
+                url:`/user/${this.props.user.id}`,
+                data:
+                {
+                    account:this.props.user.account+1000,
+                },
+                headers:{
+                    'Access-Control-Allow-Origin':'*'
+                }
+              })
+              .then(function(response){;
+                  
+                console.log("Credit the money: "+JSON.stringify(response));
+          
+              })
+              .catch(function(error){
+                  console.log("Credit the money error: "+error);
+                  // REDIRIGER TO LOGIN - MAYBE
+              });
+        
             // Redirect to the home page
             this.setHome();
         })
