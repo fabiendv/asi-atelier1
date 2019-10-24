@@ -58,7 +58,7 @@ class Chat extends Component{
 	render(){
 		var that = this;
 		var updatedTable = [];
-		console.log("This is the log: "+ JSON.stringify(this.state.userConnectedList));
+		console.log("This is the connected user list: "+ JSON.stringify(this.state.userConnectedList));
 
 		// Le serveur nous informe qu'un nouvel utilisateur s'est connecte
 		socket.on('newusr', function(user){
