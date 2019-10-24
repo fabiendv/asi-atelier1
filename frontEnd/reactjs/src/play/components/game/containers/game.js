@@ -112,7 +112,8 @@ class Game extends Component{
         });
 
         return (
-                <div className="ui fluid">
+            <div className="container-fluid">
+                <div className="ui fluid block-container">
                     <div className="ui grid">
                         <div className="four wide column">
                             <Chat user={this.props.user}></Chat>
@@ -120,7 +121,7 @@ class Game extends Component{
                         <div className="twelve wide column">
                             <div className="row player1">
                                 <div className="ui center aligned fluid container">
-                                    <div className="ui grid">
+                                    <div className="ui grid middle aligned">
                                         <div className="three wide column">
                                             <User display_type="AVATAR" login={this.props.player1.login}></User>
                                         </div>
@@ -148,7 +149,7 @@ class Game extends Component{
                             </div>
                             <div className="row player2">
                                 <div className="ui center aligned fluid container">
-                                    <div className="ui grid">
+                                    <div className="ui grid middle aligned">
                                         <div className="three wide column">
                                             <User display_type="AVATAR" login={this.props.player2.login}></User>
                                         </div>
@@ -164,7 +165,7 @@ class Game extends Component{
                         </div>
                     </div>
                 </div>
-            
+            </div>
         );
 
     }

@@ -337,6 +337,14 @@ h1, h2, h3, h4, h5{
   font-family: "Open Sans";
 }
 
+.ui.card>.content, .ui.cards>.card>.content{
+  font-size: 12px;
+}
+
+.player1 > .ui.cards > .card, .player2 > .ui.cards > .card{
+  width: 180px;
+}
+
 /** Login **/
 
 #root > div > div.ui.aligned.center.aligned.grid > .column{
@@ -397,3 +405,10 @@ h1, h2, h3, h4, h5{
   font-size:15px;
 
 }
+
+/** Avatar **/
+
+.avatar{
+  padding-top: 20px;
+}
+
