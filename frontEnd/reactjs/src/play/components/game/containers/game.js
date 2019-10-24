@@ -182,7 +182,7 @@ class Game extends Component{
         this.state.socket.on('youLoose', function(){
             console.log("J'ai perdu");
             // TODO: - Popup looser
-            
+
             // Redirect to the home page
             this.setHome();
         })
@@ -191,7 +191,7 @@ class Game extends Component{
             console.log("J'ai Gagne");
             // TODO: - Popup avec firework
 
-            // Credit the money to the bank account via axios
+            // Credit $1000 to the bank account via axios
             // TODO: test
             axios({
                 method: 'put',
