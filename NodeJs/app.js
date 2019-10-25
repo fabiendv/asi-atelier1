@@ -101,6 +101,17 @@ ioServer.on('connection', function(socket){
         ioServer.to(data.turnNext.socketID).emit("sendEndTurn");
     })
 
+    // Lorsqu'un utilisateur se deconnecte: on declare l'adversaire gagnant
+    socket.on('logout',function(user){
+        console.log('User winner: '+JSON.stringify(user.login));
+        // ioServer.to(user.socketID).emit("youWin");
+    })
+
+    socket.on('disconnect',function(){
+        console.log("Une personne s'est deconnectee.");
+        ioServer.emit("someoneHasBeenDeconnected",socket.id);
+    })
+
 });
 
 
