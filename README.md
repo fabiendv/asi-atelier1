@@ -14,9 +14,13 @@
 	- Composants React pour les pages Buy/Sell et Play
 	- Module backend Springboot communicant par un bus avec une application indépendante
 	- Backend Node.js associant 2 joueurs dans une partie
+	- Historique du chat dans Springboot en utilisant Activemq
 
  - Martin : 
-	- TODO
+	- Composants React (et enfants) menu, navbar, user
+	- Réalisation de l'identité visuelle (CSS + JS)
+	- Participation au déroulement du game
+	- Participation au développement du chat
 
  - Fabien :
 	- Composants React pour les pages Login et Signup (User view)
@@ -48,6 +52,14 @@
 
  - Informer le BackEnd SpringBoot gérant les utilisateurs et les cartes du résultats du jeu par Bus de communication
  - Mise en place d'un proxy permettant de rediriger les requêtes http entre les 2 backends
+ - Gestion des cas particuliers suivant : 
+	- Lorsqu'un joueur quitte la partie en cours avec le bouton home:
+		* Comportement actuel: la partie reste bloqué, le joueur restant doit retourner dans home
+		* Comportement attendu: le joueur restant gagne la partie 
+
+	- Lorsqu'un joueur quitte la waiting page:
+		* Comportement actuel: le joueur retourne sur le home mais le serveur considère le joueur toujours en waiting page.
+		* Comportement attendu: le joueur retourne sur le home et le serveur est informé que le joueur n'attend plus de partie
 
  ## Installation & Run
 
