@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {createAccount, setLoginPage, setUserSession} from '../actions';
-import { setMainMenuPage } from '../actions';
-
+import {createAccount, setUserSession} from '../actions';
 
 const axios = require('axios').default;
 

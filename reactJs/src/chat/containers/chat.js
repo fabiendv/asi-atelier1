@@ -29,7 +29,7 @@ class Chat extends Component{
 			
 			let newUserList = [];
 			for (let k in dictUsers){
-				if (dictUsers[k].id != that.props.user.id){
+				if (dictUsers[k].id !== that.props.user.id){
 					newUserList.push({id:dictUsers[k].id,label:dictUsers[k].username,value:dictUsers[k].socketId})
 				}
 			}
