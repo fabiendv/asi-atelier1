@@ -157,11 +157,20 @@ class Game extends Component{
                 // On met a jour les valeurs de nos cartes
                 var newMyCardSelected = that.state.player1CardSelected;
                 newMyCardSelected.hp = newMyCardSelectedHp;
-                console.log(JSON.stringify(newMyCardSelected));
+                //console.log(JSON.stringify(newMyCardSelected));
                 that.setState({
                     player1CardSelected: newMyCardSelected,
-                })
-                console.log(JSON.stringify(that.state.player1CardSelected));
+                });
+                var newMyCardList = [];
+                newMyCardList.push(newMyCardSelected);
+                that.setState(prevState => {
+                    let player1 = Object.assign({}, prevState.player1);
+                    player1.cardList = newMyCardList;
+                    return {player1};
+                });
+                console.log("LISTE UDPATED: "+JSON.stringify(that.state.player1.cardList));
+ 
+                //console.log(JSON.stringify(that.state.player1CardSelected));
 
             }else{
                 console.log("=================================");
@@ -169,11 +178,25 @@ class Game extends Component{
                 // On met a jour les valeurs de nos cartes
                 newMyCardSelected = that.state.player2CardSelected;
                 newMyCardSelected.hp = newMyCardSelectedHp;
-                console.log(JSON.stringify(newMyCardSelected));
+                //console.log(JSON.stringify(newMyCardSelected));
                 that.setState({
                     player2CardSelected: newMyCardSelected,
                 })
-                console.log(JSON.stringify(that.state.player2CardSelected));
+                that.setState(prevState => {
+                    let player2 = Object.assign({}, prevState.player2);
+                    player2.cardList[0] = newMyCardSelected;
+                    return {player2};
+                });
+                newMyCardList = [];
+                newMyCardList.push(newMyCardSelected);
+                that.setState(prevState => {
+                    let player2 = Object.assign({}, prevState.player2);
+                    player2.cardList = newMyCardList;
+                    return {player2};
+                });
+                console.log("LISTE UDPATED: "+JSON.stringify(that.state.player2.cardList));
+                // On met a jour les valeurs ainsi que l'affichae
+                //console.log(JSON.stringify(that.state.player2CardSelected));
 
             }
         });
@@ -184,20 +207,33 @@ class Game extends Component{
             if(that.props.user.id===that.state.player1.id){
                 console.log("Je suis le playeur 1. J'ai recu la confirmation de mon attaque.");
                 // On met a jour les valeurs de la carte
-                var newOppositePlayerCardSelected = that.state.player1CardSelected;
+                var newOppositePlayerCardSelected = that.state.player2CardSelected;
                 newOppositePlayerCardSelected.hp = newMyCardSelectedHp;
                 that.setState({
                     player2CardSelected: newOppositePlayerCardSelected,
-                })
-
+                });
+                var newMyCardList = [];
+                newMyCardList.push(newOppositePlayerCardSelected);
+                that.setState(prevState => {
+                    let player2 = Object.assign({}, prevState.player2);
+                    player2.cardList = newMyCardList;
+                    return {player2};
+                });
             }else{
                 console.log("Je suis le playeur 2. J'ai recu la confirmation de mon attaque.");
                 // On met a jour les valeurs de la carte
-                newOppositePlayerCardSelected = that.state.player2CardSelected;
+                newOppositePlayerCardSelected = that.state.player1CardSelected;
                 newOppositePlayerCardSelected.hp = newMyCardSelectedHp;
                 that.setState({
                     player1CardSelected: newOppositePlayerCardSelected,
                 })
+                newMyCardList = [];
+                newMyCardList.push(newOppositePlayerCardSelected);
+                that.setState(prevState => {
+                    let player1 = Object.assign({}, prevState.player1);
+                    player1.cardList = newMyCardList;
+                    return {player1};
+                });
             }
         });
 
@@ -256,6 +292,11 @@ class Game extends Component{
             // Redirect to the home page
             this.setHome();
         })
+        console.log("=====================");
+        console.log("LISTE UDPATED BEFORE RENDER FOR PLAYER 1: "+JSON.stringify(this.state.player1.cardList));
+        console.log("LISTE UDPATED BEFORE RENDER FOR PLAYER 2: "+JSON.stringify(this.state.player2.cardList));
+        console.log("=====================");
+
 
         return (
                 <div className="ui fluid">
