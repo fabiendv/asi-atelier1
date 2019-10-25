@@ -41,7 +41,7 @@ class Game extends Component{
             if(that.props.user.id===that.state.player1.id){
                 console.log("=================================");
                 console.log("Le joueur 2 m'a attaque. Il me reste: "+newMyCardSelectedHp+" hp sur ma carte.");
-                that.updateInfoGame("danger","Aie vous avez recu une attaque!");
+                that.updateInfoGame("danger",`Aie! vous avez recu une attaque: il vous reste ${newMyCardSelectedHp}!`);
                 // On met a jour les valeurs de nos cartes
                 var newMyCardSelected = that.state.player1CardSelected;
                 newMyCardSelected.hp = newMyCardSelectedHp;
@@ -62,7 +62,7 @@ class Game extends Component{
             }else{
                 console.log("=================================");
                 console.log("Le joueur 1 m'a attaque. Il me reste: "+newMyCardSelectedHp+" hp sur ma carte.");
-                that.updateInfoGame("danger","Aie vous avez recu une attaque!");
+                that.updateInfoGame("danger",`Aie! vous avez recu une attaque: il vous reste ${newMyCardSelectedHp}!`);
                 // On met a jour les valeurs de nos cartes
                 newMyCardSelected = that.state.player2CardSelected;
                 newMyCardSelected.hp = newMyCardSelectedHp;
@@ -88,7 +88,7 @@ class Game extends Component{
             // Si l'utilisateur est joueur 1, Sinon l'utilisateur est le joueur 2
             if(that.props.user.id===that.state.player1.id){
                 console.log("Je suis le playeur 1. J'ai recu la confirmation de mon attaque.");
-                that.updateInfoGame("success","Vous avez envoye une attaque!");
+                that.updateInfoGame("success","Vous avez envoye votre attaque!");
                 // On met a jour les valeurs de la carte
                 var newOppositePlayerCardSelected = that.state.player1CardSelected;
                 newOppositePlayerCardSelected.hp = newMyCardSelectedHp;
@@ -104,7 +104,7 @@ class Game extends Component{
                 });
             }else{
                 console.log("Je suis le playeur 2. J'ai recu la confirmation de mon attaque.");
-                that.updateInfoGame("success","Vous avez envoye une attaque!");
+                that.updateInfoGame("success","Vous avez envoye votre attaque!");
                 // On met a jour les valeurs de la carte
                 newOppositePlayerCardSelected = that.state.player2CardSelected;
                 newOppositePlayerCardSelected.hp = newMyCardSelectedHp;
@@ -137,6 +137,7 @@ class Game extends Component{
                     currentPlayerIsPlayer1: false,
                 })            
             }		
+
         });
 
         this.state.socket.on('youLoose', function(){
@@ -221,7 +222,7 @@ class Game extends Component{
     popUpWin(){
         Swal.fire({
             title: 'Congratulations !',
-            text: 'You win your game against Fabien !',
+            text: 'You won your game!',
             imageUrl: 'https://i.ibb.co/VQxZKJC/trophy.png',
             imageWidth: 200,
             imageHeight: 200,
@@ -246,7 +247,7 @@ class Game extends Component{
         Swal.fire({
             type: 'error',
             title: 'Too bad ...',
-            text: 'You loose your game against Martin !',
+            text: 'You lost your game!',
             confirmButtonColor: '#2c2c2c',
             confirmButtonText: 'Return to the home page',
             backdrop: `
