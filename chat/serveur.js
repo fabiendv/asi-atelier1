@@ -30,9 +30,9 @@ ioServer.on('connection', function(socket){
     console.log('Nouvelle socket detectee: '+socket.id);
 
     /** Récupérer la liste des utilisateurs */
-    for( var k in users){
-        socket.emit('newusr',users[k]);
-    }
+    // for( var k in users){
+    //     socket.emit('newusr',users[k]);
+    // }
 
     socket.on('login', function(user){
 
@@ -41,21 +41,22 @@ ioServer.on('connection', function(socket){
         me=user;
         me.usercolor = randomColor();
         me.socketId = socket.id;
-        //** Ajout d'un nouvel utilisateur */
-        ioServer.emit('newusr',me);
-
-        /** Ajouter ce dernier à la liste d'utilisateurs en ligne */
+        console.log('users: ');
+        console.log(users);
+       
+        /** Ajouter cet utilisateur à la liste d'utilisateurs en ligne */
         users[me.id]=me;
 
-        //** Mettre le nom de l'utilisateur local */
-        // socket.emit('currentUser',me);
+         //** Emettre la nouvelle liste pour tous les utilisateurs */
+        ioServer.emit('updateYourTable', users);
     })
 
     // Lorsqu'un utilisateur se deconnecte: on l'enleve du tableau
     socket.on('disconnect',function(){
         if(me){
             delete users[me.id];
-            ioServer.emit("deleteUser",me);
+            //** Emettre la nouvelle liste pour tous les utilisateurs */
+            ioServer.emit('updateYourTable',users);
         }
     })
 

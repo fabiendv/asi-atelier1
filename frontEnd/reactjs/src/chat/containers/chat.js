@@ -11,10 +11,48 @@ class Chat extends Component{
 		this.state = {
 			userConnectedList:[],
 			talkingTo:"",
-			firstTimeChat: true,
 			firstTimeList: true,
 		};
 		this.sendMessage = this.sendMessage.bind(this);
+		this.initSocket = this.initSocket.bind(this);
+		this.initSocket();
+	}
+
+	initSocket(){
+		var that = this;
+	
+		/**
+		 * param: dictionary of connected users
+		 * remove the actual user from the list and replace the userConnectedList
+		 */
+		socket.on('updateYourTable', function(dictUsers){
+			
+			let newUserList = [];
+			for (let k in dictUsers){
+				if (dictUsers[k].id != that.props.user.id){
+					newUserList.push({id:dictUsers[k].id,label:dictUsers[k].username,value:dictUsers[k].socketId})
+				}
+			}
+
+			that.setState(
+				{
+					userConnectedList: newUserList
+				}
+			);
+		});
+	
+		// Un nouveau message nous est envoye
+		socket.on('newMessage',function(data){
+			console.log('There is a new received message.');
+			if(data.id === that.props.user.id){
+				$('#messages').append('<div class="ui raised segment"><a class="ui ribbon label" style="background-color:'+data.color+'">'+data.username+'</a><span>'+data.hours+':'+data.minutes+'</span><p>'+data.message+'</p></div>')        
+			}else{
+				console.log("From someonelse!");
+				$('#messages').append('<div class="ui raised segment"><a class="ui right ribbon label" style="background-color:'+data.color+'">'+data.username+'</a><span>'+data.hours+':'+data.minutes+'</span><p>'+data.message+'</p></div>')
+			}
+			var messagesContainer = document.getElementById("messages");
+			messagesContainer.scrollTop = messagesContainer.scrollHeight
+		});
 	}
 
 	sendMessage(){
@@ -50,65 +88,23 @@ class Chat extends Component{
 		  { selectedUser },
 		  () => {
 			  console.log(`Option selected:`, selectedUser);
-			  this.state.talkingTo = selectedUser.id;
+			  this.setState({
+				  talkingTo: selectedUser.id
+			  })
 		  }
 		);
 	  };
 
 	render(){
-		var that = this;
-		var updatedTable = [];
-		console.log("This is the connected user list: "+ JSON.stringify(this.state.userConnectedList));
-
-		// Le serveur nous informe qu'un nouvel utilisateur s'est connecte
-		socket.on('newusr', function(user){
-			 // Check si l'utilisateur detecte est different de lui meme
-			 if(that.props.user.id!==user.id){
-				console.log("There is a new user: "+JSON.stringify(user));
-				// Ajouter le nouvel utilisateur dans la liste des selections
-				updatedTable = that.state.userConnectedList;
-				updatedTable.push({id:user.id,label:user.username,value:user.socketId});
-				that.setState(
-					{
-						userConnectedList: updatedTable,
-					}
-				);
-			 }
-		});
-	
-		socket.on('currentUser', function(user){
-			// unused
-		});
-	
-		socket.on('deleteUser', function(user){
-			// TODO: update la liste des utilisateurs connecte
-		});	
-	
-		// Un nouveau message nous est envoye
-		socket.on('newMessage',function(data){
-			console.log('There is a new received message.');
-			if(that.state.firstTimeChat){
-				if(data.id === that.props.user.id){
-					$('#messages').append('<div class="ui raised segment"><a class="ui ribbon label" style="background-color:'+data.color+'">'+data.username+'</a><span>'+data.hours+':'+data.minutes+'</span><p>'+data.message+'</p></div>')        
-				}else{
-					console.log("From someonelse!");
-					$('#messages').append('<div class="ui raised segment"><a class="ui right ribbon label" style="background-color:'+data.color+'">'+data.username+'</a><span>'+data.hours+':'+data.minutes+'</span><p>'+data.message+'</p></div>')
-				} 
-				that.state.firstTimeChat = false;
-
-			}else{
-				that.state.firstTimeChat=true;
-			}
-
-		});
-
 		// Il devrait avoir au moins un utilisateur avant de render() le componant
 		if(this.state.userConnectedList.length>0){
 
 			// Initialise la premiere personne de la liste lors de la premiere connection
 			if(this.state.firstTimeList){
-				this.state.talkingTo = this.state.userConnectedList[0].id;
-				this.state.firstTimeList = false;
+				this.setState({
+					talkingTo: this.state.userConnectedList[0].id,
+					firstTimeList: false
+				})
 			}
 
 			return (
@@ -135,13 +131,13 @@ class Chat extends Component{
 								</div>
 								
 								{/* Add select componant for futur dev */}
-								{/* <Select
+								<Select
 									// value={selectedOption}
 									defaultValue={this.state.userConnectedList[0].value}
 									onChange={this.handleChangeUser}
 									options={this.state.userConnectedList}
 									// placeholder="Select User"
-								/> */}
+								/>
 								
 								<div className="ui segment" id="messages">
 	
@@ -161,8 +157,29 @@ class Chat extends Component{
 			</div>
 			);
 		}else{
-			// On ne retourne rien tant que les informations sont undefined
-			return null;
+			// On ne retourne que personne n'est connecte pour parler
+			return (<div className="chat">
+			<div className="ui segment">
+				<div className="ui five column grid">
+					<div className="" style={{paddingTop: '1em', paddingBottom: '1em', paddingLeft:'0px', width:'100%'}}>
+						<div className="ui segment">
+							<div className="ui top attached label">
+								<div className="ui two column grid">
+									<div className="column">
+										Chat unavailable
+									</div>
+								</div>
+							</div>
+						</div>
+												
+						<div className="ui segment" id="messages">
+							You are the only user connected
+						</div>
+	
+					</div>
+				</div>
+		</div>
+	</div>);
 		}
 
 	}
