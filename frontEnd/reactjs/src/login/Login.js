@@ -3,53 +3,9 @@ import { connect } from 'react-redux';
 import {createAccount, setLoginPage, setUserSession} from '../actions';
 import { setMainMenuPage } from '../actions';
 
-import Swal from 'sweetalert2'
 
 const axios = require('axios').default;
 
-/*wal.fire({
-   
-    title: 'Congratulations !',
-    text: 'You win your game against Fabien !',
-    imageUrl: 'https://i.ibb.co/VQxZKJC/trophy.png',
-    imageWidth: 200,
-    imageHeight: 200,
-    imageAlt: 'trophy',
-    confirmButtonColor: '#2c2c2c',
-    confirmButtonText: 'Return to the home page',
-    backdrop: `
-    rgba(0,0,123,0.4)
-    url("https://media.giphy.com/media/26tOZ42Mg6pbTUPHW/giphy.gif")
-    center left
-    round
-  `
-  }).then((result) => {
-            if (result.value) {
-                this.props.dispatch(setMainMenuPage());
-            }
-    })
-          
-          */
-         /*
-         Swal.fire({
-            type: 'error',
-            title: 'Too bad ...',
-            text: 'You loose your game against Martin !',
-            confirmButtonColor: '#2c2c2c',
-            confirmButtonText: 'Return to the home page',
-            backdrop: `
-            rgba(0,0,123,0.4)
-            url("https://media.giphy.com/media/psmj4cmTGQQ0We0Uyf/giphy.gif")
-            center left
-            no-repeat
-          `
-        }).then((result) => {
-            if (result.value) {
-                this.props.dispatch(setMainMenuPage());
-            }
-          })*/
-
-       
 
 class Login extends Component {
     //className constructor whith given properties
