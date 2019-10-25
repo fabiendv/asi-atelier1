@@ -50,7 +50,9 @@ class Chat extends Component{
 			}else{
 				console.log("From someonelse!");
 				$('#messages').append('<div class="ui raised segment"><a class="ui right ribbon label" style="background-color:'+data.color+'">'+data.username+'</a><span>'+data.hours+':'+data.minutes+'</span><p>'+data.message+'</p></div>')
-			} 
+			}
+			var messagesContainer = document.getElementById("messages");
+			messagesContainer.scrollTop = messagesContainer.scrollHeight
 		});
 	}
 
