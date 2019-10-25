@@ -29,7 +29,8 @@
 	- Creation et implementation du deroulement d'une partie (front-end et back-end)
 
  - Maxime :
-	- TODO
+	- Realisation du serveur chat
+	- Verification de l'organisation generale (correction de warning/erreur dans la console du web browser)
 
 ## Eléments réalisés
 
