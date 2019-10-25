@@ -30,6 +30,7 @@ class Game extends Component{
         this.setHome=this.setHome.bind(this);
         this.updateInfoGame=this.updateInfoGame.bind(this);
         this.popUpWin = this.popUpWin.bind(this);
+        this.youWin = this.youWin.bind(this);
         this.popUpLoose = this.popUpLoose.bind(this);
 
         var that = this;
@@ -145,54 +146,22 @@ class Game extends Component{
         })
 
         this.state.socket.on('youWin', function(){
-            var those = that;
-            // L'utilisateur a gagne
-            // Credit $1000 to the bank account via axios
-            axios({
-                method: 'put',
-                baseURL: 'http://localhost:8082',
-                url:`/user/${that.props.user.id}`,
-                data:
-                {
-                    surname:that.props.user.surName,
-                    lastname:that.props.user.lastName,
-                    login:that.props.user.login,
-                    pwd:that.props.user.pwd,
-                    account:that.props.user.account+1000,
-                    img:that.props.user.img,
+            that.youWin();
+        })
 
-                },
-                headers:{
-                    'Access-Control-Allow-Origin':'*'
+        // Le serveur nous informe qu'une socket s'est deconnectee. On check si c'est notre adversaire.
+        this.state.socket.on('someoneHasBeenDeconnected', function(idDisconnected){
+            if(that.props.user.id===that.props.player1.id){
+                // Je suis le joueur 1, je check si l'id deconnected est celle du joueur 2
+                if(idDisconnected===that.props.player2.socketID){
+                    that.youWin();
                 }
-                })
-                .then(function(response){;
-                    console.log("Credit the money RESPONSE: "+JSON.stringify(response));
-
-                    console.log("Credit the money: "+JSON.stringify(response.data));
-                    
-                    var those = that;
-                    axios({
-                        method: 'get',
-                        baseURL: 'http://localhost:8082',
-                        url:`/user/${those.props.user.id}`, 
-                    }).then(function(response){
-                        // Update the user
-                        those.props.dispatch(updateUser(response.data));
-                        // Popup avec firework
-                        those.popUpWin();
-                    }).catch(function(error){
-                        console.log("error: "+error);
-                    })
-                    
-                })
-                .catch(function(error){
-                    console.log("Credit the money error: "+error);
-                    // REDIRIGER TO LOGIN - MAYBE
-                });
-        
-            // Redirect to the home page
-            that.setHome();
+            }else{
+                // Je suis le joueur 2, je check si l'id deconnected est celle du joueur 1
+                if(idDisconnected===that.props.player1.socketID){
+                    that.youWin();
+                }
+            }
         })
 
 
@@ -230,6 +199,57 @@ class Game extends Component{
         catch(err){
             console.log('notification error : ' + err);
         }
+    }
+
+    youWin(){
+        var that = this;
+        // L'utilisateur a gagne
+        // Credit $1000 to the bank account via axios
+        axios({
+            method: 'put',
+            baseURL: 'http://localhost:8082',
+            url:`/user/${that.props.user.id}`,
+            data:
+            {
+                surname:that.props.user.surName,
+                lastname:that.props.user.lastName,
+                login:that.props.user.login,
+                pwd:that.props.user.pwd,
+                account:that.props.user.account+1000,
+                img:that.props.user.img,
+
+            },
+            headers:{
+                'Access-Control-Allow-Origin':'*'
+            }
+            })
+            .then(function(response){;
+                console.log("Credit the money RESPONSE: "+JSON.stringify(response));
+
+                console.log("Credit the money: "+JSON.stringify(response.data));
+                
+                var those = that;
+                axios({
+                    method: 'get',
+                    baseURL: 'http://localhost:8082',
+                    url:`/user/${those.props.user.id}`, 
+                }).then(function(response){
+                    // Update the user
+                    those.props.dispatch(updateUser(response.data));
+                    // Popup avec firework
+                    those.popUpWin();
+                }).catch(function(error){
+                    console.log("error: "+error);
+                })
+                
+            })
+            .catch(function(error){
+                console.log("Credit the money error: "+error);
+                // REDIRIGER TO LOGIN - MAYBE
+            });
+    
+        // Redirect to the home page
+        that.setHome();
     }
 
     popUpWin(){
