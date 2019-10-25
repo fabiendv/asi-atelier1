@@ -82,6 +82,10 @@ class Chat extends Component{
 		});
 	}
 
+	componentWillUnmount(){
+		socket.emit('logout');
+	}
+
 	handleChangeUser = selectedUser => {
 		// Change la valeur de l'id de la personne a qui l'utilisateur veut parler.
 		this.setState(

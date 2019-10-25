@@ -52,6 +52,15 @@ ioServer.on('connection', function(socket){
     })
 
     // Lorsqu'un utilisateur se deconnecte: on l'enleve du tableau
+    socket.on('logout',function(){
+        if(me){
+            delete users[me.id];
+            //** Emettre la nouvelle liste pour tous les utilisateurs */
+            ioServer.emit('updateYourTable',users);
+        }
+    })
+
+    // Lorsqu'un utilisateur se deconnecte: on l'enleve du tableau
     socket.on('disconnect',function(){
         if(me){
             delete users[me.id];
