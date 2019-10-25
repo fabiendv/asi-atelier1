@@ -99,7 +99,7 @@ class App extends Component {
                 title="Home"
                 money={this.user.account}
               /> 
-              <Menu/>
+              <Menu user={this.user}/>
             </div>
           );
         }

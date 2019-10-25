@@ -32,6 +32,7 @@ class Menu extends Component{
                             <div className="col-sm-4"></div>
                             <div className="col-sm-4"> 
                                 <MenuElement 
+                                    user={this.props.user}
                                     type ="play"
                                     imgURL = "gamepad icon menu-icon"
                                     link = "" 
