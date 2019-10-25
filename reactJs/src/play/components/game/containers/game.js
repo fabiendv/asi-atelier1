@@ -255,7 +255,7 @@ class Game extends Component{
     popUpWin(){
         Swal.fire({
             title: 'Congratulations !',
-            text: 'You won your game!',
+            text: 'You won your game and $1000!',
             imageUrl: 'https://i.ibb.co/VQxZKJC/trophy.png',
             imageWidth: 200,
             imageHeight: 200,

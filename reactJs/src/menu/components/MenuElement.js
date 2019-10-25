@@ -92,7 +92,7 @@ class MenuElement extends Component{
 
         }else{
             // l'utilisateur n'a pas les sous
-            this.updateInfo("danger","Vous n'avez pas la somme requise sur votre compte.")
+            this.updateInfo("danger","You do not have enough money on your account.")
         }
     }
 
