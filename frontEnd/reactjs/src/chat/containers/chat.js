@@ -11,10 +11,47 @@ class Chat extends Component{
 		this.state = {
 			userConnectedList:[],
 			talkingTo:"",
-			firstTimeChat: true,
 			firstTimeList: true,
 		};
 		this.sendMessage = this.sendMessage.bind(this);
+		this.initSocket = this.initSocket.bind(this);
+		this.initSocket();
+	}
+
+	initSocket(){
+		var that = this;
+		var updatedTable = [];
+		console.log("I am: "+JSON.stringify(this.props.user.login));
+		console.log("This is the connected user list: "+ JSON.stringify(this.state.userConnectedList));
+	
+		socket.on('updateYourTable', function(usersTable){
+			var user;
+			for(user in usersTable){
+				console.log("This is a user:"+JSON.stringify(usersTable[user]));
+				// Je teste si c'est moi
+				if(usersTable[user].id===that.props.user.id){
+					// c'est moi je ne m'ajoute pas a la liste
+				}else{
+					updatedTable.push({id:usersTable[user].id,label:usersTable[user].username,value:usersTable[user].socketId});
+				}
+			}
+			that.setState(
+				{
+					userConnectedList: updatedTable,
+				}
+			);
+		});
+	
+		// Un nouveau message nous est envoye
+		socket.on('newMessage',function(data){
+			console.log('There is a new received message.');
+			if(data.id === that.props.user.id){
+				$('#messages').append('<div class="ui raised segment"><a class="ui ribbon label" style="background-color:'+data.color+'">'+data.username+'</a><span>'+data.hours+':'+data.minutes+'</span><p>'+data.message+'</p></div>')        
+			}else{
+				console.log("From someonelse!");
+				$('#messages').append('<div class="ui raised segment"><a class="ui right ribbon label" style="background-color:'+data.color+'">'+data.username+'</a><span>'+data.hours+':'+data.minutes+'</span><p>'+data.message+'</p></div>')
+			} 
+		});
 	}
 
 	sendMessage(){
@@ -58,47 +95,6 @@ class Chat extends Component{
 	  };
 
 	render(){
-		var that = this;
-		var updatedTable = [];
-		console.log("I am: "+JSON.stringify(this.props.user.login));
-		console.log("This is the connected user list: "+ JSON.stringify(this.state.userConnectedList));
-	
-		socket.on('updateYourTable', function(usersTable){
-			var user;
-			for(user in usersTable){
-				console.log("This is a user:"+JSON.stringify(usersTable[user]));
-				// Je teste si c'est moi
-				if(usersTable[user].id===that.props.user.id){
-					// c'est moi je ne m'ajoute pas a la liste
-				}else{
-					updatedTable.push({id:usersTable[user].id,label:usersTable[user].username,value:usersTable[user].socketId});
-				}
-			}
-			that.setState(
-				{
-					userConnectedList: updatedTable,
-				}
-			);
-		});
-	
-		// Un nouveau message nous est envoye
-		socket.on('newMessage',function(data){
-			console.log('There is a new received message.');
-			if(that.state.firstTimeChat){
-				if(data.id === that.props.user.id){
-					$('#messages').append('<div class="ui raised segment"><a class="ui ribbon label" style="background-color:'+data.color+'">'+data.username+'</a><span>'+data.hours+':'+data.minutes+'</span><p>'+data.message+'</p></div>')        
-				}else{
-					console.log("From someonelse!");
-					$('#messages').append('<div class="ui raised segment"><a class="ui right ribbon label" style="background-color:'+data.color+'">'+data.username+'</a><span>'+data.hours+':'+data.minutes+'</span><p>'+data.message+'</p></div>')
-				} 
-				that.state.firstTimeChat = false;
-
-			}else{
-				that.state.firstTimeChat=true;
-			}
-
-		});
-
 		// Il devrait avoir au moins un utilisateur avant de render() le componant
 		if(this.state.userConnectedList.length>0){
 
