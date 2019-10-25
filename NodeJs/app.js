@@ -66,16 +66,25 @@ ioServer.on('connection', function(socket){
         // On verifie que la carte qui defend a encore des points de vie
         if(data.defendingCard.hp>0){
             // On calcule les dommages qui vont etre envoyes.
-            var realAttackValue = data.attackingCard.attack - 2*data.defendingCard;
+            console.log("attack card:"+data.attackingCard.attack);
+            console.log("defence card:"+data.defendingCard.defence);
+
+            var realAttackValue = data.attackingCard.attack - data.defendingCard.defence;
             // Si les dommages sont negatifs ou nuls, l'attaque sera de 1 pdv
             if(realAttackValue<=0){
                 realAttackValue=1;
             }
+            console.log("defending hp:"+data.defendingCard.hp);
+            console.log("attack value:"+realAttackValue);
+
             // Si il reste des pdv a la carte qui se fait attaquer APRES CETTE ATTAQUE
             if(data.defendingCard.hp>realAttackValue){
                 // On met a jour les pdv restant
                 var newDefendingCardHp = data.defendingCard.hp - realAttackValue;
+                console.log("J'envoie la nouvelle valeur de hp pour le defenseur: "+newDefendingCardHp);
                 ioServer.to(data.victim.socketID).emit("sendAttack",newDefendingCardHp);
+                console.log("J'envoie la nouvelle valeur de hp pour l'attaquant: "+newDefendingCardHp);
+                ioServer.to(data.user.socketID).emit("confirmedAttack",newDefendingCardHp);
             }else{
                 // La carte qui defend est tuee: le defenseur perds
                 ioServer.to(data.victim.socketID).emit("youLoose");

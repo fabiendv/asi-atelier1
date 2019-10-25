@@ -72,6 +72,7 @@ class Game extends Component{
                     });
                     console.log("JATTAQUE. Il me reste "+newValueOfAttacks+" attaques.");
                     // Envoyer la valeur de l'attaque de la carte selectionnee
+                    console.log("J'attaque sur cette card: "+JSON.stringify(this.state.player2CardSelected));
                     this.state.socket.emit('attack', {
                         user: this.props.player1,
                         victim : this.props.player2,
@@ -93,6 +94,8 @@ class Game extends Component{
                         numberOfAttacks: newValueOfAttacks
                     });
                     console.log("JATTAQUE. Il me reste "+newValueOfAttacks+" attaques.");
+                    console.log("J'attaque sur cette card: "+JSON.stringify(this.state.player1CardSelected));
+
                     // Envoyer la valeur de l'attaque de la carte selectionnee
                     this.state.socket.emit('attack', {
                         user: this.props.player2,
@@ -142,27 +145,58 @@ class Game extends Component{
     }
 
     render() {
-        console.log("This is my user in Game:"+JSON.stringify(this.props.user));
+        // console.log("This is my user in Game:"+JSON.stringify(this.props.user));
         var that = this;
 
         // Mon adversaire m'attaque
         this.state.socket.on('sendAttack', function(newMyCardSelectedHp){
             // Si l'utilisateur est joueur 1, Sinon l'utilisateur est le joueur 2
             if(that.props.user.id===that.state.player1.id){
+                console.log("=================================");
                 console.log("Le joueur 2 m'a attaque. Il me reste: "+newMyCardSelectedHp+" hp sur ma carte.");
                 // On met a jour les valeurs de nos cartes
-                var newMyCardSelected = this.state.player1CardSelected;
+                var newMyCardSelected = that.state.player1CardSelected;
                 newMyCardSelected.hp = newMyCardSelectedHp;
-                this.setState({
+                console.log(JSON.stringify(newMyCardSelected));
+                that.setState({
                     player1CardSelected: newMyCardSelected,
                 })
+                console.log(JSON.stringify(that.state.player1CardSelected));
+
             }else{
+                console.log("=================================");
                 console.log("Le joueur 1 m'a attaque. Il me reste: "+newMyCardSelectedHp+" hp sur ma carte.");
                 // On met a jour les valeurs de nos cartes
-                newMyCardSelected = this.state.player2CardSelected;
+                newMyCardSelected = that.state.player2CardSelected;
                 newMyCardSelected.hp = newMyCardSelectedHp;
-                this.setState({
+                console.log(JSON.stringify(newMyCardSelected));
+                that.setState({
                     player2CardSelected: newMyCardSelected,
+                })
+                console.log(JSON.stringify(that.state.player2CardSelected));
+
+            }
+        });
+
+        // Je recois la confirmation de mon attaque
+        this.state.socket.on('confirmedAttack', function(newMyCardSelectedHp){
+            // Si l'utilisateur est joueur 1, Sinon l'utilisateur est le joueur 2
+            if(that.props.user.id===that.state.player1.id){
+                console.log("Je suis le playeur 1. J'ai recu la confirmation de mon attaque.");
+                // On met a jour les valeurs de la carte
+                var newOppositePlayerCardSelected = that.state.player1CardSelected;
+                newOppositePlayerCardSelected.hp = newMyCardSelectedHp;
+                that.setState({
+                    player2CardSelected: newOppositePlayerCardSelected,
+                })
+
+            }else{
+                console.log("Je suis le playeur 2. J'ai recu la confirmation de mon attaque.");
+                // On met a jour les valeurs de la carte
+                newOppositePlayerCardSelected = that.state.player2CardSelected;
+                newOppositePlayerCardSelected.hp = newMyCardSelectedHp;
+                that.setState({
+                    player1CardSelected: newOppositePlayerCardSelected,
                 })
             }
         });
@@ -172,11 +206,15 @@ class Game extends Component{
             // Si l'utilisateur est joueur 1, Sinon l'utilisateur est le joueur 2
             if(that.props.user.id===that.state.player1.id){
                 console.log("Le joueur 2 a fini son tour.");
+                that.setState({
+                    currentPlayerIsPlayer1: true,
+                })
             }else{
                 console.log("Le joueur 1 a fini son tour.");
+                that.setState({
+                    currentPlayerIsPlayer1: false,
+                })            
             }		
-            // C'est a moi de jouer
-            that.state.currentPlayerIsPlayer1 = !that.state.currentPlayerIsPlayer1;
         });
 
         this.state.socket.on('youLoose', function(){
