@@ -401,7 +401,7 @@ class Game extends Component{
 
         return (
             <div className="container-fluid">
-                <div className="ui fluid block-container">
+                <div className="ui fluid block-container play">
                     <NotificationAlert ref="notify" />
                     <div className="ui grid">
                         <div className="four wide column">
