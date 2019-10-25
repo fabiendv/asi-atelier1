@@ -35,3 +35,6 @@ backEnd/bin/*
 
 # Word
 ~$**
+
+install.sh~
+start.sh~

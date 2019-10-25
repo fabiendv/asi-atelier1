@@ -1,9 +1,0 @@
-#!/bin/bash
-#
-#
-
-gnome-terminal -e "bash -c \"npm start; exec bash\"" 
-& gnome-terminal -e "bash -c \"cd ../../NodeJs | npm start ; exec bash\"" 
-& gnome-terminal -e "bash -c \"cd ../chat | npm start ; exec bash\"" 
-
-
