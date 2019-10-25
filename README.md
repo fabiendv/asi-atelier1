@@ -1,12 +1,19 @@
 # ASI2 - Cards game 
 
+Notre application est un jeu de cartes permettant à des joueurs de s'affronter en 1 contre 1.
+Un utilisateur inscrit sur notre application peut:
+	- acheter et vendre des cartes
+	- affronter des joueurs avec les cartes qu'il possède (1 carte VS 1 carte)
+	- discuter avec les utilisateurs connectés
+	- augmenter son capital en remportant des parties et acheter encore plus de cartes
+
 ## Auteurs
  - Martin Thénot 
  - Fabien Dalla-Valle
  - Maxime Delahodde
  - Thibault Caussanel 
 
-## [Dossier sur GitHub](http://github.com/fabiendv/asi-atelier1) 
+## [Dossier sur GitHub](http://github.com/fabiendv/asi-cards-game) 
  
 ## Activités réalisées
 
@@ -63,16 +70,19 @@
 
 ## Architecture
 
- - Le dossier backEnd
- - Le dossier backEnd-SendQ
- - Le dossier documentation
- - Le dossier nodeJs rassemble 2 dossiers (chat et game) pour nos 2 serveurs qui gerent notre application.
- - Le dossier reactJs contient notre application principale pour le cote front-end.
- - Les scripts `install.sh` et `start.sh` s'occupent de l'installation des npm packages et s'occupent du demerage. Sinon, les indications sont descrites en dessous.
+ - Le dossier backEnd contient l'architecture monolitique avec un service d'historique de chat par connexion ActiveMq et un service consumer communicant par ActiveMq avec le backendSendQ pour la mise à jour d'un utilisateur
+ - Le dossier backEnd-SendQ contient une application Springboot connecté au bus de communication, qui met à jour un utilisateur
+ - Le dossier documentation rassemble les fichiers complementaires pour le rendu.
+ - Le dossier nodeJs rassemble 2 dossiers (chat et game) pour nos 2 serveurs qui gerent notre application. Ces dossiers contiennent des fichiers front-end seulement utilises pour tester le chat et le game de facon independante sur leur port.
+ - Le dossier reactJs contient notre application principale pour le côté front-end.
+ - Les scripts `install.sh` et `start.sh` s'occupent de l'installation des npm packages et s'occupent du démarage. Sinon, les indications sont décrites en dessous.
 
 ## Installation & Run
 
- Les commandes sont realisées depuis le dossier asi-atelier1.
+ Les commandes sont realisées depuis le dossier asi-cards-game.
+
+ Lancer application : ./start.sh
+ Installer tous les paquets: ./install.sh
 
 ### Application principale - ReactJS
 
