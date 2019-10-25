@@ -224,8 +224,12 @@ class Game extends Component{
             icon: "now-ui-icons ui-1_bell-53",
             autoDismiss: 7
         }
-        
-        this.refs.notify.notificationAlert(options);
+        try{
+            this.refs.notify.notificationAlert(options);
+        }
+        catch(err){
+            console.log('notification error : ' + err);
+        }
     }
 
     popUpWin(){
