@@ -56,7 +56,7 @@
  ### Application principale - ReactJS
 
  ````
- cd /frontEnd/reactjs
+ cd /reactjs
  npm install
  npm start
  ````
@@ -64,7 +64,7 @@
 ### Serveur pour le chat - NodeJS
 
  ````
- cd /chat
+ cd /nodeJs/chat
  npm install
  npm start
  ````
@@ -72,7 +72,7 @@
 ### Serveur pour le game - NodeJS
 
  ````
- cd /NodeJs
+ cd /nodeJs/game
  npm install
  npm start
  ````
