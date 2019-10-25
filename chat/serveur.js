@@ -41,13 +41,14 @@ ioServer.on('connection', function(socket){
         me=user;
         me.usercolor = randomColor();
         me.socketId = socket.id;
-
+        console.log('users: ');
+        console.log(users);
+       
         /** Ajouter cet utilisateur à la liste d'utilisateurs en ligne */
         users[me.id]=me;
 
-        //** Emettre la nouvelle liste pour tous les utilisateurs */
-        ioServer.emit('updateYourTable',users);
-        
+         //** Emettre la nouvelle liste pour tous les utilisateurs */
+        ioServer.emit('updateYourTable', users);
     })
 
     // Lorsqu'un utilisateur se deconnecte: on l'enleve du tableau

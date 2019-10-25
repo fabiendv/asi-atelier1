@@ -20,24 +20,23 @@ class Chat extends Component{
 
 	initSocket(){
 		var that = this;
-		var updatedTable = [];
-		console.log("I am: "+JSON.stringify(this.props.user.login));
-		console.log("This is the connected user list: "+ JSON.stringify(this.state.userConnectedList));
 	
-		socket.on('updateYourTable', function(usersTable){
-			var user;
-			for(user in usersTable){
-				console.log("This is a user:"+JSON.stringify(usersTable[user]));
-				// Je teste si c'est moi
-				if(usersTable[user].id===that.props.user.id){
-					// c'est moi je ne m'ajoute pas a la liste
-				}else{
-					updatedTable.push({id:usersTable[user].id,label:usersTable[user].username,value:usersTable[user].socketId});
+		/**
+		 * param: dictionary of connected users
+		 * remove the actual user from the list and replace the userConnectedList
+		 */
+		socket.on('updateYourTable', function(dictUsers){
+			
+			let newUserList = [];
+			for (let k in dictUsers){
+				if (dictUsers[k].id != that.props.user.id){
+					newUserList.push({id:dictUsers[k].id,label:dictUsers[k].username,value:dictUsers[k].socketId})
 				}
 			}
+
 			that.setState(
 				{
-					userConnectedList: updatedTable,
+					userConnectedList: newUserList
 				}
 			);
 		});
