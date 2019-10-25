@@ -37,6 +37,19 @@ export const setBuyAction = (element)=>{
     }
 }
 
+export const updateUser = (element)=>{
+    console.log("This is my element"+element);
+    return{
+        type: 'UPDATE_USER',
+        user: element,
+        hasAccount: true,
+        isLogged: true,
+        buyCard:false,
+        sellCard:false,
+        play:false
+    }
+}
+
 export const setMainMenuPage = ()=>{
     return{
         type: 'GO_MAINMENU',

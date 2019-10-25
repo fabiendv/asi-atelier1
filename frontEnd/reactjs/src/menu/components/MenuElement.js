@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { setBuyPage, setSellPage, setPlayPage } from '../../actions';
+import { setBuyPage, setSellPage, setPlayPage, updateUser } from '../../actions';
 import { connect } from 'react-redux';
 import NotificationAlert from 'react-notification-alert';
 
@@ -71,8 +71,19 @@ class MenuElement extends Component{
                     'Access-Control-Allow-Origin':'*'
                 }
                 })
-                .then(function(response){;
-                    that.props.dispatch(setPlayPage());
+                .then(function(response){
+                    var those = that;
+                    axios({
+                        method: 'get',
+                        baseURL: 'http://localhost:8082',
+                        url:`/user/${those.props.user.id}`, 
+                    }).then(function(response){
+                        console.log("this is my response data "+response.data);
+                        those.props.dispatch(updateUser(response.data));
+                        those.props.dispatch(setPlayPage());
+                    }).catch(function(error){
+                        console.log("error: "+error);
+                    })
                 })
                 .catch(function(error){
                     console.log("Credit the money error: "+error);

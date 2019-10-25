@@ -3,7 +3,7 @@ import PlayerCardsSelect from '../components/playerCardsSelect';
 import Chat from './../../../../chat/containers/chat'
 import User from './../../../../user/containers/User'
 import { connect } from 'react-redux';
-import { setMainMenuPage } from '../../../../actions';
+import { setMainMenuPage, updateUser } from '../../../../actions';
 import NotificationAlert from 'react-notification-alert';
 import Swal from 'sweetalert2';
 
@@ -173,8 +173,23 @@ class Game extends Component{
                     console.log("Credit the money RESPONSE: "+JSON.stringify(response));
 
                     console.log("Credit the money: "+JSON.stringify(response.data));
-                    // Popup avec firework
-                    those.popUpWin();
+                    
+                    var those = that;
+                    axios({
+                        method: 'get',
+                        baseURL: 'http://localhost:8082',
+                        url:`/user/${those.props.user.id}`, 
+                    }).then(function(response){
+                        // Update the user
+                        console.log("this is my response data "+response.data);
+                        those.props.dispatch(updateUser(response.data));
+                        // Popup avec firework
+                        those.popUpWin();
+                    }).catch(function(error){
+                        console.log("error: "+error);
+                    })
+                    
+  
 
                 })
                 .catch(function(error){

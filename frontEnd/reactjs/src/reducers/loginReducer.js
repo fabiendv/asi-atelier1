@@ -27,6 +27,15 @@ const loginReducer=(state={},action)=>{
                 sellCard:action.sellCard,
                 play:action.play
             }
+        case 'UPDATE_USER':
+            return {
+                hasaccount:action.hasAccount,
+                islogged:action.isLogged,
+                user:action.user,
+                buyCard:action.buyCard,
+                sellCard:action.sellCard,
+                play:action.play
+            }
         case 'GO_MAINMENU':
                 return{
                     hasaccount:action.hasAccount,
