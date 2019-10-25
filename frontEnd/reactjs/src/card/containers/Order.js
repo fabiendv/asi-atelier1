@@ -29,16 +29,11 @@ class Order extends Component {
         }
       })
       .then(function(response){;
-          
-          console.log('Making request'+JSON.stringify(response.data));
-
           that.setState({ cards: response.data });
           that.cards = that.state.cards;   
-  
       })
       .catch(function(error){
           console.log("error"+error);
-          // REDIRIGER TO LOGIN - MAYBE
       });
     }else{
       // Get cards to sell 
