@@ -3,7 +3,7 @@
 #
 
 
-gnome-terminal -e "bash -c \"cd frontEnd/reactjms/; npm install; exec bash; \"" & gnome-terminal -e "bash -c \"cd NodeJs;npm install; exec bash\"" & gnome-terminal -e "bash -c \"cd chat;npm install ; exec bash\"" 
+gnome-terminal -e "bash -c \"cd ./reactJs; npm install; exec bash; \"" & gnome-terminal -e "bash -c \"cd ./nodeJs/game;npm install; exec bash\"" & gnome-terminal -e "bash -c \"cd ./nodeJs/chat;npm install ; exec bash\"" 
 
    
   
