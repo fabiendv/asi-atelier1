@@ -27,7 +27,6 @@ class Game extends Component{
         this.handlePlayer2CardSelection = this.handlePlayer2CardSelection.bind(this);
         this.sendAttack = this.sendAttack.bind(this);
         this.sendEndTurn = this.sendEndTurn.bind(this);
-        this.isMyTurnToPlay = this.isMyTurnToPlay.bind(this);
         this.setHome=this.setHome.bind(this);
         this.updateInfoGame=this.updateInfoGame.bind(this);
         this.popUpWin = this.popUpWin.bind(this);
@@ -41,7 +40,7 @@ class Game extends Component{
             if(that.props.user.id===that.state.player1.id){
                 console.log("=================================");
                 console.log("Le joueur 2 m'a attaque. Il me reste: "+newMyCardSelectedHp+" hp sur ma carte.");
-                that.updateInfoGame("danger",`Aie! vous avez recu une attaque: il vous reste ${newMyCardSelectedHp} hp!`);
+                that.updateInfoGame("danger",`Outch! You received an attack: you have ${newMyCardSelectedHp} hp left!`);
                 // On met a jour les valeurs de nos cartes
                 var newMyCardSelected = that.state.player1CardSelected;
                 newMyCardSelected.hp = newMyCardSelectedHp;
@@ -62,7 +61,7 @@ class Game extends Component{
             }else{
                 console.log("=================================");
                 console.log("Le joueur 1 m'a attaque. Il me reste: "+newMyCardSelectedHp+" hp sur ma carte.");
-                that.updateInfoGame("danger",`Aie! vous avez recu une attaque: il vous reste ${newMyCardSelectedHp} hp!`);
+                that.updateInfoGame("danger",`Outch! You received an attack: you have ${newMyCardSelectedHp} hp left!`);
                 // On met a jour les valeurs de nos cartes
                 newMyCardSelected = that.state.player2CardSelected;
                 newMyCardSelected.hp = newMyCardSelectedHp;
@@ -88,7 +87,7 @@ class Game extends Component{
             // Si l'utilisateur est joueur 1, Sinon l'utilisateur est le joueur 2
             if(that.props.user.id===that.state.player1.id){
                 console.log("Je suis le playeur 1. J'ai recu la confirmation de mon attaque.");
-                that.updateInfoGame("success","Vous avez envoye votre attaque!");
+                that.updateInfoGame("success",`You sent your attack. There are ${newMyCardSelectedHp} hp left!`);
                 // On met a jour les valeurs de la carte
                 var newOppositePlayerCardSelected = that.state.player1CardSelected;
                 newOppositePlayerCardSelected.hp = newMyCardSelectedHp;
@@ -104,7 +103,7 @@ class Game extends Component{
                 });
             }else{
                 console.log("Je suis le playeur 2. J'ai recu la confirmation de mon attaque.");
-                that.updateInfoGame("success","Vous avez envoye votre attaque!");
+                that.updateInfoGame("success",`You sent your attack. There are ${newMyCardSelectedHp} hp left!`);
                 // On met a jour les valeurs de la carte
                 newOppositePlayerCardSelected = that.state.player2CardSelected;
                 newOppositePlayerCardSelected.hp = newMyCardSelectedHp;
@@ -126,13 +125,13 @@ class Game extends Component{
             // Si l'utilisateur est joueur 1, Sinon l'utilisateur est le joueur 2
             if(that.props.user.id===that.state.player1.id){
                 console.log("Le joueur 2 a fini son tour.");
-                that.updateInfoGame("info","A vous de jouer!");
+                that.updateInfoGame("info","Time to play!");
                 that.setState({
                     currentPlayerIsPlayer1: true,
                 })
             }else{
                 console.log("Le joueur 1 a fini son tour.");
-                that.updateInfoGame("info","A vous de jouer!");
+                that.updateInfoGame("info","Time to play!");
                 that.setState({
                     currentPlayerIsPlayer1: false,
                 })            
@@ -141,16 +140,14 @@ class Game extends Component{
         });
 
         this.state.socket.on('youLoose', function(){
-            console.log("J'ai perdu");
+            // L'utilisateur a perdu
             that.popUpLoose();
         })
 
         this.state.socket.on('youWin', function(){
             var those = that;
-            console.log("J'ai Gagne");
-
+            // L'utilisateur a gagne
             // Credit $1000 to the bank account via axios
-            // TODO: test
             axios({
                 method: 'put',
                 baseURL: 'http://localhost:8082',
@@ -181,7 +178,6 @@ class Game extends Component{
                         url:`/user/${those.props.user.id}`, 
                     }).then(function(response){
                         // Update the user
-                        console.log("this is my response data "+response.data);
                         those.props.dispatch(updateUser(response.data));
                         // Popup avec firework
                         those.popUpWin();
@@ -189,8 +185,6 @@ class Game extends Component{
                         console.log("error: "+error);
                     })
                     
-  
-
                 })
                 .catch(function(error){
                     console.log("Credit the money error: "+error);
@@ -279,26 +273,6 @@ class Game extends Component{
 
     }
 
-    isMyTurnToPlay(){
-        // Si l'utilisateur est joueur 1, Sinon l'utilisateur est le joueur 2
-        if(this.props.user.id===this.props.player1.id){
-            // Si c'est au tour du joueur 1 de jouer
-            if(this.state.currentPlayerIsPlayer1){
-                // Je suis joueur 1, et c'est a moi de jouer
-                return true;
-            }else{
-                return false;
-            }
-        }else{
-            if(!this.state.currentPlayerIsPlayer1){
-                // je suis joueur 2 et c'est a moi de jouer
-                return true;
-            }else{
-                return false;
-            }
-        }
-    }
-
     sendAttack(){
         // Si l'utilisateur est joueur 1, Sinon l'utilisateur est le joueur 2
         if(this.props.user.id===this.props.player1.id){
@@ -321,10 +295,10 @@ class Game extends Component{
                     });
                 }else{
                     // Ce joueur ne peut plus attaquer
-                    this.updateInfoGame("info","Vous avez utilise toutes vos attaques.");
+                    this.updateInfoGame("info","You sent all your attacks.");
                 }
             }else{
-                this.updateInfoGame("info","Ce n'est pas votre tour.");
+                this.updateInfoGame("info","Please wait. It is not your turn to play.");
             }
         }else{
             // Si c'est au joueur 2 de jouer
@@ -347,10 +321,10 @@ class Game extends Component{
                     });
                 }else{
                     // Ce joueur ne peut plus attaquer
-                    this.updateInfoGame("info","Vous avez utilise toutes vos attaques.");
+                    this.updateInfoGame("info","You sent all your attacks.");
                 }
             }else{
-                this.updateInfoGame("info","Ce n'est pas votre tour.");
+                this.updateInfoGame("info","Please wait. It is not your turn to play.");
             }
         }
     }
@@ -369,9 +343,9 @@ class Game extends Component{
                     currentPlayerIsPlayer1: false,
                     numberOfAttacks: this.props.user.cardList.length
                 });
-                this.updateInfoGame("info","Vous avez passe votre tour.");
+                this.updateInfoGame("info","You skipped your turn.");
             }else{
-                this.updateInfoGame("info","Ce n'est pas votre tour.");
+                this.updateInfoGame("info","Please wait. It is not your turn to play.");
             }
         }else{
             // Si c'est au joueur 2 de jouer
@@ -385,9 +359,9 @@ class Game extends Component{
                     currentPlayerIsPlayer1: true,
                     numberOfAttacks: this.props.user.cardList.length
                 });
-                this.updateInfoGame("info","Vous avez passe votre tour.");
+                this.updateInfoGame("info","You skipped your turn.");
             }else{
-                this.updateInfoGame("info","Ce n'est pas votre tour.");
+                this.updateInfoGame("info","Please wait. It is not your turn to play.");
             }
         }
     }
