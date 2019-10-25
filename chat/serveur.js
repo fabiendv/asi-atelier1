@@ -29,11 +29,6 @@ ioServer.on('connection', function(socket){
     
     console.log('Nouvelle socket detectee: '+socket.id);
 
-    /** Récupérer la liste des utilisateurs */
-    // for( var k in users){
-    //     socket.emit('newusr',users[k]);
-    // }
-
     socket.on('login', function(user){
 
         console.log('Nouvel user connecte: '+JSON.stringify(user));
