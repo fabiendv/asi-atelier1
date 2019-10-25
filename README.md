@@ -2,10 +2,10 @@
 
 Notre application est un jeu de cartes permettant à des joueurs de s'affronter en 1 contre 1.
 Un utilisateur inscrit sur notre application peut:
-	- acheter et vendre des cartes
-	- affronter des joueurs avec les cartes qu'il possède (1 carte VS 1 carte)
-	- discuter avec les utilisateurs connectés
-	- augmenter son capital en remportant des parties et acheter encore plus de cartes
+ - acheter et vendre des cartes
+ - affronter des joueurs avec les cartes qu'il possède (1 carte VS 1 carte)
+ - discuter avec les utilisateurs connectés
+ - augmenter son capital en remportant des parties et acheter encore plus de cartes
 
 ## Auteurs
  - Martin Thénot 
@@ -36,10 +36,10 @@ Un utilisateur inscrit sur notre application peut:
 	- Creation et implementation du deroulement d'une partie (front-end et back-end)
 
  - Maxime :
-	- Realisation du chat
-	- Participation a la realisation du composant User
+	- Réalisation du chat
+	- Participation à la réalisation du composant User
 	- Participation du composant Play
-	- Verification de l'organisation generale - Debugage
+	- Vérification de l'organisation générale - Debugage
 
 ## Eléments réalisés
 
@@ -76,7 +76,7 @@ Un utilisateur inscrit sur notre application peut:
  - Le dossier backEnd contient l'architecture monolitique avec un service d'historique de chat par connexion ActiveMq et un service consumer communicant par ActiveMq avec le backendSendQ pour la mise à jour d'un utilisateur
  - Le dossier backEnd-SendQ contient une application Springboot connecté au bus de communication, qui met à jour un utilisateur
  - Le dossier documentation rassemble les fichiers complementaires pour le rendu.
- - Le dossier nodeJs rassemble 2 dossiers (chat et game) pour nos 2 serveurs qui gerent notre application. Ces dossiers contiennent des fichiers front-end seulement utilises pour tester le chat et le game de facon independante sur leur port.
+ - Le dossier nodeJs rassemble 2 dossiers (chat et game) pour nos 2 serveurs qui gèrent notre application. Ces dossiers contiennent des fichiers front-end seulement utilisés pour tester le chat et le game de façon indépendante sur leurs ports.
  - Le dossier reactJs contient notre application principale pour le côté front-end.
  - Les scripts `install.sh` et `start.sh` s'occupent de l'installation des npm packages et s'occupent du démarage. Sinon, les indications sont décrites en dessous.
 
