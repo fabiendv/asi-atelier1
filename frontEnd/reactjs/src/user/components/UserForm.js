@@ -34,8 +34,24 @@ import {setLoginPage} from '../../actions';
     }
 
     submitOrder(){
-        this.props.submitUserHandler(this.state);
-        this.handleLoginPageSelected(this.props.hasAccount);
+
+        var form = document.getElementsByTagName('form')[0];
+        var fillFields = true;
+        for(var i=0; i < form.elements.length; i++){
+            if(form.elements[i].value === '' && form.elements[i].hasAttribute('required')){
+            form.elements[i].style.borderColor = 'red';
+            fillFields = false;
+            }else{
+                form.elements[i].style.borderColor = 'rgba(34,36,38,.15)';
+            }    
+        }
+
+        if (fillFields === true){
+            this.props.submitUserHandler(this.state);
+            this.handleLoginPageSelected(this.props.hasAccount);
+        } else{
+            form.getElementsByClassName('error')[0].style.display = "block";
+        }
     }
 
     handleLoginPageSelected(hasAccount){
@@ -44,7 +60,10 @@ import {setLoginPage} from '../../actions';
 
     render() {
         return (
-            <form className="ui form">
+            <div className="ui middle aligned center aligned grid">
+            <div className="column">
+            <form className="ui large form">
+            <div className="ui stacked secondary segment">
                 {/* <div className="field hidden content">
                     <label>Id</label>
                     <input type="number" name="id" placeholder="0" onChange={(ev)=>{this.processInput(ev)}} value={this.state.id}></input>
@@ -53,36 +72,47 @@ import {setLoginPage} from '../../actions';
                     <label>Name</label>
                     <div className="two fields">
                         <div className="field">
-                            <input className="text" name="surname" placeholder="FirstName" onChange={(ev)=>{this.processInput(ev)}} value={this.state.surname}></input>
+                            <input className="text" name="surname"required placeholder="FirstName" onChange={(ev)=>{this.processInput(ev)}} value={this.state.surname}></input>
                         </div>
                         <div className="field">
-                        <input className="text" name="lastname" placeholder="LastName" onChange={(ev)=>{this.processInput(ev)}} value={this.state.lastname}></input>
+                        <input className="text" name="lastname" required placeholder="LastName" onChange={(ev)=>{this.processInput(ev)}} value={this.state.lastname}></input>
                         </div>
                     </div>
                 </div>
                 <div className="field">
-                    <label>Login</label>
-                    <input type="text" name="login" placeholder="Login" onChange={(ev)=>{this.processInput(ev)}} value={this.state.login}></input>
+                    <label>Username</label>
+                    <input type="text" name="login" placeholder="Bob44" required onChange={(ev)=>{this.processInput(ev)}} value={this.state.login}></input>
                 </div>
                 <div className="field">
-                    <label>Pwd</label>
-                    <input type="password" name="pwd" placeholder="" onChange={(ev)=>{this.processInput(ev)}} value={this.state.pwd}></input>
+                    <label>Password</label>
+                    <input type="password" name="pwd" placeholder="edmGRdv$cd564" required onChange={(ev)=>{this.processInput(ev)}} value={this.state.pwd}></input>
                 </div>
                 <div className="field">
                     <label>Image</label>
-                    <input type="text" name="img" placeholder="Image" onChange={(ev)=>{this.processInput(ev)}} value={this.state.img}></input>
+                    <input type="text" name="img" required placeholder="https://gravatar.com/avatar/e7a1f42bd1cea215be40c39abcc845d3?s=400&d=robohash&r=x" onChange={(ev)=>{this.processInput(ev)}} value={this.state.img}></input>
                 </div>
                 <div className="field">
                     <label>Money</label>
-                    <input type="number" name="money" placeholder="" onChange={(ev)=>{this.processInput(ev)}} value={this.state.money}></input>
+                    <input type="number" name="money" required placeholder="10000" onChange={(ev)=>{this.processInput(ev)}} value={this.state.money}></input>
                 </div>
-                <div className="btn btn-dark" tabIndex="1" onClick={()=> this.submitOrder()}>
-                    Submit User
+                <div className="ui fluid large teal submit button" tabIndex="1" onClick={()=> this.submitOrder()}>
+                    Create Account
                 </div>
-                <div className="btn btn-light" tabIndex="1" onClick={()=>this.handleLoginPageSelected(this.props.hasAccount)}>
+                <div className="ui fluid large back submit button" tabIndex="1" onClick={()=>this.handleLoginPageSelected(this.props.hasAccount)}>
                     Back
                 </div>
+                </div>
+
+                <div className="ui error message">
+                    <div className="header">
+                        All fields must be completed !
+                    </div>
+                        Please fill in the fields in red above            
+                </div>
             </form>
+            
+            </div>
+            </div>
         );
         }
 

@@ -11,7 +11,7 @@ class Avatar extends Component{
 
     render() {
         return (
-           <div>
+           <div className="avatar">
                 <i className="user huge icon"></i>
                 <h2>{this.state.login}</h2>
            </div>     
