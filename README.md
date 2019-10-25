@@ -36,8 +36,10 @@ Un utilisateur inscrit sur notre application peut:
 	- Creation et implementation du deroulement d'une partie (front-end et back-end)
 
  - Maxime :
-	- Realisation du serveur chat
-	- Verification de l'organisation generale (correction de warning/erreur dans la console du web browser)
+	- Realisation du chat
+	- Participation a la realisation du composant User
+	- Participation du composant Play
+	- Verification de l'organisation generale - Debugage
 
 ## Eléments réalisés
 
