@@ -41,7 +41,7 @@ class Game extends Component{
             if(that.props.user.id===that.state.player1.id){
                 console.log("=================================");
                 console.log("Le joueur 2 m'a attaque. Il me reste: "+newMyCardSelectedHp+" hp sur ma carte.");
-                that.updateInfoGame("danger",`Aie! vous avez recu une attaque: il vous reste ${newMyCardSelectedHp}!`);
+                that.updateInfoGame("danger",`Aie! vous avez recu une attaque: il vous reste ${newMyCardSelectedHp} hp!`);
                 // On met a jour les valeurs de nos cartes
                 var newMyCardSelected = that.state.player1CardSelected;
                 newMyCardSelected.hp = newMyCardSelectedHp;
@@ -62,7 +62,7 @@ class Game extends Component{
             }else{
                 console.log("=================================");
                 console.log("Le joueur 1 m'a attaque. Il me reste: "+newMyCardSelectedHp+" hp sur ma carte.");
-                that.updateInfoGame("danger",`Aie! vous avez recu une attaque: il vous reste ${newMyCardSelectedHp}!`);
+                that.updateInfoGame("danger",`Aie! vous avez recu une attaque: il vous reste ${newMyCardSelectedHp} hp!`);
                 // On met a jour les valeurs de nos cartes
                 newMyCardSelected = that.state.player2CardSelected;
                 newMyCardSelected.hp = newMyCardSelectedHp;
