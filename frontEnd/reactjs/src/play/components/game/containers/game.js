@@ -5,6 +5,9 @@ import User from './../../../../user/containers/User'
 import { connect } from 'react-redux';
 import { setMainMenuPage } from '../../../../actions';
 import NotificationAlert from 'react-notification-alert';
+import Swal from 'sweetalert2';
+
+        
 const axios = require('axios').default;
 
 class Game extends Component{
@@ -27,6 +30,8 @@ class Game extends Component{
         this.isMyTurnToPlay = this.isMyTurnToPlay.bind(this);
         this.setHome=this.setHome.bind(this);
         this.updateInfoGame=this.updateInfoGame.bind(this);
+        this.popUpWin = this.popUpWin.bind(this);
+        this.popUpLoose = this.popUpLoose.bind(this);
 
         var that = this;
 
@@ -107,16 +112,12 @@ class Game extends Component{
 
         this.state.socket.on('youLoose', function(){
             console.log("J'ai perdu");
-            // TODO: - Popup looser
-
-            // Redirect to the home page
-            that.setHome();
+            that.popUpLoose();
         })
 
         this.state.socket.on('youWin', function(){
             var those = that;
             console.log("J'ai Gagne");
-            // TODO: - Popup avec firework
 
             // Credit $1000 to the bank account via axios
             // TODO: test
@@ -139,11 +140,11 @@ class Game extends Component{
                 }
                 })
                 .then(function(response){;
-                console.log("Credit the money RESPONSE: "+JSON.stringify(response));
+                    console.log("Credit the money RESPONSE: "+JSON.stringify(response));
 
-                console.log("Credit the money: "+JSON.stringify(response.data));
-                those.setHome();
-                those.setHome();
+                    console.log("Credit the money: "+JSON.stringify(response.data));
+                    // Popup avec firework
+                    those.popUpWin();
 
                 })
                 .catch(function(error){
@@ -186,6 +187,51 @@ class Game extends Component{
         }
         
         this.refs.notify.notificationAlert(options);
+    }
+
+    popUpWin(){
+        Swal.fire({
+            title: 'Congratulations !',
+            text: 'You win your game against Fabien !',
+            imageUrl: 'https://i.ibb.co/VQxZKJC/trophy.png',
+            imageWidth: 200,
+            imageHeight: 200,
+            imageAlt: 'trophy',
+            confirmButtonColor: '#2c2c2c',
+            confirmButtonText: 'Return to the home page',
+            backdrop: `
+            rgba(0,0,123,0.4)
+            url("https://media.giphy.com/media/26tOZ42Mg6pbTUPHW/giphy.gif")
+            center left
+            round
+          `
+          }).then((result) => {
+                    if (result.value) {
+                        this.props.dispatch(setMainMenuPage());
+                    }
+            })
+    }
+
+    popUpLoose(){
+
+        Swal.fire({
+            type: 'error',
+            title: 'Too bad ...',
+            text: 'You loose your game against Martin !',
+            confirmButtonColor: '#2c2c2c',
+            confirmButtonText: 'Return to the home page',
+            backdrop: `
+            rgba(0,0,123,0.4)
+            url("https://media.giphy.com/media/psmj4cmTGQQ0We0Uyf/giphy.gif")
+            center left
+            no-repeat
+          `
+        }).then((result) => {
+            if (result.value) {
+                this.props.dispatch(setMainMenuPage());
+            }
+          })
+
     }
 
     isMyTurnToPlay(){
