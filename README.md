@@ -61,14 +61,23 @@
 		* Comportement actuel: le joueur retourne sur le home mais le serveur considère le joueur toujours en waiting page.
 		* Comportement attendu: le joueur retourne sur le home et le serveur est informé que le joueur n'attend plus de partie
 
- ## Installation & Run
+## Architecture
+
+ - Le dossier backEnd
+ - Le dossier backEnd-SendQ
+ - Le dossier documentation
+ - Le dossier nodeJs rassemble 2 dossiers (chat et game) pour nos 2 serveurs qui gerent notre application.
+ - Le dossier reactJs contient notre application principale pour le cote front-end.
+ - Les scripts `install.sh` et `start.sh` s'occupent de l'installation des npm packages et s'occupent du demerage. Sinon, les indications sont descrites en dessous.
+
+## Installation & Run
 
  Les commandes sont realisées depuis le dossier asi-atelier1.
 
- ### Application principale - ReactJS
+### Application principale - ReactJS
 
  ````
- cd /reactjs
+ cd /reactJs
  npm install
  npm start
  ````
