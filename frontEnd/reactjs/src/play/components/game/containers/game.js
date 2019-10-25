@@ -305,9 +305,11 @@ class Game extends Component{
                     });
                 }else{
                     // Ce joueur ne peut plus attaquer
-                    console.log("J'ai utilise toutes mes attaques. je ne peux plus attaquer. Je dois passer mon tour.");
+                    this.updateInfoGame("info","Vous avez utilise toutes vos attaques.");
                 }
-            }else{}
+            }else{
+                this.updateInfoGame("info","Ce n'est pas votre tour.");
+            }
         }else{
             // Si c'est au joueur 2 de jouer
             if(!this.state.currentPlayerIsPlayer1){
@@ -329,9 +331,11 @@ class Game extends Component{
                     });
                 }else{
                     // Ce joueur ne peut plus attaquer
-                    console.log("J'ai utilise toutes mes attaques. je ne peux plus attaquer. Je dois passer mon tour.");
+                    this.updateInfoGame("info","Vous avez utilise toutes vos attaques.");
                 }
-            }else{}
+            }else{
+                this.updateInfoGame("info","Ce n'est pas votre tour.");
+            }
         }
     }
 
@@ -350,6 +354,8 @@ class Game extends Component{
                     numberOfAttacks: this.props.user.cardList.length
                 });
                 this.updateInfoGame("info","Vous avez passe votre tour.");
+            }else{
+                this.updateInfoGame("info","Ce n'est pas votre tour.");
             }
         }else{
             // Si c'est au joueur 2 de jouer
@@ -364,6 +370,8 @@ class Game extends Component{
                     numberOfAttacks: this.props.user.cardList.length
                 });
                 this.updateInfoGame("info","Vous avez passe votre tour.");
+            }else{
+                this.updateInfoGame("info","Ce n'est pas votre tour.");
             }
         }
     }
