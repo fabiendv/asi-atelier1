@@ -70,7 +70,6 @@ class Login extends Component {
             .then(function(response){
                 console.log("response: "+response.data);
                 if(response.data){
-                // REDIRIGER TO STORE VIEW
                     // Get user's information
                     axios({
                         method: 'get',
@@ -93,15 +92,15 @@ class Login extends Component {
                     })
 
                 }else{
-                    // Stay on login page
-                    return that.props.dispatch(setLoginPage(true,response.data));
+                    // User doent exist Stay on login page
+                    form.getElementsByClassName('error')[0].style.display = "block";
+                    form.getElementsByClassName('error')[0].innerHTML = "The username and password entered do not match any accounts. Please try again.";
                 }
             })
             .catch(function(error){
                 console.log("error"+error);
                 form.getElementsByClassName('error')[0].style.display = "block";
-                form.getElementsByClassName('error')[0].innerHTML = "The username and password entered do not match any accounts. Please try again.";
-                // REDIRIGER TO LOGIN - MAYBE
+                form.getElementsByClassName('error')[0].innerHTML = "Impossible to communicate with the server. Please try again.";
             });
 
         }else{
