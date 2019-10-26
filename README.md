@@ -86,8 +86,10 @@ Un utilisateur inscrit sur notre application peut:
 
  Les commandes sont realisées depuis le dossier asi-cards-game.
 
- Lancer application : ./start.sh
  Installer tous les paquets: ./install.sh
+ 
+ Lancer application : ./start.sh
+ 
 
 ### Application principale - ReactJS
 
