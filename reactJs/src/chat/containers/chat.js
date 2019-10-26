@@ -43,11 +43,9 @@ class Chat extends Component{
 	
 		// Un nouveau message nous est envoye
 		socket.on('newMessage',function(data){
-			console.log('There is a new received message.');
 			if(data.id === that.props.user.id){
 				$('#messages').append('<div class="ui raised segment"><a class="ui ribbon label" style="background-color:'+data.color+'">'+data.username+'</a><span>'+data.hours+':'+data.minutes+'</span><p>'+data.message+'</p></div>')        
 			}else{
-				console.log("From someonelse!");
 				$('#messages').append('<div class="ui raised segment"><a class="ui right ribbon label" style="background-color:'+data.color+'">'+data.username+'</a><span>'+data.hours+':'+data.minutes+'</span><p>'+data.message+'</p></div>')
 			}
 			var messagesContainer = document.getElementById("messages");
@@ -91,7 +89,6 @@ class Chat extends Component{
 		this.setState(
 		  { selectedUser },
 		  () => {
-			  console.log(`Option selected:`, selectedUser);
 			  this.setState({
 				  talkingTo: selectedUser.id
 			  })
@@ -122,25 +119,14 @@ class Chat extends Component{
 											<div className="column">
 												Chat
 											</div>
-											{/* <div className="column">
-													<div className="ui two column grid" id="current-user">
-															<div className="column">
-																<i className="user circle icon"></i>
-															</div>
-															{this.props.user.id}
-													</div>
-											</div> */}
 										</div>
 									</div>
 								</div>
 								
-								{/* Add select componant for futur dev */}
 								<Select
-									// value={selectedOption}
 									defaultValue={this.state.userConnectedList[0].value}
 									onChange={this.handleChangeUser}
 									options={this.state.userConnectedList}
-									// placeholder="Select User"
 								/>
 								
 								<div className="ui segment" id="messages">

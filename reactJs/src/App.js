@@ -27,7 +27,6 @@ class App extends Component {
   }
 
   render(){
-    console.log("Let's render the app!");
 
     let display = {};
 
@@ -152,7 +151,6 @@ class App extends Component {
 }
 
 const mapState = (state, ownProps) => {
-  // console.log("mapState in App.js => "+JSON.stringify(state));
   return {
     hasAccount: state.loginReducer.hasaccount,
     isLogged: state.loginReducer.islogged,

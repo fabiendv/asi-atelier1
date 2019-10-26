@@ -17,16 +17,9 @@ class SelectedCardDisplay extends Component{
                     <div className="content">
                         <div className="ui grid">
                             <div className="one column row">
-                                {/* <div className="column">
-                                    <i className="heart outline icon"></i>
-                                    <span id="cardHPId">{this.props.card.hp}</span> 
-                                </div> */}
                                 <div className="column">
                                         <h5>{this.props.card.family}</h5>
                                 </div>
-                                {/* <div className="column">
-                                    <span id="energyId">{this.props.card.energy}</span> <i className="lightning icon"></i>
-                                </div> */}
                             </div>
                         </div>
                     </div>

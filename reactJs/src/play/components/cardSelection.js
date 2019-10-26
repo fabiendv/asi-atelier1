@@ -11,7 +11,6 @@ class CardSelection extends Component{
             
         };
         
-        
     }
     
     startGame(){
@@ -28,7 +27,6 @@ class CardSelection extends Component{
         if (checkCounter === 1){
             this.props.startGameHandler(listIndex);
         }else{
-            console.log(checkCounter + "notif erreur");
 
             const options = {
                 place: 'tr',

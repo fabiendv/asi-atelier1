@@ -23,12 +23,10 @@ class Login extends Component {
         const target = event.currentTarget;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
-        // console.log(event.target.value);
-        //let currentVal=this.state;
+
         this.setState({
             [name]: value
           });
-        // console.log(this.state);
     }
 
     checkRequiredFields(){
@@ -48,13 +46,12 @@ class Login extends Component {
 
     submitLogin(){
        
-
         var form = document.getElementsByTagName('form')[0];
         let fillFields = this.checkRequiredFields();
 
         if(fillFields === true){
-            console.log("User to login: "+JSON.stringify(this.state));
-            // AJAX INSCRIRE USER
+
+            // INSCRIRE USER
             let that=this;
 
             axios({
@@ -66,7 +63,6 @@ class Login extends Component {
                 }
             })
             .then(function(response){
-                console.log("response: "+response.data);
                 if(response.data){
                     // Get user's information
                     axios({
@@ -77,7 +73,6 @@ class Login extends Component {
                             'Access-Control-Allow-Origin':'*'
                         }
                     }).then(function(user){
-                        console.log('Login :'+JSON.stringify(that.state.login));
 
                         user.data.forEach(function(element){
                             if(that.state.login===element.login){
@@ -117,34 +112,6 @@ class Login extends Component {
     render() {
 
         return (
-         /*    <form classNameName="ui form">
-
-                <div classNameName="col-md-6"> 
-                    <label>
-                        <b>
-                            Username
-                        </b>
-                    </label> 
-                    <input type="text" placeholder="Enter Username" name="login" onChange={(ev)=>{this.processInput(ev)}} required/> 
-        
-                    <label>
-                        <b>
-                            Password
-                        </b>
-                    </label> 
-                    <input type="password" placeholder="Enter Password" name="pwd" onChange={(ev)=>{this.processInput(ev)}} required/> 
-                    
-                    <button classNameName="btn btn-lg btn-login" type="button" onClick={()=>{this.submitLogin()}}>
-                        Login
-                    </button> 
-                </div> 
-        
-                <div classNameName="col-md-6">
-                    <div classNameName="btn btn-lg btn-custom" onClick={()=>{this.handleSignupPageSelected(false)}}>
-                        Create an account
-                    </div>
-                </div> 
-            </form> */
             <div className="ui middle aligned center aligned grid">
                 <div className="column">
                 <form className="ui large form">

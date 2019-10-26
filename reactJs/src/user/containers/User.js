@@ -36,7 +36,6 @@ const axios = require('axios').default;
             baseURL: 'http://localhost:8082',
             url: `/user`,
             data:{
-                //id:data.id,
                 surname:data.surname,
                 lastname:data.lastname,
                 login:data.login,
@@ -49,9 +48,7 @@ const axios = require('axios').default;
             }
         })
         .then(function(response){
-            // Created user
-            console.log("Added user : ");
-            console.log(response);
+            // set user data
             that.setState({
                 id:response.data.id,
                 surname:response.data.surName,
@@ -65,9 +62,7 @@ const axios = require('axios').default;
             return this.props.dispatch(setLoginPage(true)); 
         })
         .catch(function(error){
-            console.log(error);
-            // REDIRIGER TO SIGNUP
-            // return this.props.dispatch(setLoginPage(true)); 
+            console.log(error); 
         });
 
     }

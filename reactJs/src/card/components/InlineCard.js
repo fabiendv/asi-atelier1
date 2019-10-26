@@ -49,7 +49,6 @@ class InlineCard extends Component{
                   })
                   .then(function(response){;
                       
-                    console.log("Buying cards: "+JSON.stringify(response));
                     var those = that;
 
                     axios({
@@ -62,7 +61,6 @@ class InlineCard extends Component{
                       })
                       .then(function(response){;
                           
-                        console.log("Getting USER: "+JSON.stringify(response.data));
                         // Update the user's infomation
                         those.props.dispatch(setBuyAction(response.data));
                         those.props.dispatch(setMainMenuPage());
@@ -83,8 +81,8 @@ class InlineCard extends Component{
         }
 
         if(this.props.orderType==="Sell"){
-            // Need to sell the card
 
+            // Need to sell the card
             axios({
                 method: 'post',
                 baseURL: 'http://localhost:8082',
@@ -99,8 +97,8 @@ class InlineCard extends Component{
                 }
               })
               .then(function(response){;
-                  
-                console.log("Selling cards: "+JSON.stringify(response));
+
+                // Selling cards
                 var those = that;
 
                 axios({
@@ -113,7 +111,7 @@ class InlineCard extends Component{
                   })
                   .then(function(response){;
                       
-                    console.log("Getting USER: "+JSON.stringify(response.data));
+                    // Update the user data
                     those.props.dispatch(setBuyAction(response.data));
                     those.props.dispatch(setMainMenuPage());
                     those.props.dispatch(setSellPage());
@@ -127,7 +125,6 @@ class InlineCard extends Component{
               })
               .catch(function(error){
                   console.log("error"+error);
-                  // REDIRIGER TO LOGIN - MAYBE
               });
 
         }
@@ -137,7 +134,6 @@ class InlineCard extends Component{
 
 	render(){
         let display;
-        // console.log("THIS IS THE CARD: "+JSON.stringify(this.props.card));
         display = (
             <tr onClick={()=>{this.handleOnCardSelected(this.props.card)}}>
                 <td>

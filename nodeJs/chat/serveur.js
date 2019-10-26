@@ -36,8 +36,6 @@ ioServer.on('connection', function(socket){
         me=user;
         me.usercolor = randomColor();
         me.socketId = socket.id;
-        console.log('users: ');
-        console.log(users);
        
         /** Ajouter cet utilisateur à la liste d'utilisateurs en ligne */
         users[me.id]=me;
@@ -64,12 +62,9 @@ ioServer.on('connection', function(socket){
         }
     })
 
+    // Lorsque l'on recoit l'evennement d'envoyer un message
     socket.on('messageSent',function(data){
 
-        console.log('Gotcha. I send a message.');
-
-        console.log("This is my data:"+JSON.stringify(data));
-        console.log("this is my user:"+JSON.stringify(users));
         data.color = users[data.id].usercolor;
         date = new Date();
         data.hours = date.getHours();
@@ -157,9 +152,6 @@ ioServer.on('connection', function(socket){
                 });    
             });
         });
-
-        // Broadcast example
-        //ioServer.emit("newMessage",data); 
         
         //from https://dev.to/moz5691/socketio-for-simple-chatting---1k8nconsole.log
         ioServer.to(target.socketId).to(me.socketId).emit("newMessage",data);

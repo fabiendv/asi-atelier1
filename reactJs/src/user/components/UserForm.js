@@ -25,12 +25,9 @@ import {setLoginPage} from '../../actions';
         const target = event.currentTarget;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
-        // console.log(event.target.value);
-        //let currentVal=this.state;
         this.setState({
             [name]: value
           });
-        // console.log(this.state);
     }
 
     submitOrder(){
@@ -64,10 +61,6 @@ import {setLoginPage} from '../../actions';
             <div className="column">
             <form className="ui large form">
             <div className="ui stacked secondary segment">
-                {/* <div className="field hidden content">
-                    <label>Id</label>
-                    <input type="number" name="id" placeholder="0" onChange={(ev)=>{this.processInput(ev)}} value={this.state.id}></input>
-                </div> */}
                 <div className="field">
                     <label>Name</label>
                     <div className="two fields">

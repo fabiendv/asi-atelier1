@@ -39,13 +39,11 @@ class Game extends Component{
         this.state.socket.on('sendAttack', function(newMyCardSelectedHp){
             // Si l'utilisateur est joueur 1, Sinon l'utilisateur est le joueur 2
             if(that.props.user.id===that.state.player1.id){
-                console.log("=================================");
-                console.log("Le joueur 2 m'a attaque. Il me reste: "+newMyCardSelectedHp+" hp sur ma carte.");
+                // Le joueur 2 m'a attaque
                 that.updateInfoGame("danger",`Outch! You received an attack: you have ${newMyCardSelectedHp} hp left!`);
                 // On met a jour les valeurs de nos cartes
                 var newMyCardSelected = that.state.player1CardSelected;
                 newMyCardSelected.hp = newMyCardSelectedHp;
-                console.log(JSON.stringify(newMyCardSelected));
                 that.setState({
                     player1CardSelected: newMyCardSelected,
                 })
@@ -56,17 +54,13 @@ class Game extends Component{
                     player1.cardList = newMyCardList;
                     return {player1};
                 });
-                console.log("LISTE UDPATED: "+JSON.stringify(that.state.player1.cardList));
-                console.log(JSON.stringify(that.state.player1CardSelected));
 
             }else{
-                console.log("=================================");
-                console.log("Le joueur 1 m'a attaque. Il me reste: "+newMyCardSelectedHp+" hp sur ma carte.");
+                // Le joueur 1 m'a attaque
                 that.updateInfoGame("danger",`Outch! You received an attack: you have ${newMyCardSelectedHp} hp left!`);
                 // On met a jour les valeurs de nos cartes
                 newMyCardSelected = that.state.player2CardSelected;
                 newMyCardSelected.hp = newMyCardSelectedHp;
-                console.log(JSON.stringify(newMyCardSelected));
                 that.setState({
                     player2CardSelected: newMyCardSelected,
                 });
@@ -77,9 +71,6 @@ class Game extends Component{
                     player2.cardList = newMyCardList;
                     return {player2};
                 });
-                console.log("LISTE UDPATED: "+JSON.stringify(that.state.player2.cardList));
-                console.log(JSON.stringify(that.state.player2CardSelected));
-
             }
         });
 
@@ -87,7 +78,7 @@ class Game extends Component{
         this.state.socket.on('confirmedAttack', function(newMyCardSelectedHp){
             // Si l'utilisateur est joueur 1, Sinon l'utilisateur est le joueur 2
             if(that.props.user.id===that.state.player1.id){
-                console.log("Je suis le playeur 1. J'ai recu la confirmation de mon attaque.");
+                // Le joueur 1 recois la validation de son attaque
                 that.updateInfoGame("success",`You sent your attack. There are ${newMyCardSelectedHp} hp left!`);
                 // On met a jour les valeurs de la carte
                 var newOppositePlayerCardSelected = that.state.player1CardSelected;
@@ -103,7 +94,7 @@ class Game extends Component{
                     return {player2};
                 });
             }else{
-                console.log("Je suis le playeur 2. J'ai recu la confirmation de mon attaque.");
+                // Le joueur 2 recoit la validation de son attaque
                 that.updateInfoGame("success",`You sent your attack. There are ${newMyCardSelectedHp} hp left!`);
                 // On met a jour les valeurs de la carte
                 newOppositePlayerCardSelected = that.state.player2CardSelected;
@@ -125,13 +116,13 @@ class Game extends Component{
         this.state.socket.on('sendEndTurn', function(){
             // Si l'utilisateur est joueur 1, Sinon l'utilisateur est le joueur 2
             if(that.props.user.id===that.state.player1.id){
-                console.log("Le joueur 2 a fini son tour.");
+                // Le joueur 2 a fini son tour
                 that.updateInfoGame("info","Time to play!");
                 that.setState({
                     currentPlayerIsPlayer1: true,
                 })
             }else{
-                console.log("Le joueur 1 a fini son tour.");
+                // Le joueur 1 a fini son tour
                 that.updateInfoGame("info","Time to play!");
                 that.setState({
                     currentPlayerIsPlayer1: false,
@@ -146,6 +137,7 @@ class Game extends Component{
         })
 
         this.state.socket.on('youWin', function(){
+            // L'utilisateur a gagne
             that.youWin();
         })
 
@@ -224,9 +216,6 @@ class Game extends Component{
             }
             })
             .then(function(response){;
-                console.log("Credit the money RESPONSE: "+JSON.stringify(response));
-
-                console.log("Credit the money: "+JSON.stringify(response.data));
                 
                 var those = that;
                 axios({
@@ -245,7 +234,6 @@ class Game extends Component{
             })
             .catch(function(error){
                 console.log("Credit the money error: "+error);
-                // REDIRIGER TO LOGIN - MAYBE
             });
     
         // Redirect to the home page
@@ -308,9 +296,8 @@ class Game extends Component{
                     this.setState({
                         numberOfAttacks: newValueOfAttacks
                     });
-                    console.log("JATTAQUE. Il me reste "+newValueOfAttacks+" attaques.");
+                    // J'attaque
                     // Envoyer la valeur de l'attaque de la carte selectionnee
-                    console.log("J'attaque sur cette card: "+JSON.stringify(this.state.player2CardSelected));
                     this.state.socket.emit('attack', {
                         user: this.props.player1,
                         victim : this.props.player2,
@@ -333,9 +320,7 @@ class Game extends Component{
                     this.setState({
                         numberOfAttacks: newValueOfAttacks
                     });
-                    console.log("JATTAQUE. Il me reste "+newValueOfAttacks+" attaques.");
-                    console.log("J'attaque sur cette card: "+JSON.stringify(this.state.player1CardSelected));
-
+                    // J'attaque
                     // Envoyer la valeur de l'attaque de la carte selectionnee
                     this.state.socket.emit('attack', {
                         user: this.props.player2,
@@ -391,12 +376,6 @@ class Game extends Component{
     }
 
     render() {
-
-        console.log("=====================");
-        console.log("LISTE UDPATED BEFORE RENDER FOR PLAYER 1: "+JSON.stringify(this.state.player1.cardList));
-        console.log("LISTE UDPATED BEFORE RENDER FOR PLAYER 2: "+JSON.stringify(this.state.player2.cardList));
-        console.log("=====================");
-
         return (
             <div className="container-fluid">
                 <div className="ui fluid block-container play">

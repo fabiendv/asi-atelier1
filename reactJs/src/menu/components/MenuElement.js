@@ -38,17 +38,14 @@ class MenuElement extends Component{
     }
 
     handleBuySelected(){
-        console.log("Buy selected");
         this.props.dispatch(setBuyPage());
     }
 
     handleSellSelected(){
-        console.log("Sell selected");
         this.props.dispatch(setSellPage());
     }
 
     handlePlaySelected(){
-        console.log("Play selected. User money: "+JSON.stringify(this.props.user));
         var that = this;
 
         // Test si l'utilisateur a $50 pour lancer une partie
@@ -78,7 +75,7 @@ class MenuElement extends Component{
                         baseURL: 'http://localhost:8082',
                         url:`/user/${those.props.user.id}`, 
                     }).then(function(response){
-                        console.log("this is my response data "+response.data);
+                        // Update the user account
                         those.props.dispatch(updateUser(response.data));
                         those.props.dispatch(setPlayPage());
                     }).catch(function(error){
@@ -87,7 +84,6 @@ class MenuElement extends Component{
                 })
                 .catch(function(error){
                     console.log("Credit the money error: "+error);
-                    // REDIRIGER TO LOGIN - MAYBE
                 });
 
         }else{
