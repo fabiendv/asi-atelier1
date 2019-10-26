@@ -14,6 +14,8 @@ Un utilisateur inscrit sur notre application peut:
  - Thibault Caussanel 
 
 ## [Dossier sur GitHub](http://github.com/fabiendv/asi-cards-game) 
+
+## [Video YouTube](http://youtube.com)
  
 ## Activités réalisées
 
