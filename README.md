@@ -15,7 +15,7 @@ Un utilisateur inscrit sur notre application peut:
 
 ## [Dossier sur GitHub](http://github.com/fabiendv/asi-cards-game) 
 
-## [Video YouTube](http://youtube.com)
+## [Video YouTube](https://youtu.be/8KleKwfAPpk)
  
 ## Activités réalisées
 
